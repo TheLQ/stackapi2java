@@ -1,5 +1,6 @@
 package org.thelq.stackexchange.api;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.thelq.stackexchange.api.exceptions.QueryException;
 import org.thelq.stackexchange.api.exceptions.QueryErrorException;
 import org.thelq.stackexchange.api.model.ResponseEntry;
@@ -43,8 +44,7 @@ public class StackClient {
 		jsonMapper.registerModule(new JodaModule());
 		jsonMapper.registerModule(new GuavaModule());
 		jsonMapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
-		//TODO: wut?
-		//DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING 
+		jsonMapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true);
 
 		//Setup httpclient
 		this.httpclient = HttpClientBuilder.create()

@@ -1,4 +1,3 @@
-
 package org.thelq.stackexchange.api.model;
 
 import lombok.Data;
@@ -22,12 +21,17 @@ public class ShallowUserEntry {
 	protected String profileImage;
 	@MaybeAbsent
 	protected int reputation;
-	
-	
+
 	public static enum Type {
 		UNREGISTERED,
 		REGISTERED,
 		MODERATOR,
-		DOESNOTEXIST
+		DOESNOTEXIST;
+
+		@Override
+		public String toString() {
+			//TODO: There has got to be a better way to get uppercase enums working
+			return name().toLowerCase();
+		}
 	}
 }
