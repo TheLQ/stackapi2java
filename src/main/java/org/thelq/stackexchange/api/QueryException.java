@@ -5,25 +5,21 @@
 package org.thelq.stackexchange.api;
 
 import java.net.URI;
-import lombok.Getter;
 
 /**
  *
  * @author Leon
  */
-@Getter
 public class QueryException extends RuntimeException {
-	protected final URI url;
-	protected final int errorId;
-	protected final String errorMessage;
-	protected final String errorName;
+	protected final URI uri;
 
-	public QueryException(URI url, int errorId, String errorMessage, String errorName, Throwable cause) {
-		super("Error when querying StackExchange API: " + errorMessage
-				+ "\nURL: " + url, cause);
-		this.url = url;
-		this.errorId = errorId;
-		this.errorMessage = errorMessage;
-		this.errorName = errorName;
+	public QueryException(URI uri, String message) {
+		super(message + "\nURI: " + uri);
+		this.uri = uri;
+	}
+
+	public QueryException(URI uri, String message, Throwable cause) {
+		super(message + "\nURI: " + uri, cause);
+		this.uri = uri;
 	}
 }
