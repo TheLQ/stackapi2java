@@ -51,7 +51,7 @@ public class StackClient {
 	}
 
 	protected <E> ResponseEntry<E> query(@NonNull AbstractQuery<?> query) {
-		query.validate();
+		Map<String, String> finalParameters = query.buildFinalParameters();
 
 		//Build
 		URIBuilder uriBuilder = new URIBuilder()
@@ -60,7 +60,7 @@ public class StackClient {
 				.setPath("/2.1/" + query.getMethod());
 		if(StringUtils.isNotBlank(seApiKey))
 			uriBuilder.setParameter("key", seApiKey);
-		for (Map.Entry<String, String> curParam : query.getParameters().entrySet())
+		for (Map.Entry<String, String> curParam : finalParameters.entrySet())
 			uriBuilder.setParameter(curParam.getKey(), curParam.getValue());
 
 		URI uri;

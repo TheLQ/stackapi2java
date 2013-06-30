@@ -4,9 +4,10 @@
  */
 package org.thelq.stackexchange.api.queries;
 
-import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import java.util.LinkedHashMap;
-import javax.management.Query;
+import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,17 +17,15 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Getter
 public abstract class AbstractQuery<Q extends AbstractQuery<Q>> {
-	protected String method;
-	protected final LinkedHashMap<String, String> parameters = new ParameterLinkedHashMap();
+	protected final String method;
+	protected final ImmutableList<List<?>> vectors;
+	protected final LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
 	protected final Class itemClass;
 
-	public AbstractQuery(Class itemClass) {
+	public AbstractQuery(Class itemClass, String method, List<?>... vectors) {
 		this.itemClass = itemClass;
-	}
-
-	public Q setMethod(String method) {
 		this.method = method;
-		return (Q) this;
+		this.vectors = ImmutableList.copyOf(vectors);
 	}
 
 	public Q setParameter(String key, String value) {
@@ -34,18 +33,17 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q>> {
 		return (Q) this;
 	}
 
-	public void validate() throws IllegalStateException {
-		Preconditions.checkState(StringUtils.isNotBlank(getMethod()), "Must specify method");
+	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
+		return new LinkedHashMap<String, String>(parameters);
 	}
 
-	protected static class ParameterLinkedHashMap extends LinkedHashMap<String, String> {
-		@Override
-		public String put(String key, String value) {
-			Preconditions.checkArgument(StringUtils.isNotBlank(key), "Must specify key");
-			if (value != null)
-				return super.put(key, value);
-			//Value is null, auto remove
-			return remove(key);
-		}
+	protected static void putIfNotNull(LinkedHashMap<String, String> finalParameters, String key, Object value) {
+		if (value != null)
+			finalParameters.put(key, String.valueOf(value));
+	}
+
+	protected static void putIfNotNull(LinkedHashMap<String, String> finalParameters, String key, Object valueRaw, Object valueConvert) {
+		if (valueRaw != null)
+			finalParameters.put(key, String.valueOf(valueConvert));
 	}
 }

@@ -4,32 +4,39 @@
  */
 package org.thelq.stackexchange.api.queries;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import lombok.Getter;
 
 /**
  *
  * @author Leon
  */
+@Getter
 public class AbstractPagableQuery<Q extends AbstractPagableQuery<Q>> extends AbstractQuery<Q> {
-	public AbstractPagableQuery(Class itemClass) {
-		super(itemClass);
-	}
-
-	public Integer getPage() {
-		return Integer.valueOf(getParameters().get("page"));
+	protected Integer page;
+	protected Integer pageSize;
+	public AbstractPagableQuery(Class itemClass, String method, List<?>... vectors) {
+		super(itemClass, method, vectors);
 	}
 
 	public Q setPage(int page) {
-		setParameter("page", String.valueOf(page));
+		this.page = page;
 		return (Q) this;
-	}
-
-	public Integer getPageSize() {
-		return Integer.valueOf(getParameters().get("pagesize"));
 	}
 
 	public Q setPageSize(int pageSize) {
-		setParameter("pageSize", String.valueOf(pageSize));
+		this.pageSize = pageSize;
 		return (Q) this;
 	}
+
+	@Override
+	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
+		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
+		putIfNotNull(finalParameters, "page", page);
+		putIfNotNull(finalParameters, "pageSize", pageSize);
+		return finalParameters;
+	}
+	
+	
 }

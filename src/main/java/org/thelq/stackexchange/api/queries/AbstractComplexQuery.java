@@ -4,6 +4,8 @@
  */
 package org.thelq.stackexchange.api.queries;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -13,62 +15,59 @@ import org.joda.time.DateTimeZone;
  */
 public abstract class AbstractComplexQuery<Q extends AbstractComplexQuery<Q, F>, F extends Enum<F> & SortableField> extends AbstractSiteQuery<Q> {
 	protected final Class<F> enumClass;
-	public AbstractComplexQuery(Class itemClass, Class<F> enumClass) {
-		super(itemClass);
+	protected DateTime toDate;
+	protected DateTime fromDate;
+	protected Order order;
+	protected F sort;
+	protected Integer min;
+	protected Integer max;
+	
+	public AbstractComplexQuery(Class<F> enumClass, Class itemClass, String method, List<?>... vectors) {
+		super(itemClass, method, vectors);
 		this.enumClass = enumClass;
 	}
 
-	public DateTime getFromDate() {
-		return new DateTime(Integer.valueOf(getParameters().get("fromdate")), DateTimeZone.UTC);
-	}
-
 	public Q setFromDate(DateTime fromDate) {
-		setParameter("fromdate", String.valueOf(fromDate.getMillis()));
+		this.fromDate = fromDate;
 		return (Q) this;
-	}
-
-	public DateTime getToDate() {
-		return new DateTime(Integer.valueOf(getParameters().get("todate")), DateTimeZone.UTC);
 	}
 
 	public Q setToDate(DateTime toDate) {
-		setParameter("todate", String.valueOf(toDate.getMillis()));
+		this.toDate = toDate;
 		return (Q) this;
-	}
-
-	public Order getOrder() {
-		return Order.valueOf(getParameters().get("order"));
 	}
 
 	public Q setOrder(Order order) {
-		setParameter("order", order.toString());
+		this.order = order;
 		return (Q) this;
-	}
-
-	public F getSort() {
-		return Enum.valueOf(enumClass, getParameters().get("sort"));
 	}
 
 	public Q setSort(F sort) {
-		setParameter("sort", sort.toString());
+		this.sort = sort;
 		return (Q) this;
-	}
-
-	public Integer getMin() {
-		return Integer.parseInt(getParameters().get("min"));
 	}
 
 	public Q setMin(int min) {
-		setParameter("min", String.valueOf(min));
+		this.min = min;
 		return (Q) this;
-	}
-	
-	public Integer getMax() {
-		return Integer.parseInt(getParameters().get("max"));
 	}
 
 	public Q setMax(int max) {
-		setParameter("max", String.valueOf(max));
+		this.max = max;
 		return (Q) this;
 	}
+
+	@Override
+	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
+		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
+		putIfNotNull(finalParameters, "fromDate", fromDate, fromDate.getMillis());
+		putIfNotNull(finalParameters, "toDate", toDate, toDate.getMillis());
+		putIfNotNull(finalParameters, "order", order);
+		putIfNotNull(finalParameters, "sort", sort);
+		putIfNotNull(finalParameters, "min", min);
+		putIfNotNull(finalParameters, "max", max);
+		return finalParameters;
+	}
+	
+	
 }
