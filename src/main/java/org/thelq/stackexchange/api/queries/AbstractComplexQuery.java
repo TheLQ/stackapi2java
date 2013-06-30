@@ -23,7 +23,7 @@ public abstract class AbstractComplexQuery<F extends Enum<F> & SortableField, Q 
 	protected Integer min;
 	protected Integer max;
 
-	public AbstractComplexQuery(Class<F> enumClass, Class itemClass, String method, List<?>... vectors) {
+	public AbstractComplexQuery(Class<F> enumClass, Class<I> itemClass, String method, List<?>... vectors) {
 		super(itemClass, method, vectors);
 		this.enumClass = enumClass;
 	}

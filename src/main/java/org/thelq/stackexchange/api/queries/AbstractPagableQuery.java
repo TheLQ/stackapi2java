@@ -17,7 +17,7 @@ import org.thelq.stackexchange.api.model.GenericEntry;
 public class AbstractPagableQuery<Q extends AbstractPagableQuery<Q, I>, I extends GenericEntry> extends AbstractQuery<Q, I> {
 	protected Integer page;
 	protected Integer pageSize;
-	public AbstractPagableQuery(Class itemClass, String method, List<?>... vectors) {
+	public AbstractPagableQuery(Class<I> itemClass, String method, List<?>... vectors) {
 		super(itemClass, method, vectors);
 	}
 
