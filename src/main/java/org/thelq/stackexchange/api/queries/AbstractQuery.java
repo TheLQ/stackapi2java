@@ -16,18 +16,12 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Getter
 public abstract class AbstractQuery<Q extends AbstractQuery<Q>> {
-	protected String site;
 	protected String method;
 	protected final LinkedHashMap<String, String> parameters = new ParameterLinkedHashMap();
 	protected final Class itemClass;
 
 	public AbstractQuery(Class itemClass) {
 		this.itemClass = itemClass;
-	}
-
-	public Q setSite(String site) {
-		this.site = site;
-		return (Q) this;
 	}
 
 	public Q setMethod(String method) {
@@ -39,10 +33,9 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q>> {
 		getParameters().put(key, value);
 		return (Q) this;
 	}
-	
+
 	public void validate() throws IllegalStateException {
-		Preconditions.checkState(StringUtils.isNotBlank(getMethod()), "Must specify site");
-		Preconditions.checkState(StringUtils.isNotBlank(getSite()), "Must specify method");
+		Preconditions.checkState(StringUtils.isNotBlank(getMethod()), "Must specify method");
 	}
 
 	protected static class ParameterLinkedHashMap extends LinkedHashMap<String, String> {

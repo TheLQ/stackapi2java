@@ -57,8 +57,7 @@ public class StackClient {
 		URIBuilder uriBuilder = new URIBuilder()
 				.setScheme("https")
 				.setHost("api.stackexchange.com")
-				.setPath("/2.1/" + query.getMethod())
-				.setParameter("site", query.getSite());
+				.setPath("/2.1/" + query.getMethod());
 		if(StringUtils.isNotBlank(seApiKey))
 			uriBuilder.setParameter("key", seApiKey);
 		for (Map.Entry<String, String> curParam : query.getParameters().entrySet())

@@ -11,7 +11,7 @@ import org.joda.time.DateTimeZone;
  *
  * @author Leon
  */
-public abstract class AbstractComplexQuery<Q extends AbstractComplexQuery<Q, F>, F extends Enum<F> & SortableField> extends AbstractPagableQuery<Q> {
+public abstract class AbstractComplexQuery<Q extends AbstractComplexQuery<Q, F>, F extends Enum<F> & SortableField> extends AbstractSiteQuery<Q> {
 	protected final Class<F> enumClass;
 	public AbstractComplexQuery(Class itemClass, Class<F> enumClass) {
 		super(itemClass);
