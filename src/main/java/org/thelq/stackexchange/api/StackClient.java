@@ -13,6 +13,7 @@ import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import lombok.NonNull;
@@ -53,12 +54,26 @@ public class StackClient {
 	protected <E> ResponseEntry<E> query(@NonNull AbstractQuery<?> query) {
 		Map<String, String> finalParameters = query.buildFinalParameters();
 
+		//Handle potential vectorized methods
+		String method = query.getMethod();
+		if (method.contains("{}")) {
+			for (List<?> curVector : query.getVectors()) {
+				String vectorCombined = StringUtils.join(curVector, ",");
+				String newMethod = StringUtils.replaceOnce(method, "{}", vectorCombined);
+				if (newMethod.equals(method))
+					throw new RuntimeException("Too many vectors for " + query.getMethod() + ": " + query.getVectors());
+				method = newMethod;
+			}
+			if (method.contains("{}"))
+				throw new RuntimeException("Too few vectors for " + query.getMethod() + ": " + query.getVectors());
+		}
+
 		//Build
 		URIBuilder uriBuilder = new URIBuilder()
 				.setScheme("https")
 				.setHost("api.stackexchange.com")
-				.setPath("/2.1/" + query.getMethod());
-		if(StringUtils.isNotBlank(seApiKey))
+				.setPath("/2.1/" + method);
+		if (StringUtils.isNotBlank(seApiKey))
 			uriBuilder.setParameter("key", seApiKey);
 		for (Map.Entry<String, String> curParam : finalParameters.entrySet())
 			uriBuilder.setParameter(curParam.getKey(), curParam.getValue());
