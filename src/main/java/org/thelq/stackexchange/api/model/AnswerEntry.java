@@ -36,7 +36,8 @@ public class AnswerEntry extends ResponseEntry<AnswerEntry> {
 	protected int score;
 	protected int downVoteCount;
 	protected int upVoteCount;
-	protected boolean isAccepted;
+	@JsonProperty("is_accepted")
+	protected boolean accepted;
 	protected String link;
 	@MaybeAbsent
 	protected ShallowUserEntry owner;
