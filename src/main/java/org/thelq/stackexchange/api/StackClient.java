@@ -106,7 +106,7 @@ public class StackClient {
 
 			//No errors, convert to ResponseEntry
 			//jsonMapper.writeTree(jsonMapper.getFactory().createGenerator(System.out).useDefaultPrettyPrinter(), responseTree);
-			return jsonMapper.treeToValue(responseTree, ResponseEntry.class);
+			return jsonMapper.convertValue(responseTree, jsonMapper.getTypeFactory().constructParametricType(ResponseEntry.class, itemClass));
 		} catch (QueryErrorException e) {
 			//No need to wrap
 			throw e;
