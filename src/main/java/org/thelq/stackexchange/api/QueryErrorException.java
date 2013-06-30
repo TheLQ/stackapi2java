@@ -14,13 +14,13 @@ import lombok.Getter;
 @Getter
 public class QueryErrorException extends QueryException {
 	protected final int errorId;
-	protected final String errorMessage;
 	protected final String errorName;
+	protected final String errorMessage;
 
-	public QueryErrorException(URI uri, int errorId, String errorMessage, String errorName) {
-		super(uri, "Error when querying StackExchange API: " + errorMessage);
+	public QueryErrorException(URI uri, int errorId, String errorName, String errorMessage) {
+		super(uri, "Error " + errorId + "(" + errorName + ") when querying StackExchange API: " + errorMessage);
 		this.errorId = errorId;
-		this.errorMessage = errorMessage;
 		this.errorName = errorName;
+		this.errorMessage = errorMessage;
 	}
 }
