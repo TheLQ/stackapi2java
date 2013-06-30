@@ -1,5 +1,7 @@
 package org.thelq.stackexchange.api;
 
+import org.thelq.stackexchange.api.model.ResponseEntry;
+import org.thelq.stackexchange.api.model.PostEntry;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

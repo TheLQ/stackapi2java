@@ -1,7 +1,8 @@
-package org.thelq.stackexchange.api;
+package org.thelq.stackexchange.api.model;
 
 import java.util.List;
 import lombok.Data;
+import org.thelq.stackexchange.api.CommentEntry;
 
 /**
  *

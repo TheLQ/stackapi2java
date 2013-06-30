@@ -1,5 +1,7 @@
-package org.thelq.stackexchange.api;
+package org.thelq.stackexchange.api.model;
 
+import org.thelq.stackexchange.api.model.MaybeAbsent;
+import org.thelq.stackexchange.api.model.ShallowUserEntry;
 import lombok.Data;
 
 /**
