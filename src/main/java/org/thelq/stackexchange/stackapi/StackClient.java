@@ -31,21 +31,7 @@ import sun.net.www.http.HttpClient;
 public class StackClient {
 	protected static final Logger log = LoggerFactory.getLogger(StackClient.class);
 	protected final String seApiKey;
-	protected static StackClient instance;
 	protected HttpClient httpclient = new DecompressingHttpClient(new DefaultHttpClient());
-
-	static {
-		try {
-			instance = new StackClient();
-		} catch (IOException ex) {
-			log.error("FATAL EXCEPTION: Can't load config.properties", ex);
-			System.exit(2);
-		}
-	}
-
-	public static StackClient get() {
-		return instance;
-	}
 
 	public StackClient() throws IOException {
 		Properties config = new Properties();
