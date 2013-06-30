@@ -28,26 +28,26 @@ import sun.net.www.http.HttpClient;
  *
  * @author Leon
  */
-public class SEAPI {
-	protected static final Logger log = LoggerFactory.getLogger(SEAPI.class);
+public class StackClient {
+	protected static final Logger log = LoggerFactory.getLogger(StackClient.class);
 	protected final String seApiKey;
-	protected static SEAPI instance;
+	protected static StackClient instance;
 	protected HttpClient httpclient = new DecompressingHttpClient(new DefaultHttpClient());
 
 	static {
 		try {
-			instance = new SEAPI();
+			instance = new StackClient();
 		} catch (IOException ex) {
 			log.error("FATAL EXCEPTION: Can't load config.properties", ex);
 			System.exit(2);
 		}
 	}
 
-	public static SEAPI get() {
+	public static StackClient get() {
 		return instance;
 	}
 
-	public SEAPI() throws IOException {
+	public StackClient() throws IOException {
 		Properties config = new Properties();
 		config.load(getClass().getResourceAsStream("/config.properties"));
 		seApiKey = config.getProperty("se_api_key");
