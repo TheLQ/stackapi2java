@@ -1,29 +1,18 @@
 package org.thelq.stackexchange.stackapi;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.Module.SetupContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.deser.Deserializers;
-import com.fasterxml.jackson.databind.deser.Deserializers.Base;
-import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.google.common.base.Preconditions;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import sun.net.www.http.HttpClient;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 /**
  *
@@ -32,12 +21,15 @@ import sun.net.www.http.HttpClient;
 @Slf4j
 public class StackClient {
 	protected final String seApiKey;
-	protected HttpClient httpclient = new DecompressingHttpClient(new DefaultHttpClient());
+	protected final HttpClient httpclient;
 
-	public StackClient() throws IOException {
-		Properties config = new Properties();
-		config.load(getClass().getResourceAsStream("/config.properties"));
-		seApiKey = config.getProperty("se_api_key");
+	public StackClient(String seApiKey) throws IOException {
+		Preconditions.checkNotNull(seApiKey);
+		this.seApiKey = seApiKey;
+		
+		//Setup httpclient
+		this.httpclient = HttpClientBuilder.create()
+				.build();
 	}
 
 	public ResponseEntry<PostEntry> getRecentPosts(String site) throws Exception {
@@ -74,7 +66,6 @@ public class StackClient {
 			//No errors, convert what we can to ResponseEntry automatically
 			mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
 			//DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING 
-			mapper.registerModule(new EnumCaseInsensitiveModule());
 			ResponseEntry responseEntry = mapper.readValue(responseRaw, new TypeReference<ResponseEntry<PostEntry>>() {
 			});
 
@@ -84,45 +75,6 @@ public class StackClient {
 		} finally {
 			if (httpGet != null)
 				httpGet.releaseConnection();
-		}
-	}
-
-	public static class LowerEnumDeserializer extends StdScalarDeserializer<Enum<?>> {
-		protected LowerEnumDeserializer(Class<Enum<?>> clazz) {
-			super(clazz);
-		}
-
-		@Override
-		public Enum<?> deserialize(JsonParser jp, DeserializationContext ctxt)
-				throws IOException, JsonProcessingException {
-			String text = jp.getText().toUpperCase();
-			try {
-				Method valueOfMethod = getValueClass().getDeclaredMethod("valueOf", String.class);
-				return (Enum<?>) valueOfMethod.invoke(null, text);
-			} catch (Exception e) {
-				throw new RuntimeException("Cannot deserialize enum " + getValueClass().getName() + " from " + text, e);
-			}
-		}
-	}
-
-	public static class EnumCaseInsensitiveModule extends SimpleModule {
-		public EnumCaseInsensitiveModule() {
-			super("stackarchive-se", new Version(1, 0, 0, "", "org.thelq", "stackarchive-se"));
-		}
-
-		@Override
-		public void setupModule(SetupContext context) {
-			super.setupModule(context);
-			Base deser = new Deserializers.Base() {
-				@SuppressWarnings("unchecked")
-				@Override
-				public JsonDeserializer<?> findEnumDeserializer(Class<?> type,
-						DeserializationConfig config, BeanDescription beanDesc)
-						throws JsonMappingException {
-					return new LowerEnumDeserializer((Class<Enum<?>>) type);
-				}
-			};
-			context.addDeserializers(deser);
 		}
 	}
 }
