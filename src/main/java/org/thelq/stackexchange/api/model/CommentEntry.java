@@ -9,7 +9,7 @@ import lombok.Data;
  * @author Leon
  */
 @Data
-public class CommentEntry {
+public class CommentEntry implements GenericEntry {
 	protected int commentId;
 	protected int postId;
 	protected Type postType;
