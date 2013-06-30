@@ -122,7 +122,7 @@ public class StackClient {
 		try {
 			//Load up api key
 			Properties authProperties = new Properties();
-			authProperties.load(StackClient.class.getResourceAsStream("auth.properties"));
+			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
 			log.info(client.query(AnswerEntry.class, "stackoverflow", "answers").toString());
 		} catch (QueryException e) {
