@@ -39,6 +39,11 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q>> {
 		getParameters().put(key, value);
 		return (Q) this;
 	}
+	
+	public void validate() throws IllegalStateException {
+		Preconditions.checkState(StringUtils.isNotBlank(getMethod()), "Must specify site");
+		Preconditions.checkState(StringUtils.isNotBlank(getSite()), "Must specify method");
+	}
 
 	protected static class ParameterLinkedHashMap extends LinkedHashMap<String, String> {
 		@Override

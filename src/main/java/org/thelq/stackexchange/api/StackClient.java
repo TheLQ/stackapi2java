@@ -51,8 +51,7 @@ public class StackClient {
 	}
 
 	protected <E> ResponseEntry<E> query(@NonNull AbstractQuery<?> query) {
-		Preconditions.checkArgument(StringUtils.isNotBlank(query.getMethod()), "Must specify site");
-		Preconditions.checkArgument(StringUtils.isNotBlank(query.getSite()), "Must specify method");
+		query.validate();
 
 		//Build
 		URIBuilder uriBuilder = new URIBuilder()
