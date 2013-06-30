@@ -13,12 +13,12 @@ import java.net.URI;
 public class QueryException extends RuntimeException {
 	protected final URI uri;
 
-	public QueryException(URI uri, String message) {
+	public QueryException(URI uri, String rawResponse, String message) {
 		super(message + "\nURI: " + uri);
 		this.uri = uri;
 	}
 
-	public QueryException(URI uri, String message, Throwable cause) {
+	public QueryException(URI uri, String rawResponse, String message, Throwable cause) {
 		super(message + "\nURI: " + uri, cause);
 		this.uri = uri;
 	}

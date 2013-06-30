@@ -17,8 +17,8 @@ public class QueryErrorException extends QueryException {
 	protected final String errorName;
 	protected final String errorMessage;
 
-	public QueryErrorException(URI uri, int errorId, String errorName, String errorMessage) {
-		super(uri, "Error " + errorId + "(" + errorName + ") when querying StackExchange API: " + errorMessage);
+	public QueryErrorException(URI uri, String rawResponse, int errorId, String errorName, String errorMessage) {
+		super(uri, rawResponse, "Error " + errorId + "(" + errorName + ") when querying StackExchange API: " + errorMessage);
 		this.errorId = errorId;
 		this.errorName = errorName;
 		this.errorMessage = errorMessage;
