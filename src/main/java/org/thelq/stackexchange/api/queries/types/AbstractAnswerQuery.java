@@ -19,8 +19,8 @@ import org.thelq.stackexchange.api.queries.AbstractComplexQuery;
 public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends GenericEntry> extends AbstractComplexQuery<AnswerSortField, Q, I> {
 	protected final List<Integer> answerIds;
 
-	public AbstractAnswerQuery(String method) {
-		super(AnswerSortField.class, AnswerEntry.class, method, new ArrayList<Integer>());
+	public AbstractAnswerQuery(String method, Class<I> itemClass) {
+		super(AnswerSortField.class, itemClass, method, new ArrayList<Integer>());
 		answerIds = (List<Integer>) vectors.get(0);
 	}
 

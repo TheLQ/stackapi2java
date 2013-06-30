@@ -12,6 +12,6 @@ import org.thelq.stackexchange.api.model.AnswerEntry;
  */
 public class AnswerQuery extends AbstractAnswerQuery<AnswerQuery, AnswerEntry> {
 	public AnswerQuery() {
-		super("answers/{}");
+		super("answers/{}", AnswerEntry.class);
 	}
 }

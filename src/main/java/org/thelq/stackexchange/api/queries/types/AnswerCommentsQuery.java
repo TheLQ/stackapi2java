@@ -15,7 +15,7 @@ import org.thelq.stackexchange.api.model.CommentEntry;
  */
 public class AnswerCommentsQuery extends AbstractAnswerQuery<AnswerCommentsQuery, CommentEntry> {
 	public AnswerCommentsQuery() {
-		super("answers/{}/comments");
+		super("answers/{}/comments", CommentEntry.class);
 	}
 
 	@Override
