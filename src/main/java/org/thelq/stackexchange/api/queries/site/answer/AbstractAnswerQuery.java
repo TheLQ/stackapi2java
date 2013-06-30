@@ -2,14 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.queries.types;
+package org.thelq.stackexchange.api.queries.site.answer;
 
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.AnswerEntry;
 import org.thelq.stackexchange.api.model.GenericEntry;
-import org.thelq.stackexchange.api.queries.AbstractComplexQuery;
+import org.thelq.stackexchange.api.queries.site.AbstractComplexQuery;
 
 /**
  *

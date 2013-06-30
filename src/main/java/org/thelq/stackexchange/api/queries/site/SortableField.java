@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.thelq.stackexchange.api.queries;
+package org.thelq.stackexchange.api.queries.site;
 
 /**
  * Marker interface for a field that is sortable

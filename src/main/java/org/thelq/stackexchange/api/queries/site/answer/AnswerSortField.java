@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.queries.types;
+package org.thelq.stackexchange.api.queries.site.answer;
 
-import org.thelq.stackexchange.api.queries.SortableField;
+import org.thelq.stackexchange.api.queries.site.SortableField;
 
 /**
  *
