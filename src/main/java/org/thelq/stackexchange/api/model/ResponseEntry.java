@@ -2,13 +2,17 @@
 package org.thelq.stackexchange.api.model;
 
 import com.google.common.collect.ImmutableList;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  *
  * @author Leon
  */
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 public class ResponseEntry<E> {
 	@MaybeAbsent
 	protected int backoff;
