@@ -1,7 +1,7 @@
 
 package org.thelq.stackexchange.api.model;
 
-import java.util.Collection;
+import com.google.common.collect.ImmutableList;
 import lombok.Data;
 
 /**
@@ -13,7 +13,7 @@ public class ResponseEntry<E> {
 	@MaybeAbsent
 	protected int backoff;
 	protected boolean hasMore;
-	protected Collection<E> items;
+	protected ImmutableList<E> items;
 	protected int page;
 	protected int pageSize;
 	protected int quotaMax;
