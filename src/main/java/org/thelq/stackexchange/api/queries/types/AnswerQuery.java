@@ -17,17 +17,21 @@ import org.thelq.stackexchange.api.queries.SortableField;
  * @author Leon
  */
 @Getter
-public class AnswerQuery extends AbstractComplexQuery<AnswerQuery, SortField> {
+public class AnswerQuery<Q extends AnswerQuery<Q>> extends AbstractComplexQuery<Q, SortField> {
 	protected final List<Integer> answerIds;
 
 	public AnswerQuery() {
-		super(SortField.class, AnswerEntry.class, "answer/{}", new ArrayList<Integer>());
+		this("answers/{}");
+	}
+
+	public AnswerQuery(String method) {
+		super(SortField.class, AnswerEntry.class, method, new ArrayList<Integer>());
 		answerIds = (List<Integer>) vectors.get(0);
 	}
 
-	public AnswerQuery addAnswerId(int answerId) {
+	public Q addAnswerId(int answerId) {
 		answerIds.add(answerId);
-		return this;
+		return (Q) this;
 	}
 
 	public static enum SortField implements SortableField {
