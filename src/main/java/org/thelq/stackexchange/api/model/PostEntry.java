@@ -1,8 +1,7 @@
 package org.thelq.stackexchange.api.model;
 
-import java.util.List;
+import com.google.common.collect.ImmutableList;
 import lombok.Data;
-import org.thelq.stackexchange.api.CommentEntry;
 
 /**
  *
@@ -16,7 +15,7 @@ public class PostEntry {
 	protected ShallowUserEntry owner;
 	protected String body;
 	@MaybeAbsent
-	protected List<CommentEntry> comments;
+	protected ImmutableList<CommentEntry> comments;
 	protected int downVoteCount;
 	protected int upVoteCount;
 	protected long creationDate;
