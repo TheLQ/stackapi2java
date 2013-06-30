@@ -1,4 +1,4 @@
-package org.thelq.stackexchange.stackapi;
+package org.thelq.stackexchange.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

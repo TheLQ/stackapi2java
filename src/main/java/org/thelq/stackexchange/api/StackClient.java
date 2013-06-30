@@ -1,4 +1,4 @@
-package org.thelq.stackexchange.stackapi;
+package org.thelq.stackexchange.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

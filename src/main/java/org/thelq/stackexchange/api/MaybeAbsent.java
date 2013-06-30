@@ -1,5 +1,5 @@
 
-package org.thelq.stackexchange.stackapi;
+package org.thelq.stackexchange.api;
 
 /**
  *
