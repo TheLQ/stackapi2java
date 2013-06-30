@@ -4,6 +4,7 @@
  */
 package org.thelq.stackexchange.api;
 
+import java.net.URI;
 import lombok.Getter;
 
 /**
@@ -12,12 +13,12 @@ import lombok.Getter;
  */
 @Getter
 public class QueryException extends RuntimeException {
-	protected final String url;
+	protected final URI url;
 	protected final int errorId;
 	protected final String errorMessage;
 	protected final String errorName;
 
-	public QueryException(String url, int errorId, String errorMessage, String errorName, Throwable cause) {
+	public QueryException(URI url, int errorId, String errorMessage, String errorName, Throwable cause) {
 		super("Error when querying StackExchange API: " + errorMessage
 				+ "\nURL: " + url, cause);
 		this.url = url;
