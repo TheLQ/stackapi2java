@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>0.11.8</version>
+			<version>0.11.9-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- Commons lang for general java utilities -->
@@ -74,6 +74,33 @@
 			<artifactId>jackson-datatype-guava</artifactId>
 			<version>2.2.2</version>
 		</dependency>
-	 
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<!-- Temporarily download the 0.11.9 edge release of Project Lombok -->
+			<plugin>
+				<groupId>com.savage7.maven.plugins</groupId>
+				<artifactId>maven-external-dependency-plugin</artifactId>
+				<version>0.5</version>
+				<inherited>false</inherited>
+				<configuration>
+					<stagingDirectory>${project.build.directory}/dependencies/</stagingDirectory>
+					<createChecksum>false</createChecksum>
+					<skipChecksumVerification>true</skipChecksumVerification>
+					<force>true</force>
+					<artifactItems>
+						<artifactItem>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>0.11.9-SNAPSHOT</version>
+							<packaging>jar</packaging>
+							<install>true</install>
+							<downloadUrl>http://projectlombok.org/lombok-edge.jar</downloadUrl>
+						</artifactItem>
+					</artifactItems>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
