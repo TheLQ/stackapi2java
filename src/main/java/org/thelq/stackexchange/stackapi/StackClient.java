@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.net.www.http.HttpClient;
@@ -28,8 +29,8 @@ import sun.net.www.http.HttpClient;
  *
  * @author Leon
  */
+@Slf4j
 public class StackClient {
-	protected static final Logger log = LoggerFactory.getLogger(StackClient.class);
 	protected final String seApiKey;
 	protected HttpClient httpclient = new DecompressingHttpClient(new DefaultHttpClient());
 
