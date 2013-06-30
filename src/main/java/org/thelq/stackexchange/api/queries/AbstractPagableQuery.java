@@ -7,13 +7,14 @@ package org.thelq.stackexchange.api.queries;
 import java.util.LinkedHashMap;
 import java.util.List;
 import lombok.Getter;
+import org.thelq.stackexchange.api.model.GenericEntry;
 
 /**
  *
  * @author Leon
  */
 @Getter
-public class AbstractPagableQuery<Q extends AbstractPagableQuery<Q>> extends AbstractQuery<Q> {
+public class AbstractPagableQuery<Q extends AbstractPagableQuery<Q, I>, I extends GenericEntry> extends AbstractQuery<Q, I> {
 	protected Integer page;
 	protected Integer pageSize;
 	public AbstractPagableQuery(Class itemClass, String method, List<?>... vectors) {

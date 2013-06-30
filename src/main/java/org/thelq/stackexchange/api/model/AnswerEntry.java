@@ -19,7 +19,7 @@ import org.joda.time.DateTime;
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class AnswerEntry extends ResponseEntry<AnswerEntry> {
+public class AnswerEntry extends ResponseEntry<AnswerEntry> implements GenericEntry {
 	protected long answerId;
 	protected long questionId;
 	protected String title;

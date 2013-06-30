@@ -24,6 +24,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.thelq.stackexchange.api.model.AnswerEntry;
+import org.thelq.stackexchange.api.model.GenericEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
 import org.thelq.stackexchange.api.queries.types.AnswerQuery;
 
@@ -51,7 +53,7 @@ public class StackClient {
 				.build();
 	}
 
-	protected <E> ResponseEntry<E> query(@NonNull AbstractQuery<?> query) {
+	protected <E extends GenericEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
 		Map<String, String> finalParameters = query.buildFinalParameters();
 
 		//Handle potential vectorized methods
@@ -109,7 +111,7 @@ public class StackClient {
 
 			//No errors, convert to ResponseEntry
 			//jsonMapper.writeTree(jsonMapper.getFactory().createGenerator(System.out).useDefaultPrettyPrinter(), responseTree);
-			return jsonMapper.convertValue(responseTree, jsonMapper.getTypeFactory().constructParametricType(ResponseEntry.class, query.getItemClass()));
+			return jsonMapper.convertValue(responseTree, jsonMapper.getTypeFactory().constructParametricType(ResponseEntry.class, query.<E>getItemClass()));
 		} catch (QueryErrorException e) {
 			//No need to wrap
 			throw e;
@@ -127,7 +129,9 @@ public class StackClient {
 			Properties authProperties = new Properties();
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
-			log.info(client.query(new AnswerQuery().setSite("stackoverflow")).toString());
+			
+			AnswerEntry entry = client.query(new AnswerQuery().setSite("stackoverflow")).getItems().get(0);
+			log.info("There are " );
 		} catch (QueryException e) {
 			e.printStackTrace();
 			System.err.println("RAW: " + e.getRawResponse());

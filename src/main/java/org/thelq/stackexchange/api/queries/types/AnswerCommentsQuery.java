@@ -6,12 +6,13 @@ package org.thelq.stackexchange.api.queries.types;
 
 import com.google.common.base.Preconditions;
 import java.util.LinkedHashMap;
+import org.thelq.stackexchange.api.model.AnswerEntry;
 
 /**
  *
  * @author Leon
  */
-public class AnswerCommentsQuery extends AnswerQuery<AnswerCommentsQuery> {
+public class AnswerCommentsQuery extends AbstractAnswerQuery<AnswerCommentsQuery, AnswerEntry> {
 	public AnswerCommentsQuery() {
 		super("answers/{}/comments");
 	}

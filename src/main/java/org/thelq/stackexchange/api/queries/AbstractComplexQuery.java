@@ -7,13 +7,13 @@ package org.thelq.stackexchange.api.queries;
 import java.util.LinkedHashMap;
 import java.util.List;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import org.thelq.stackexchange.api.model.GenericEntry;
 
 /**
  *
  * @author Leon
  */
-public abstract class AbstractComplexQuery<Q extends AbstractComplexQuery<Q, F>, F extends Enum<F> & SortableField> extends AbstractSiteQuery<Q> {
+public abstract class AbstractComplexQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexQuery<F, Q, I>, I extends GenericEntry> extends AbstractSiteQuery<Q, I> {
 	protected final Class<F> enumClass;
 	protected DateTime toDate;
 	protected DateTime fromDate;

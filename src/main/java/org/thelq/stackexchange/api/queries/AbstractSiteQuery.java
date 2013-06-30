@@ -9,16 +9,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
+import org.thelq.stackexchange.api.model.GenericEntry;
 
 /**
  *
  * @author Leon
  */
 @Getter
-public class AbstractSiteQuery<Q extends AbstractSiteQuery<Q>> extends AbstractPagableQuery<Q> {
+public class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends GenericEntry> extends AbstractPagableQuery<Q, I> {
 	protected String site;
 
-	public AbstractSiteQuery(Class itemClass, String method, List<?>... vectors) {
+	public AbstractSiteQuery(Class<I> itemClass, String method, List<?>... vectors) {
 		super(itemClass, method, vectors);
 	}
 
