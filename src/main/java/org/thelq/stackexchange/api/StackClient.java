@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.thelq.stackexchange.api.exceptions.QueryException;
 import org.thelq.stackexchange.api.exceptions.QueryErrorException;
 import org.thelq.stackexchange.api.model.ResponseEntry;
-import org.thelq.stackexchange.api.model.PostEntry;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -14,7 +13,6 @@ import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 import lombok.NonNull;
@@ -25,7 +23,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.thelq.stackexchange.api.model.AnswerEntry;
+import org.thelq.stackexchange.api.queries.AbstractQuery;
+import org.thelq.stackexchange.api.queries.types.AnswerQuery;
 
 /**
  *
@@ -51,28 +50,19 @@ public class StackClient {
 				.build();
 	}
 
-	public ResponseEntry<PostEntry> getRecentPosts(String site) throws Exception {
-		return query(PostEntry.class, site, "posts");
-	}
-
-	@SuppressWarnings("unchecked")
-	protected <E> ResponseEntry<E> query(Class<E> itemClass, String site, String method) {
-		return query(itemClass, site, method, Collections.EMPTY_MAP);
-	}
-
-	protected <E> ResponseEntry<E> query(@NonNull Class<E> itemClass, String site, String method, @NonNull Map<String, String> params) {
-		Preconditions.checkArgument(StringUtils.isNotBlank(site), "Must specify site");
-		Preconditions.checkArgument(StringUtils.isNotBlank(method), "Must specify method");
+	protected <E> ResponseEntry<E> query(@NonNull AbstractQuery<?> query) {
+		Preconditions.checkArgument(StringUtils.isNotBlank(query.getMethod()), "Must specify site");
+		Preconditions.checkArgument(StringUtils.isNotBlank(query.getSite()), "Must specify method");
 
 		//Build
 		URIBuilder uriBuilder = new URIBuilder()
 				.setScheme("https")
 				.setHost("api.stackexchange.com")
-				.setPath("/2.1/" + method)
-				.setParameter("site", site);
+				.setPath("/2.1/" + query.getMethod())
+				.setParameter("site", query.getSite());
 		if(StringUtils.isNotBlank(seApiKey))
 			uriBuilder.setParameter("key", seApiKey);
-		for (Map.Entry<String, String> curParam : params.entrySet())
+		for (Map.Entry<String, String> curParam : query.getParameters().entrySet())
 			uriBuilder.setParameter(curParam.getKey(), curParam.getValue());
 
 		URI uri;
@@ -106,7 +96,7 @@ public class StackClient {
 
 			//No errors, convert to ResponseEntry
 			//jsonMapper.writeTree(jsonMapper.getFactory().createGenerator(System.out).useDefaultPrettyPrinter(), responseTree);
-			return jsonMapper.convertValue(responseTree, jsonMapper.getTypeFactory().constructParametricType(ResponseEntry.class, itemClass));
+			return jsonMapper.convertValue(responseTree, jsonMapper.getTypeFactory().constructParametricType(ResponseEntry.class, query.getItemClass()));
 		} catch (QueryErrorException e) {
 			//No need to wrap
 			throw e;
@@ -124,7 +114,7 @@ public class StackClient {
 			Properties authProperties = new Properties();
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
-			log.info(client.query(AnswerEntry.class, "stackoverflow", "answers").toString());
+			log.info(client.query(new AnswerQuery().setSite("stackoverflow")).toString());
 		} catch (QueryException e) {
 			e.printStackTrace();
 			System.err.println("RAW: " + e.getRawResponse());
