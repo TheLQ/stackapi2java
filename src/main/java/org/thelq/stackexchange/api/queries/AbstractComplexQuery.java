@@ -6,6 +6,7 @@ package org.thelq.stackexchange.api.queries;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.GenericEntry;
 
@@ -21,7 +22,7 @@ public abstract class AbstractComplexQuery<F extends Enum<F> & SortableField, Q 
 	protected F sort;
 	protected Integer min;
 	protected Integer max;
-	
+
 	public AbstractComplexQuery(Class<F> enumClass, Class itemClass, String method, List<?>... vectors) {
 		super(itemClass, method, vectors);
 		this.enumClass = enumClass;
@@ -60,14 +61,14 @@ public abstract class AbstractComplexQuery<F extends Enum<F> & SortableField, Q 
 	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
-		putIfNotNull(finalParameters, "fromDate", fromDate, fromDate.getMillis());
-		putIfNotNull(finalParameters, "toDate", toDate, toDate.getMillis());
+		if (fromDate != null)
+			finalParameters.put("fromDate", String.valueOf(fromDate.getMillis()));
+		if (toDate != null)
+			finalParameters.put("toDate", String.valueOf(toDate.getMillis()));
 		putIfNotNull(finalParameters, "order", order);
 		putIfNotNull(finalParameters, "sort", sort);
 		putIfNotNull(finalParameters, "min", min);
 		putIfNotNull(finalParameters, "max", max);
 		return finalParameters;
 	}
-	
-	
 }

@@ -42,9 +42,4 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Gen
 		if (value != null)
 			finalParameters.put(key, String.valueOf(value));
 	}
-
-	protected static void putIfNotNull(LinkedHashMap<String, String> finalParameters, String key, Object valueRaw, Object valueConvert) {
-		if (valueRaw != null)
-			finalParameters.put(key, String.valueOf(valueConvert));
-	}
 }
