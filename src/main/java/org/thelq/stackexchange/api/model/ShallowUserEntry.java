@@ -26,7 +26,7 @@ public class ShallowUserEntry {
 		UNREGISTERED,
 		REGISTERED,
 		MODERATOR,
-		DOESNOTEXIST;
+		DOES_NOT_EXIST;
 
 		@Override
 		public String toString() {
