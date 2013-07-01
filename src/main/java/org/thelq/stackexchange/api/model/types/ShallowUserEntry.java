@@ -1,7 +1,8 @@
-package org.thelq.stackexchange.api.model;
+package org.thelq.stackexchange.api.model.types;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Data;
+import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *

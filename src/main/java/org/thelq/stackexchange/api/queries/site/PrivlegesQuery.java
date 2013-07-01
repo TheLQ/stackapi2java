@@ -4,7 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries.site;
 
-import org.thelq.stackexchange.api.model.PrivlegeEntry;
+import org.thelq.stackexchange.api.model.types.PrivlegeEntry;
 
 /**
  *

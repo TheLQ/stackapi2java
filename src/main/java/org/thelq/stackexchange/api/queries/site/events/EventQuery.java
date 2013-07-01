@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import org.joda.time.DateTime;
-import org.thelq.stackexchange.api.model.EventEntry;
+import org.thelq.stackexchange.api.model.types.EventEntry;
 import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractSitePagableQuery;

@@ -4,7 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries.site.answer;
 
-import org.thelq.stackexchange.api.model.AnswerEntry;
+import org.thelq.stackexchange.api.model.types.AnswerEntry;
 
 /**
  *

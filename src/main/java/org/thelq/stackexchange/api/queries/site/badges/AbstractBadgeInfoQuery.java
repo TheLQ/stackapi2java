@@ -4,8 +4,9 @@
  */
 package org.thelq.stackexchange.api.queries.site.badges;
 
+import org.thelq.stackexchange.api.model.sort.BadgeSort;
 import java.util.List;
-import org.thelq.stackexchange.api.model.BadgeEntry;
+import org.thelq.stackexchange.api.model.types.BadgeEntry;
 import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
 
 /**

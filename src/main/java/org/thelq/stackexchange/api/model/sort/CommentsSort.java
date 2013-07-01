@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package org.thelq.stackexchange.api.queries.site.comments;
+package org.thelq.stackexchange.api.model.sort;
 
-import org.thelq.stackexchange.api.queries.site.SortableField;
+import org.thelq.stackexchange.api.model.SortableField;
 
 /**
  *

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.model;
+package org.thelq.stackexchange.api.model.types;
 
 import java.awt.Color;
 import lombok.Getter;

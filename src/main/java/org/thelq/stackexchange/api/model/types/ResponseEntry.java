@@ -1,10 +1,11 @@
 
-package org.thelq.stackexchange.api.model;
+package org.thelq.stackexchange.api.model.types;
 
 import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *

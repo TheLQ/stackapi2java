@@ -4,7 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries.site.posts;
 
-import org.thelq.stackexchange.api.queries.site.SortableField;
+import org.thelq.stackexchange.api.model.SortableField;
 
 /**
  *

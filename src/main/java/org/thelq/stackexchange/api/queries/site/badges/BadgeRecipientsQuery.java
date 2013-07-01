@@ -8,7 +8,7 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import org.thelq.stackexchange.api.model.BadgeEntry;
+import org.thelq.stackexchange.api.model.types.BadgeEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractComplexDateQuery;
 

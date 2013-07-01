@@ -4,10 +4,11 @@
  */
 package org.thelq.stackexchange.api.queries.site.answer;
 
+import org.thelq.stackexchange.api.model.sort.AnswerSort;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
-import org.thelq.stackexchange.api.model.AnswerEntry;
+import org.thelq.stackexchange.api.model.types.AnswerEntry;
 import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;

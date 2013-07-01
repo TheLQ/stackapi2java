@@ -4,9 +4,10 @@
  */
 package org.thelq.stackexchange.api.queries.site.comments;
 
+import org.thelq.stackexchange.api.model.sort.CommentsSort;
 import java.util.ArrayList;
 import java.util.List;
-import org.thelq.stackexchange.api.model.CommentEntry;
+import org.thelq.stackexchange.api.model.types.CommentEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
 

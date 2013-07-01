@@ -4,7 +4,8 @@
  */
 package org.thelq.stackexchange.api.queries.site.posts;
 
-import org.thelq.stackexchange.api.model.PostEntry;
+import org.thelq.stackexchange.api.model.sort.PostSort;
+import org.thelq.stackexchange.api.model.types.PostEntry;
 
 /**
  *

@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.model;
+package org.thelq.stackexchange.api.model.types;
 
 import java.net.URI;
+import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *

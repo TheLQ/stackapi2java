@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.PostEntry;
+import org.thelq.stackexchange.api.model.types.PostEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
-import org.thelq.stackexchange.api.queries.site.SortableField;
+import org.thelq.stackexchange.api.model.SortableField;
 
 /**
  *

@@ -2,12 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.model;
+package org.thelq.stackexchange.api.model.types;
 
 import com.google.common.collect.ImmutableList;
 import java.net.URI;
 import lombok.Getter;
 import org.joda.time.DateTime;
+import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.thelq.stackexchange.api.model;
+package org.thelq.stackexchange.api.model.types;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
@@ -11,6 +11,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.joda.time.DateTime;
+import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *

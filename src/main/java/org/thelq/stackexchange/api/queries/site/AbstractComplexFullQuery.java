@@ -4,6 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries.site;
 
+import org.thelq.stackexchange.api.model.SortableField;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.ItemEntry;

@@ -3,10 +3,11 @@
  * and open the template in the editor.
  */
 
-package org.thelq.stackexchange.api.model;
+package org.thelq.stackexchange.api.model.types;
 
 import javax.annotation.Generated;
 import lombok.Getter;
+import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
  *

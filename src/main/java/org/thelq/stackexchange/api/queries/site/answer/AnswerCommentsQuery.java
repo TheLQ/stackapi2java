@@ -6,8 +6,8 @@ package org.thelq.stackexchange.api.queries.site.answer;
 
 import com.google.common.base.Preconditions;
 import java.util.LinkedHashMap;
-import org.thelq.stackexchange.api.model.AnswerEntry;
-import org.thelq.stackexchange.api.model.CommentEntry;
+import org.thelq.stackexchange.api.model.types.AnswerEntry;
+import org.thelq.stackexchange.api.model.types.CommentEntry;
 
 /**
  *

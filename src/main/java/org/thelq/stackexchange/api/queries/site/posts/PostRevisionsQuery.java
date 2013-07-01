@@ -6,7 +6,7 @@ package org.thelq.stackexchange.api.queries.site.posts;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.thelq.stackexchange.api.model.RevisionEntry;
+import org.thelq.stackexchange.api.model.types.RevisionEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractComplexDateQuery;
 

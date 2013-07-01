@@ -6,8 +6,8 @@ package org.thelq.stackexchange.api.queries.site.posts;
 
 import com.google.common.base.Preconditions;
 import java.util.LinkedHashMap;
-import org.thelq.stackexchange.api.model.CommentEntry;
-import org.thelq.stackexchange.api.queries.site.comments.CommentsSort;
+import org.thelq.stackexchange.api.model.types.CommentEntry;
+import org.thelq.stackexchange.api.model.sort.CommentsSort;
 
 /**
  *
