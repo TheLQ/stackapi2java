@@ -6,6 +6,7 @@ package org.thelq.stackexchange.api.queries.site;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  *
@@ -13,7 +14,10 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
+@Accessors(fluent = true)
 public enum Order {
-	ASC,
-	DESC;
+	ASCENDING("asc"),
+	DESCENDING("desc");
+	
+	protected final String jsonValue;
 }
