@@ -10,7 +10,7 @@ import org.thelq.stackexchange.api.queries.site.SortableField;
  *
  * @author Leon
  */
-public enum BadgeSortField implements SortableField {
+public enum BadgeSort implements SortableField {
 	RANK,
 	NAME,
 	TYPE

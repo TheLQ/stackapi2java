@@ -12,8 +12,8 @@ import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
  *
  * @author Leon
  */
-public class AbstractBadgeInfoQuery<Q extends AbstractBadgeInfoQuery<Q>> extends AbstractComplexFullQuery<BadgeSortField, Q, BadgeEntry> {
+public class AbstractBadgeInfoQuery<Q extends AbstractBadgeInfoQuery<Q>> extends AbstractComplexFullQuery<BadgeSort, Q, BadgeEntry> {
 	public AbstractBadgeInfoQuery(String method, List<Integer>... vectors) {
-		super(BadgeSortField.class, BadgeEntry.class, method, vectors);
+		super(BadgeSort.class, BadgeEntry.class, method, vectors);
 	}
 }

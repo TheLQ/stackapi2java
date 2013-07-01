@@ -16,11 +16,11 @@ import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
  * @author Leon
  */
 @Getter
-public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends GenericEntry> extends AbstractComplexFullQuery<AnswerSortField, Q, I> {
+public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends GenericEntry> extends AbstractComplexFullQuery<AnswerSort, Q, I> {
 	protected final List<Integer> answerIds;
 
 	public AbstractAnswerQuery(String method, Class<I> itemClass) {
-		super(AnswerSortField.class, itemClass, method, new ArrayList<Integer>());
+		super(AnswerSort.class, itemClass, method, new ArrayList<Integer>());
 		answerIds = (List<Integer>) vectors.get(0);
 	}
 

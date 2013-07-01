@@ -10,7 +10,7 @@ import org.thelq.stackexchange.api.queries.site.SortableField;
  *
  * @author Leon
  */
-public enum AnswerSortField implements SortableField {
+public enum AnswerSort implements SortableField {
 	ACTIVITY, CREATION, VOTES
 	
 }
