@@ -37,7 +37,6 @@ import org.thelq.stackexchange.api.queries.site.badges.BadgeInfoByIdQuery;
  */
 @Slf4j
 public class StackClient {
-	
 	@Getter
 	protected final String seApiKey;
 	protected final HttpClient httpclient;
@@ -62,8 +61,8 @@ public class StackClient {
 
 	protected <E extends GenericEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
 		Map<String, String> finalParameters = query.buildFinalParameters();
-		
-		if(query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
+
+		if (query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
 			throw new RuntimeException("Query " + query.getClass().getName() + " requires an accessToken");
 
 		//Build
@@ -73,8 +72,11 @@ public class StackClient {
 				.setPath("/2.1/" + query.getMethod());
 		if (StringUtils.isNotBlank(seApiKey))
 			uriBuilder.setParameter("key", seApiKey);
-		for (Map.Entry<String, String> curParam : finalParameters.entrySet())
+		for (Map.Entry<String, String> curParam : finalParameters.entrySet()) {
+			if (curParam.getKey() == null || curParam.getValue() == null)
+				throw new NullPointerException("Parameters cannot be null: " + curParam.getKey() + "=" + curParam.getValue());
 			uriBuilder.setParameter(curParam.getKey(), curParam.getValue());
+		}
 
 		URI uri;
 		try {
@@ -125,10 +127,10 @@ public class StackClient {
 			Properties authProperties = new Properties();
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
-			
+
 			ResponseEntry<BadgeEntry> response = client.query(new BadgeInfoByIdQuery().addBadgeId(94).setParameter("min", "5").setSite("stackoverflow"));
 			log.debug("Got " + response.getItems().size() + " badges");
-			
+
 		} catch (QueryException e) {
 			e.printStackTrace();
 			System.err.println("RAW: " + e.getRawResponse());
