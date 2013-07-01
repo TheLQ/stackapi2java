@@ -1,5 +1,6 @@
 package org.thelq.stackexchange.api.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Data;
 
 /**
@@ -28,9 +29,8 @@ public class ShallowUserEntry {
 		MODERATOR,
 		DOES_NOT_EXIST;
 
-		@Override
-		public String toString() {
-			//TODO: There has got to be a better way to get uppercase enums working
+		@JsonValue
+		public String jsonValue() {
 			return name().toLowerCase();
 		}
 	}
