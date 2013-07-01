@@ -16,7 +16,7 @@ import org.thelq.stackexchange.api.queries.PagableQuery;
  * @author Leon
  */
 @Getter
-public class AbstractSitePagableQuery<Q extends AbstractSitePagableQuery<Q, I>, I extends GenericEntry> extends AbstractSiteQuery<Q, I> implements PagableQuery<Q> {
+public abstract class AbstractSitePagableQuery<Q extends AbstractSitePagableQuery<Q, I>, I extends GenericEntry> extends AbstractSiteQuery<Q, I> implements PagableQuery<Q> {
 	protected Integer page;
 	protected Integer pageSize;
 	public AbstractSitePagableQuery(Class<I> itemClass, String method, List<?>... vectors) {

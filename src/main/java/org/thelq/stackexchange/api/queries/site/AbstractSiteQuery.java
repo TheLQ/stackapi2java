@@ -17,7 +17,7 @@ import org.thelq.stackexchange.api.queries.AbstractQuery;
  * @author Leon
  */
 @Getter
-public class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends GenericEntry> extends AbstractQuery<Q, I> {
+public abstract class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends GenericEntry> extends AbstractQuery<Q, I> {
 	protected String site;
 
 	public AbstractSiteQuery(Class<I> itemClass, String method, List<?>... vectors) {
