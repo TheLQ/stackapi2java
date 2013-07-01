@@ -6,7 +6,7 @@ package org.thelq.stackexchange.api.queries.site;
 
 import java.util.LinkedHashMap;
 import lombok.Getter;
-import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.PagableQuery;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 
@@ -15,7 +15,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  * @author Leon
  */
 @Getter
-public abstract class AbstractSitePagableQuery<Q extends AbstractSitePagableQuery<Q, I>, I extends GenericEntry> extends AbstractSiteQuery<Q, I> implements PagableQuery<Q> {
+public abstract class AbstractSitePagableQuery<Q extends AbstractSitePagableQuery<Q, I>, I extends ItemEntry> extends AbstractSiteQuery<Q, I> implements PagableQuery<Q> {
 	protected Integer page;
 	protected Integer pageSize;
 	public AbstractSitePagableQuery(Class<I> itemClass, String method) {

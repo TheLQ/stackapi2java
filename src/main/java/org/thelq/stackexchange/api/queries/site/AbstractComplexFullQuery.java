@@ -6,7 +6,7 @@ package org.thelq.stackexchange.api.queries.site;
 
 import java.util.LinkedHashMap;
 import lombok.Getter;
-import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 
 /**
@@ -14,7 +14,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  * @author Leon
  */
 @Getter
-public abstract class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<F, Q, I>, I extends GenericEntry> extends AbstractComplexDateQuery<Q, I> {
+public abstract class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<F, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {
 	protected final Class<F> enumClass;
 	protected Order order;
 	protected F sort;

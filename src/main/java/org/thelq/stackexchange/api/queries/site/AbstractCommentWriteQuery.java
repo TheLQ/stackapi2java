@@ -6,7 +6,7 @@ package org.thelq.stackexchange.api.queries.site;
 
 import java.util.List;
 import org.thelq.stackexchange.api.model.CommentEntry;
-import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
 
 /**

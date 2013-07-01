@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.AnswerEntry;
-import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
 
@@ -17,7 +17,7 @@ import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
  * @author Leon
  */
 @Getter
-public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends GenericEntry> extends AbstractComplexFullQuery<AnswerSort, Q, I> {
+public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends ItemEntry> extends AbstractComplexFullQuery<AnswerSort, Q, I> {
 	protected final List<Integer> answerIds;
 
 	public AbstractAnswerQuery(String method, Class<I> itemClass) {

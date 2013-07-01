@@ -13,7 +13,7 @@ import org.joda.time.DateTime;
  * @author Leon
  */
 @Getter
-public class EventEntry implements GenericEntry {
+public class EventEntry implements ItemEntry {
 	protected DateTime creationDate;
 	protected int eventId;
 	protected Type eventType;

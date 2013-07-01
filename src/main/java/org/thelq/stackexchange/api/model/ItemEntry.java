@@ -9,6 +9,6 @@ package org.thelq.stackexchange.api.model;
  *
  * @author Leon
  */
-public interface GenericEntry {
+public interface ItemEntry {
 
 }

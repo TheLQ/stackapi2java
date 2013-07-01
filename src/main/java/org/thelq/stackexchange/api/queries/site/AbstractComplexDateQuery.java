@@ -7,14 +7,14 @@ package org.thelq.stackexchange.api.queries.site;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import org.joda.time.DateTime;
-import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
  *
  * @author Leon
  */
 @Getter
-public abstract class AbstractComplexDateQuery<Q extends AbstractComplexDateQuery<Q, I>, I extends GenericEntry> extends AbstractSitePagableQuery<Q, I> {
+public abstract class AbstractComplexDateQuery<Q extends AbstractComplexDateQuery<Q, I>, I extends ItemEntry> extends AbstractSitePagableQuery<Q, I> {
 	protected DateTime toDate;
 	protected DateTime fromDate;
 

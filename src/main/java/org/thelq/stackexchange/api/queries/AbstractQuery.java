@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
-import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
  *
  * @author Leon
  */
 @Getter
-public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends GenericEntry> {
+public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends ItemEntry> {
 	protected final String method;
 	protected final LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
 	protected final Class<I> itemClass;

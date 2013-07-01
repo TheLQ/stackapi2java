@@ -8,7 +8,7 @@ import com.google.common.base.Preconditions;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
-import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 
@@ -17,7 +17,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  * @author Leon
  */
 @Getter
-public abstract class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends GenericEntry> extends AbstractQuery<Q, I> {
+public abstract class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends ItemEntry> extends AbstractQuery<Q, I> {
 	protected String site;
 
 	public AbstractSiteQuery(Class<I> itemClass, String method) {

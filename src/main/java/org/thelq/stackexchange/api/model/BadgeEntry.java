@@ -12,7 +12,7 @@ import lombok.Getter;
  * @author Leon
  */
 @Getter
-public class BadgeEntry implements GenericEntry {
+public class BadgeEntry implements ItemEntry {
 	protected int badgeId;
 	protected int awardCount;
 	protected Type badgeType;

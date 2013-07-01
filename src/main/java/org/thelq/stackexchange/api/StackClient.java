@@ -26,7 +26,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.thelq.stackexchange.api.model.BadgeEntry;
-import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
 import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
 import org.thelq.stackexchange.api.queries.site.badges.BadgeInfoByIdQuery;
@@ -59,7 +59,7 @@ public class StackClient {
 				.build();
 	}
 
-	protected <E extends GenericEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
+	protected <E extends ItemEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
 		Map<String, String> finalParameters = query.buildFinalParameters();
 
 		if (query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
