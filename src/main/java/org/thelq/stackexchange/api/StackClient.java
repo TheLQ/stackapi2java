@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.net.URI;
@@ -41,6 +42,11 @@ import org.thelq.stackexchange.api.queries.site.badges.BadgeInfoByIdQuery;
  */
 @Slf4j
 public class StackClient {
+	/**
+	 * Global joiner for vectors. Used instead of StringUtils.join() since this
+	 * will throw an NPE when a null element is encountered
+	 */
+	protected static final Joiner VECTOR_JOINER = Joiner.on(',');
 	@Getter
 	protected final String seApiKey;
 	protected final HttpClient httpclient;
@@ -73,7 +79,7 @@ public class StackClient {
 		String method = query.getMethod();
 		if (method.contains("{}")) {
 			for (List<?> curVector : query.getVectors()) {
-				String vectorCombined = StringUtils.join(curVector, ",");
+				String vectorCombined = VECTOR_JOINER.join(curVector);
 				String newMethod = StringUtils.replaceOnce(method, "{}", vectorCombined);
 				if (newMethod.equals(method))
 					throw new RuntimeException("Too many vectors for " + query.getMethod() + ": " + query.getVectors());
