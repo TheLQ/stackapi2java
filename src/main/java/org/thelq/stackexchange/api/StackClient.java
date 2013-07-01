@@ -16,7 +16,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
@@ -25,9 +27,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.thelq.stackexchange.api.model.AnswerEntry;
+import org.thelq.stackexchange.api.model.BadgeEntry;
 import org.thelq.stackexchange.api.model.GenericEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
-import org.thelq.stackexchange.api.queries.types.AnswerQuery;
+import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
+import org.thelq.stackexchange.api.queries.site.answer.AnswerCommentsQuery;
+import org.thelq.stackexchange.api.queries.site.answer.AnswerQuery;
+import org.thelq.stackexchange.api.queries.site.badges.BadgeInfoByIdQuery;
 
 /**
  *
@@ -35,9 +41,13 @@ import org.thelq.stackexchange.api.queries.types.AnswerQuery;
  */
 @Slf4j
 public class StackClient {
+	@Getter
 	protected final String seApiKey;
 	protected final HttpClient httpclient;
 	protected final ObjectMapper jsonMapper;
+	@Getter
+	@Setter
+	protected String accessToken;
 
 	public StackClient(String seApiKey) {
 		Preconditions.checkNotNull(seApiKey);
@@ -55,6 +65,9 @@ public class StackClient {
 
 	protected <E extends GenericEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
 		Map<String, String> finalParameters = query.buildFinalParameters();
+		
+		if(query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
+			throw new RuntimeException("Query " + query.getClass().getName() + " requires an accessToken");
 
 		//Handle potential vectorized methods
 		String method = query.getMethod();
@@ -130,8 +143,9 @@ public class StackClient {
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
 			
-			AnswerEntry entry = client.query(new AnswerQuery().setSite("stackoverflow")).getItems().get(0);
-			log.info("There are " );
+			ResponseEntry<BadgeEntry> response = client.query(new BadgeInfoByIdQuery().addBadgeId(94).setParameter("min", "5").setSite("stackoverflow"));
+			log.debug("Got " + response.getItems().size() + " badges");
+			
 		} catch (QueryException e) {
 			e.printStackTrace();
 			System.err.println("RAW: " + e.getRawResponse());
