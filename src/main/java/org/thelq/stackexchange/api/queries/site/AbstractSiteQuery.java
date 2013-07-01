@@ -10,14 +10,14 @@ import java.util.List;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.model.GenericEntry;
-import org.thelq.stackexchange.api.queries.AbstractPagableQuery;
+import org.thelq.stackexchange.api.queries.AbstractQuery;
 
 /**
  *
  * @author Leon
  */
 @Getter
-public class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends GenericEntry> extends AbstractPagableQuery<Q, I> {
+public class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends GenericEntry> extends AbstractQuery<Q, I> {
 	protected String site;
 
 	public AbstractSiteQuery(Class<I> itemClass, String method, List<?>... vectors) {

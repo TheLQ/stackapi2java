@@ -14,7 +14,7 @@ import org.thelq.stackexchange.api.model.GenericEntry;
  *
  * @author Leon
  */
-public abstract class AbstractComplexQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexQuery<F, Q, I>, I extends GenericEntry> extends AbstractSiteQuery<Q, I> {
+public abstract class AbstractComplexQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexQuery<F, Q, I>, I extends GenericEntry> extends AbstractSitePagableQuery<Q, I> {
 	protected final Class<F> enumClass;
 	protected DateTime toDate;
 	protected DateTime fromDate;
