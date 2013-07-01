@@ -1,16 +1,18 @@
 package org.thelq.stackexchange.api.model;
 
 import com.google.common.collect.ImmutableList;
+import java.net.URI;
 import lombok.Data;
+import org.joda.time.DateTime;
 
 /**
  *
  * @author Leon
  */
 @Data
-public class PostEntry {
+public class PostEntry implements ItemEntry {
 	protected int postId;
-	protected Type postType;
+	protected PostType postType;
 	@MaybeAbsent
 	protected ShallowUserEntry owner;
 	protected String body;
@@ -18,15 +20,10 @@ public class PostEntry {
 	protected ImmutableList<CommentEntry> comments;
 	protected int downVoteCount;
 	protected int upVoteCount;
-	protected long creationDate;
-	protected long lastActivityDate;
+	protected DateTime creationDate;
+	protected DateTime lastActivityDate;
 	@MaybeAbsent
-	protected long lastEditDate;
-	protected String link;
+	protected DateTime lastEditDate;
+	protected URI link;
 	protected int score;
-
-	public static enum Type {
-		QUESTION,
-		ANSWER
-	}
 }
