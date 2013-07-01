@@ -9,14 +9,14 @@ import java.util.List;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.AnswerEntry;
 import org.thelq.stackexchange.api.model.GenericEntry;
-import org.thelq.stackexchange.api.queries.site.AbstractComplexQuery;
+import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
 
 /**
  *
  * @author Leon
  */
 @Getter
-public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends GenericEntry> extends AbstractComplexQuery<AnswerSortField, Q, I> {
+public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends GenericEntry> extends AbstractComplexFullQuery<AnswerSortField, Q, I> {
 	protected final List<Integer> answerIds;
 
 	public AbstractAnswerQuery(String method, Class<I> itemClass) {

@@ -6,6 +6,7 @@ package org.thelq.stackexchange.api.queries.site;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.GenericEntry;
@@ -14,28 +15,17 @@ import org.thelq.stackexchange.api.model.GenericEntry;
  *
  * @author Leon
  */
-public abstract class AbstractComplexQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexQuery<F, Q, I>, I extends GenericEntry> extends AbstractSitePagableQuery<Q, I> {
+@Getter
+public abstract class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<F, Q, I>, I extends GenericEntry> extends AbstractComplexDateQuery<Q, I> {
 	protected final Class<F> enumClass;
-	protected DateTime toDate;
-	protected DateTime fromDate;
 	protected Order order;
 	protected F sort;
 	protected Integer min;
 	protected Integer max;
 
-	public AbstractComplexQuery(Class<F> enumClass, Class<I> itemClass, String method, List<?>... vectors) {
+	public AbstractComplexFullQuery(Class<F> enumClass, Class<I> itemClass, String method, List<?>... vectors) {
 		super(itemClass, method, vectors);
 		this.enumClass = enumClass;
-	}
-
-	public Q setFromDate(DateTime fromDate) {
-		this.fromDate = fromDate;
-		return (Q) this;
-	}
-
-	public Q setToDate(DateTime toDate) {
-		this.toDate = toDate;
-		return (Q) this;
 	}
 
 	public Q setOrder(Order order) {
