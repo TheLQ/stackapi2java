@@ -60,16 +60,19 @@ public class StackClient {
 	}
 
 	protected <E extends ItemEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
+		//Run query verification
 		Map<String, String> finalParameters = query.buildFinalParameters();
-
 		if (query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
 			throw new RuntimeException("Query " + query.getClass().getName() + " requires an accessToken");
+		String method = query.getMethod();
+		if(method.contains("{}"))
+			throw new RuntimeException("Unreplaced vector remaining in method " + method);
 
 		//Build
 		URIBuilder uriBuilder = new URIBuilder()
 				.setScheme("https")
 				.setHost("api.stackexchange.com")
-				.setPath("/2.1/" + query.getMethod());
+				.setPath("/2.1/" + method);
 		if (StringUtils.isNotBlank(seApiKey))
 			uriBuilder.setParameter("key", seApiKey);
 		for (Map.Entry<String, String> curParam : finalParameters.entrySet()) {
