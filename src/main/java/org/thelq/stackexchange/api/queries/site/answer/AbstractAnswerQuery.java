@@ -9,6 +9,7 @@ import java.util.List;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.AnswerEntry;
 import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
 
 /**
@@ -20,12 +21,17 @@ public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends 
 	protected final List<Integer> answerIds;
 
 	public AbstractAnswerQuery(String method, Class<I> itemClass) {
-		super(AnswerSort.class, itemClass, method, new ArrayList<Integer>());
-		answerIds = (List<Integer>) vectors.get(0);
+		super(AnswerSort.class, itemClass, method);
+		answerIds = new ArrayList<Integer>();
 	}
 
 	public Q addAnswerId(int answerId) {
 		answerIds.add(answerId);
 		return (Q) this;
+	}
+
+	@Override
+	public String getMethod() {
+		return QueryUtils.insertVector(super.getMethod(), answerIds);
 	}
 }

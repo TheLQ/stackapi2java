@@ -19,14 +19,12 @@ import org.thelq.stackexchange.api.model.GenericEntry;
 @Getter
 public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends GenericEntry> {
 	protected final String method;
-	protected final ImmutableList<List<?>> vectors;
 	protected final LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
 	protected final Class<I> itemClass;
 
-	public AbstractQuery(Class<I> itemClass, String method, List<?>... vectors) {
+	public AbstractQuery(Class<I> itemClass, String method) {
 		this.itemClass = itemClass;
 		this.method = method;
-		this.vectors = ImmutableList.copyOf(vectors);
 	}
 
 	public Q setParameter(String key, String value) {
@@ -36,10 +34,5 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Gen
 
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		return new LinkedHashMap<String, String>(parameters);
-	}
-
-	protected static void putIfNotNull(LinkedHashMap<String, String> finalParameters, String key, Object value) {
-		if (value != null)
-			finalParameters.put(key, String.valueOf(value));
 	}
 }

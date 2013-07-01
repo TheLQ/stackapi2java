@@ -5,11 +5,9 @@
 package org.thelq.stackexchange.api.queries.site;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.GenericEntry;
+import org.thelq.stackexchange.api.queries.QueryUtils;
 
 /**
  *
@@ -23,8 +21,8 @@ public abstract class AbstractComplexFullQuery<F extends Enum<F> & SortableField
 	protected Integer min;
 	protected Integer max;
 
-	public AbstractComplexFullQuery(Class<F> enumClass, Class<I> itemClass, String method, List<?>... vectors) {
-		super(itemClass, method, vectors);
+	public AbstractComplexFullQuery(Class<F> enumClass, Class<I> itemClass, String method) {
+		super(itemClass, method);
 		this.enumClass = enumClass;
 	}
 
@@ -55,10 +53,10 @@ public abstract class AbstractComplexFullQuery<F extends Enum<F> & SortableField
 			finalParameters.put("fromDate", String.valueOf(fromDate.getMillis()));
 		if (toDate != null)
 			finalParameters.put("toDate", String.valueOf(toDate.getMillis()));
-		putIfNotNull(finalParameters, "order", order);
-		putIfNotNull(finalParameters, "sort", sort);
-		putIfNotNull(finalParameters, "min", min);
-		putIfNotNull(finalParameters, "max", max);
+		QueryUtils.putIfNotNull(finalParameters, "order", order);
+		QueryUtils.putIfNotNull(finalParameters, "sort", sort);
+		QueryUtils.putIfNotNull(finalParameters, "min", min);
+		QueryUtils.putIfNotNull(finalParameters, "max", max);
 		return finalParameters;
 	}
 }

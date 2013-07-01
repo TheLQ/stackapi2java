@@ -18,8 +18,8 @@ public abstract class AbstractComplexDateQuery<Q extends AbstractComplexDateQuer
 	protected DateTime toDate;
 	protected DateTime fromDate;
 
-	public AbstractComplexDateQuery(Class<I> itemClass, String method, List<?>... vectors) {
-		super(itemClass, method, vectors);
+	public AbstractComplexDateQuery(Class<I> itemClass, String method) {
+		super(itemClass, method);
 	}
 
 	public Q setFromDate(DateTime fromDate) {

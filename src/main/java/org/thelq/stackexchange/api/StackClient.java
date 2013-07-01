@@ -9,12 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import lombok.Getter;
@@ -27,13 +25,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.thelq.stackexchange.api.model.AnswerEntry;
 import org.thelq.stackexchange.api.model.BadgeEntry;
 import org.thelq.stackexchange.api.model.GenericEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
 import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
-import org.thelq.stackexchange.api.queries.site.answer.AnswerCommentsQuery;
-import org.thelq.stackexchange.api.queries.site.answer.AnswerQuery;
 import org.thelq.stackexchange.api.queries.site.badges.BadgeInfoByIdQuery;
 
 /**
@@ -42,11 +37,7 @@ import org.thelq.stackexchange.api.queries.site.badges.BadgeInfoByIdQuery;
  */
 @Slf4j
 public class StackClient {
-	/**
-	 * Global joiner for vectors. Used instead of StringUtils.join() since this
-	 * will throw an NPE when a null element is encountered
-	 */
-	protected static final Joiner VECTOR_JOINER = Joiner.on(',');
+	
 	@Getter
 	protected final String seApiKey;
 	protected final HttpClient httpclient;
@@ -75,25 +66,11 @@ public class StackClient {
 		if(query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
 			throw new RuntimeException("Query " + query.getClass().getName() + " requires an accessToken");
 
-		//Handle potential vectorized methods
-		String method = query.getMethod();
-		if (method.contains("{}")) {
-			for (List<?> curVector : query.getVectors()) {
-				String vectorCombined = VECTOR_JOINER.join(curVector);
-				String newMethod = StringUtils.replaceOnce(method, "{}", vectorCombined);
-				if (newMethod.equals(method))
-					throw new RuntimeException("Too many vectors for " + query.getMethod() + ": " + query.getVectors());
-				method = newMethod;
-			}
-			if (method.contains("{}"))
-				throw new RuntimeException("Too few vectors for " + query.getMethod() + ": " + query.getVectors());
-		}
-
 		//Build
 		URIBuilder uriBuilder = new URIBuilder()
 				.setScheme("https")
 				.setHost("api.stackexchange.com")
-				.setPath("/2.1/" + method);
+				.setPath("/2.1/" + query.getMethod());
 		if (StringUtils.isNotBlank(seApiKey))
 			uriBuilder.setParameter("key", seApiKey);
 		for (Map.Entry<String, String> curParam : finalParameters.entrySet())

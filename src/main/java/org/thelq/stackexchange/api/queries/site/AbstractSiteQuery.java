@@ -6,11 +6,11 @@ package org.thelq.stackexchange.api.queries.site;
 
 import com.google.common.base.Preconditions;
 import java.util.LinkedHashMap;
-import java.util.List;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.model.GenericEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
+import org.thelq.stackexchange.api.queries.QueryUtils;
 
 /**
  *
@@ -20,8 +20,8 @@ import org.thelq.stackexchange.api.queries.AbstractQuery;
 public abstract class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends GenericEntry> extends AbstractQuery<Q, I> {
 	protected String site;
 
-	public AbstractSiteQuery(Class<I> itemClass, String method, List<?>... vectors) {
-		super(itemClass, method, vectors);
+	public AbstractSiteQuery(Class<I> itemClass, String method) {
+		super(itemClass, method);
 	}
 
 	public Q setSite(String site) {
@@ -33,7 +33,7 @@ public abstract class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I ext
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		Preconditions.checkState(StringUtils.isNotBlank(getSite()), "Must specify site");
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
-		putIfNotNull(finalParameters, "site", site);
+		QueryUtils.putIfNotNull(finalParameters, "site", site);
 		return finalParameters;
 	}
 }

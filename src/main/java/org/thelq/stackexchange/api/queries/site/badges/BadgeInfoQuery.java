@@ -7,6 +7,7 @@ package org.thelq.stackexchange.api.queries.site.badges;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.thelq.stackexchange.api.queries.QueryUtils;
 
 /**
  *
@@ -28,7 +29,7 @@ public class BadgeInfoQuery extends AbstractBadgeInfoQuery<BadgeInfoQuery> {
 	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
-		putIfNotNull(finalParameters, "inName", getInName());
+		QueryUtils.putIfNotNull(finalParameters, "inName", getInName());
 		return finalParameters;
 	}
 

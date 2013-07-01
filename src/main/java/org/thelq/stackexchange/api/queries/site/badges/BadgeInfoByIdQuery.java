@@ -8,6 +8,7 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.site.AbstractSiteQuery;
 
 /**
@@ -18,8 +19,8 @@ public class BadgeInfoByIdQuery extends AbstractBadgeInfoQuery<BadgeInfoByIdQuer
 	protected final List<Integer> badgeIds;
 
 	public BadgeInfoByIdQuery() {
-		super("badges/{}/recipients", new ArrayList<Integer>());
-		badgeIds = (List<Integer>) vectors.get(0);
+		super("badges/{}/recipients");
+		badgeIds = new ArrayList<Integer>();
 	}
 
 	public BadgeInfoByIdQuery addBadgeId(int badgeId) {
@@ -31,5 +32,10 @@ public class BadgeInfoByIdQuery extends AbstractBadgeInfoQuery<BadgeInfoByIdQuer
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		Preconditions.checkState(!badgeIds.isEmpty(), "Must add at least 1 badge id");
 		return super.buildFinalParameters();
+	}
+
+	@Override
+	public String getMethod() {
+		return QueryUtils.insertVector(super.getMethod(), badgeIds);
 	}
 }
