@@ -4,7 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries.site;
 
-import java.util.List;
+import java.util.LinkedHashMap;
 import lombok.Getter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.GenericEntry;
@@ -30,5 +30,15 @@ public abstract class AbstractComplexDateQuery<Q extends AbstractComplexDateQuer
 	public Q setToDate(DateTime toDate) {
 		this.toDate = toDate;
 		return (Q) this;
+	}
+
+	@Override
+	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
+		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
+		if (fromDate != null)
+			finalParameters.put("fromDate", String.valueOf(fromDate.getMillis()));
+		if (toDate != null)
+			finalParameters.put("toDate", String.valueOf(toDate.getMillis()));
+		return finalParameters;
 	}
 }

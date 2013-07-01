@@ -49,10 +49,6 @@ public abstract class AbstractComplexFullQuery<F extends Enum<F> & SortableField
 	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
-		if (fromDate != null)
-			finalParameters.put("fromDate", String.valueOf(fromDate.getMillis()));
-		if (toDate != null)
-			finalParameters.put("toDate", String.valueOf(toDate.getMillis()));
 		QueryUtils.putIfNotNull(finalParameters, "order", order);
 		QueryUtils.putIfNotNull(finalParameters, "sort", sort);
 		QueryUtils.putIfNotNull(finalParameters, "min", min);
