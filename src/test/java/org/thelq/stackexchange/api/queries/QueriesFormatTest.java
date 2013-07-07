@@ -13,6 +13,8 @@ import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.thelq.stackexchange.api.queries.site.comments.CommentDeleteQuery;
+import org.thelq.stackexchange.api.queries.site.comments.CommentEditQuery;
 
 /**
  *
@@ -64,6 +66,9 @@ public class QueriesFormatTest {
 
 	@Test(dataProvider = "queriesDataProvider", dependsOnMethods = {"singleConstructorTest", "abstractNamingTest"})
 	public void emptyConstructorTest(Class<?> curClass) {
+		//Skip exceptional classes
+		if (curClass.equals(CommentEditQuery.class) || curClass.equals(CommentDeleteQuery.class))
+			return;
 		assertEquals(curClass.getDeclaredConstructors()[0].getParameterTypes().length, 0, "Query " + curClass + " cannot have parameters");
 	}
 }
