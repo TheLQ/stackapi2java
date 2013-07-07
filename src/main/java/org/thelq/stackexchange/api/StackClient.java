@@ -58,8 +58,8 @@ public class StackClient {
 		this.httpclient = HttpClientBuilder.create()
 				.build();
 	}
-
-	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
+	
+	protected URI createUri(@NonNull AbstractQuery<?, ?> query) {
 		//Run query verification
 		Map<String, String> finalParameters = query.buildFinalParameters();
 		if (query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
@@ -81,20 +81,22 @@ public class StackClient {
 			uriBuilder.setParameter(curParam.getKey(), curParam.getValue());
 		}
 
-		URI uri;
 		try {
-			uri = uriBuilder.build();
+			return uriBuilder.build();
 		} catch (URISyntaxException ex) {
 			throw new RuntimeException("Cannot build URL");
 		}
+	}
 
+	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
+		URI uri = createUri(query);
 		HttpGet httpGet = null;
 		String responseRaw = null;
 		try {
 			//Do the request
 			//TODO: Figure out how to handle errors with different status codes (causes Exception)
 			//TODO: Handle backoff times
-			log.debug("Querying API with URL: " + uriBuilder);
+			log.debug("Querying API with URL: " + uri);
 
 			httpGet = new HttpGet(uri);
 			HttpResponse responseHttp = httpclient.execute(httpGet);
