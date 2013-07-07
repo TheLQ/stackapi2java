@@ -17,7 +17,7 @@ import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
  *
  * @author Leon
  */
-public class AbstractQuestionByTagQuery<F extends Enum<F> & SortableField, Q extends AbstractQuestionByTagQuery<F, Q>> extends AbstractComplexFullQuery<F, Q, QuestionEntry> {
+public abstract class AbstractQuestionByTagQuery<F extends Enum<F> & SortableField, Q extends AbstractQuestionByTagQuery<F, Q>> extends AbstractComplexFullQuery<F, Q, QuestionEntry> {
 	protected final List<String> tagged = new ArrayList<String>();
 
 	public AbstractQuestionByTagQuery(Class<F> enumClass, String method) {

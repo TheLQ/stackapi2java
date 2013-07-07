@@ -13,7 +13,7 @@ import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
  *
  * @author Leon
  */
-public class AbstractCommentWriteQuery<Q extends AbstractCommentWriteQuery<Q>> extends AbstractSiteQuery<Q, CommentEntry> implements AuthRequiredQuery {
+public abstract class AbstractCommentWriteQuery<Q extends AbstractCommentWriteQuery<Q>> extends AbstractSiteQuery<Q, CommentEntry> implements AuthRequiredQuery {
 	public AbstractCommentWriteQuery(String method) {
 		super(CommentEntry.class, method);
 	}

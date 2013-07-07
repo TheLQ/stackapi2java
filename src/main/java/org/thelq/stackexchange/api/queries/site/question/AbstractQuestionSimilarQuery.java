@@ -13,7 +13,7 @@ import org.thelq.stackexchange.api.model.types.QuestionEntry;
  *
  * @author Leon
  */
-public class AbstractQuestionSimilarQuery<Q extends AbstractQuestionSimilarQuery<Q>> extends AbstractQuestionByIdQuery<QuestionBySimilarSort, Q, QuestionEntry> {
+public abstract class AbstractQuestionSimilarQuery<Q extends AbstractQuestionSimilarQuery<Q>> extends AbstractQuestionByIdQuery<QuestionBySimilarSort, Q, QuestionEntry> {
 	public AbstractQuestionSimilarQuery(String method) {
 		super(QuestionBySimilarSort.class, QuestionEntry.class, method, true);
 	}

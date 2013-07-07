@@ -18,7 +18,7 @@ import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
  * @author Leon
  */
 @Getter
-public class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends ItemEntry> extends AbstractComplexFullQuery<AnswerSort, Q, I> {
+public abstract class AbstractAnswerQuery<Q extends AbstractAnswerQuery<Q, I>, I extends ItemEntry> extends AbstractComplexFullQuery<AnswerSort, Q, I> {
 	protected final List<Integer> answerIds;
 
 	public AbstractAnswerQuery(String method, Class<I> itemClass) {

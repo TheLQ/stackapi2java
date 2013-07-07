@@ -19,7 +19,7 @@ import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
  * @author Leon
  */
 @Getter
-public class AbstractSearchQuery<Q extends AbstractSearchQuery<Q>> extends AbstractComplexFullQuery<SearchSort, Q, QuestionEntry> {
+public abstract class AbstractSearchQuery<Q extends AbstractSearchQuery<Q>> extends AbstractComplexFullQuery<SearchSort, Q, QuestionEntry> {
 	protected final List<String> tagged = new ArrayList<String>();
 	protected final List<String> notTagged = new ArrayList<String>();
 

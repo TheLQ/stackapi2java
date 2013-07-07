@@ -18,7 +18,7 @@ import org.thelq.stackexchange.api.model.SortableField;
  * @author Leon
  */
 @Getter
-public class AbstractPostComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractPostComplexFullQuery<F, Q, I>, I extends ItemEntry> extends AbstractComplexFullQuery<F, Q, I> {
+public abstract class AbstractPostComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractPostComplexFullQuery<F, Q, I>, I extends ItemEntry> extends AbstractComplexFullQuery<F, Q, I> {
 	protected final List<Integer> postIds = new ArrayList<Integer>();
 
 	public AbstractPostComplexFullQuery(Class<F> enumClass, Class<I> itemClass, String method) {
