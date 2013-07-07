@@ -15,10 +15,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class QueryUtils {
 	/**
-	 * Global joiner for vectors. Used instead of StringUtils.join() since this
-	 * will throw an NPE when a null element is encountered
+	 * Joiner to create parameter for query. Used instead of StringUtils.join since this
+	 * throws NPE's on null elements
 	 */
-	protected static final Joiner VECTOR_JOINER = Joiner.on(',');
+	public static final Joiner PARAMETER_JOINER = Joiner.on(';');
 
 	private QueryUtils() {
 		//Do now allow instances
@@ -32,7 +32,7 @@ public final class QueryUtils {
 	public static String insertVector(String method, List<?> vector1) {
 		if (!method.contains("{}"))
 			throw new RuntimeException("No vector to replace in method " + method);
-		String vectorCombined = VECTOR_JOINER.join(vector1);
+		String vectorCombined = PARAMETER_JOINER.join(vector1);
 		return StringUtils.replaceOnce(method, "{}", vectorCombined);
 	}
 	
