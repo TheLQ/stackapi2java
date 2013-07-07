@@ -4,17 +4,20 @@
  */
 package org.thelq.stackexchange.api.queries;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import static org.testng.Assert.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.thelq.stackexchange.api.queries.site.comments.CommentDeleteQuery;
 import org.thelq.stackexchange.api.queries.site.comments.CommentEditQuery;
+import org.thelq.stackexchange.api.queries.site.question.QuestionCommentsQuery;
 
 /**
  *
@@ -70,5 +73,19 @@ public class QueriesFormatTest {
 		if (curClass.equals(CommentEditQuery.class) || curClass.equals(CommentDeleteQuery.class))
 			return;
 		assertEquals(curClass.getDeclaredConstructors()[0].getParameterTypes().length, 0, "Query " + curClass + " cannot have parameters");
+	}
+	
+	@Test(dataProvider = "queriesAllDataProvider")
+	public void fluentSettersAndAddersTest(Class<?> curClass) {
+		//TODO: Check actual return type instead of this guessing?
+		for(Method curMethod : curClass.getDeclaredMethods()) {
+			if(!curMethod.getName().startsWith("set") && !curMethod.getName().startsWith("add"))
+				continue;
+			if(curMethod.isSynthetic())
+				continue;
+			TypeVariable<Class> genericReturn = (TypeVariable<Class>)curMethod.getGenericReturnType();
+			assertEquals(genericReturn.getName(), "Q", "Unknown return name");
+			assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
+		}
 	}
 }
