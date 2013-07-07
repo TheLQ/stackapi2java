@@ -6,6 +6,7 @@ package org.thelq.stackexchange.api.queries;
 
 import com.google.common.reflect.ClassPath;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.TypeVariable;
@@ -16,6 +17,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.thelq.stackexchange.api.queries.site.comments.CommentDeleteQuery;
 import org.thelq.stackexchange.api.queries.site.comments.CommentEditQuery;
+import org.thelq.stackexchange.api.queries.site.question.AbstractQuestionByIdQuery;
 
 /**
  *
@@ -84,6 +86,18 @@ public class QueriesFormatTest {
 			TypeVariable<Class> genericReturn = (TypeVariable<Class>) curMethod.getGenericReturnType();
 			assertEquals(genericReturn.getName(), "Q", "Unknown return name");
 			assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
+		}
+	}
+
+	@Test(dataProvider = "queriesAllDataProvider")
+	public void noPrimativeTypes(Class<?> curClass) {
+		for (Field curField : curClass.getDeclaredFields()) {
+			//Exclude exception
+			if (curClass == AbstractQuestionByIdQuery.class && curField.getName().equals("idsRequired"))
+				continue;
+			assertFalse(curField.getType() == int.class, "No primative ints allowed for " + curField);
+			assertFalse(curField.getType() == long.class, "No primative longs allowed for " + curField);
+			assertFalse(curField.getType() == boolean.class, "No primative booleans allowed for " + curField);
 		}
 	}
 }
