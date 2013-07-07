@@ -24,7 +24,7 @@ public class QueriesFormatTest {
 		List<Class[]> params = new ArrayList<Class[]>();
 		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(AbstractQuery.class.getPackage().getName())) {
 			Class curClass = curClassInfo.load();
-			if (curClass.isInterface())
+			if (curClass.isInterface() || curClass.isEnum())
 				//Skip
 				continue;
 			else if (Modifier.isAbstract(curClass.getModifiers())) {
