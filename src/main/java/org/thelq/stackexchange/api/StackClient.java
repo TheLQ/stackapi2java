@@ -3,7 +3,6 @@ package org.thelq.stackexchange.api;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.thelq.stackexchange.api.exceptions.QueryException;
 import org.thelq.stackexchange.api.exceptions.QueryErrorException;
-import org.thelq.stackexchange.api.model.ResponseEntry;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -25,8 +24,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.thelq.stackexchange.api.model.BadgeEntry;
 import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.model.types.BadgeEntry;
+import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
 import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
 import org.thelq.stackexchange.api.queries.site.badges.BadgeInfoByIdQuery;
@@ -59,7 +59,7 @@ public class StackClient {
 				.build();
 	}
 
-	protected <E extends ItemEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
+	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
 		//Run query verification
 		Map<String, String> finalParameters = query.buildFinalParameters();
 		if (query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
