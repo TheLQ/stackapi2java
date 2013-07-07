@@ -6,7 +6,6 @@ package org.thelq.stackexchange.api.queries.site.badges;
 
 import java.util.LinkedHashMap;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 
 /**
@@ -14,16 +13,16 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  * @author Leon
  */
 @Getter
-public class BadgesQuery extends AbstractBadgesQuery<BadgesQuery> {
+public class AbstractBadgesByInNameQuery<Q extends AbstractBadgesByInNameQuery<Q>> extends AbstractBadgesQuery<Q> {
 	protected String inName;
 
-	public BadgesQuery(Type type) {
-		super(type.getMethod());
+	public AbstractBadgesByInNameQuery(String method) {
+		super(method);
 	}
 
-	public BadgesQuery setGetInName(String inName) {
+	public Q setGetInName(String inName) {
 		this.inName = inName;
-		return this;
+		return (Q) this;
 	}
 
 	@Override
@@ -31,14 +30,5 @@ public class BadgesQuery extends AbstractBadgesQuery<BadgesQuery> {
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
 		QueryUtils.putIfNotNull(finalParameters, "inName", getInName());
 		return finalParameters;
-	}
-
-	@Getter
-	@RequiredArgsConstructor
-	public static enum Type {
-		ALL("badges"),
-		NAMED("badges/named"),
-		TAG_BASED("badges/tags");
-		protected final String method;
 	}
 }
