@@ -13,7 +13,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  * @author Leon
  */
 @Getter
-public class AbstractBadgesByInNameQuery<Q extends AbstractBadgesByInNameQuery<Q>> extends AbstractBadgesQuery<Q> {
+public abstract class AbstractBadgesByInNameQuery<Q extends AbstractBadgesByInNameQuery<Q>> extends AbstractBadgesQuery<Q> {
 	protected String inName;
 
 	public AbstractBadgesByInNameQuery(String method) {
