@@ -14,14 +14,14 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  * @author Leon
  */
 @Getter
-public class BadgeInfoQuery extends AbstractBadgeInfoQuery<BadgeInfoQuery> {
+public class BadgesQuery extends AbstractBadgesQuery<BadgesQuery> {
 	protected String inName;
 
-	public BadgeInfoQuery(Type type) {
+	public BadgesQuery(Type type) {
 		super(type.getMethod());
 	}
 
-	public BadgeInfoQuery setGetInName(String inName) {
+	public BadgesQuery setGetInName(String inName) {
 		this.inName = inName;
 		return this;
 	}

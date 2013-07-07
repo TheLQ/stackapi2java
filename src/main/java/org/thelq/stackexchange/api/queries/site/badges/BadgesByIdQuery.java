@@ -15,15 +15,15 @@ import org.thelq.stackexchange.api.queries.site.AbstractSiteQuery;
  *
  * @author Leon
  */
-public class BadgeInfoByIdQuery extends AbstractBadgeInfoQuery<BadgeInfoByIdQuery> {
+public class BadgesByIdQuery extends AbstractBadgesQuery<BadgesByIdQuery> {
 	protected final List<Integer> badgeIds;
 
-	public BadgeInfoByIdQuery() {
+	public BadgesByIdQuery() {
 		super("badges/{}/recipients");
 		badgeIds = new ArrayList<Integer>();
 	}
 
-	public BadgeInfoByIdQuery addBadgeId(int badgeId) {
+	public BadgesByIdQuery addBadgeId(int badgeId) {
 		badgeIds.add(badgeId);
 		return this;
 	}
