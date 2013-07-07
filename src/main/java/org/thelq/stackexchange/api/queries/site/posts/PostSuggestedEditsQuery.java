@@ -4,6 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries.site.posts;
 
+import org.thelq.stackexchange.api.model.sort.SuggestedEditSort;
 import com.google.common.base.Preconditions;
 import java.util.LinkedHashMap;
 import org.thelq.stackexchange.api.model.ItemEntry;
