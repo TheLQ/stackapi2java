@@ -7,6 +7,7 @@ package org.thelq.stackexchange.api.queries.site.events;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.types.EventEntry;
 import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
@@ -19,6 +20,7 @@ import org.thelq.stackexchange.api.queries.site.AbstractSitePagableQuery;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 public class EventQuery extends AbstractSitePagableQuery<EventQuery, EventEntry> implements AuthRequiredQuery {
 	protected DateTime since;
 

@@ -8,6 +8,7 @@ import com.google.common.base.Preconditions;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 
@@ -17,6 +18,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 public class SearchQuery extends AbstractSearchQuery<SearchQuery> {
 	protected String inTitle;
 

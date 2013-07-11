@@ -7,6 +7,7 @@ package org.thelq.stackexchange.api.queries.site.search;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 
 /**
@@ -15,6 +16,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 public class SearchAdvancedQuery extends AbstractSearchQuery<SearchAdvancedQuery> {
 	protected String q;
 	protected Boolean accepted;
@@ -27,7 +29,7 @@ public class SearchAdvancedQuery extends AbstractSearchQuery<SearchAdvancedQuery
 	protected Integer user;
 	protected String url;
 	protected Integer views;
-	protected Boolean wiki;
+	protected Boolean wiki;	
 
 	public SearchAdvancedQuery() {
 		super("search/advanced");
