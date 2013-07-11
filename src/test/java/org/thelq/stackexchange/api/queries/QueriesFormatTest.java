@@ -75,29 +75,44 @@ public class QueriesFormatTest {
 		assertEquals(curClass.getDeclaredConstructors()[0].getParameterTypes().length, 0, "Query " + curClass + " cannot have parameters");
 	}
 
-	@Test(dataProvider = "queriesAllDataProvider")
-	public void fluentSettersAndAddersTest(Class<?> curClass) {
-		//TODO: Check actual return type instead of this guessing?
-		for (Method curMethod : curClass.getDeclaredMethods()) {
-			if (!curMethod.getName().startsWith("set") && !curMethod.getName().startsWith("add"))
-				continue;
-			if (curMethod.isSynthetic())
-				continue;
-			TypeVariable<Class> genericReturn = (TypeVariable<Class>) curMethod.getGenericReturnType();
-			assertEquals(genericReturn.getName(), "Q", "Unknown return name");
-			assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
-		}
+	@DataProvider
+	public Object[][] fluentSettersAndAddersDataProvider() throws IOException {
+		List<Method[]> methods = new ArrayList<Method[]>();
+		for (Class[] curClassArray : getQueriesDataProvider(true, true))
+			for (Method curMethod : curClassArray[0].getMethods()) {
+				if (!curMethod.getName().startsWith("set") && !curMethod.getName().startsWith("add"))
+					continue;
+				if (curMethod.isSynthetic())
+					continue;
+				methods.add(new Method[]{curMethod});
+			}
+		return methods.toArray(new Method[methods.size()][]);
 	}
 
-	@Test(dataProvider = "queriesAllDataProvider")
-	public void noPrimativeTypes(Class<?> curClass) {
-		for (Field curField : curClass.getDeclaredFields()) {
-			//Exclude exception
-			if (curClass == AbstractQuestionByIdQuery.class && curField.getName().equals("idsRequired"))
-				continue;
+	@Test(dataProvider = "fluentSettersAndAddersDataProvider")
+	public void fluentSettersAndAddersTest(Method curMethod) {
+		//TODO: Check actual return type instead of this guessing?
+		TypeVariable<Class> genericReturn = (TypeVariable<Class>) curMethod.getGenericReturnType();
+		assertEquals(genericReturn.getName(), "Q", "Unknown return name");
+		assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
+	}
+	
+	@DataProvider
+	public Object[][] noPrimativeTypesDataProvider() throws IOException {
+		List<Field[]> fields = new ArrayList<Field[]>();
+		for (Class[] curClassArray : getQueriesDataProvider(true, true))
+			for(Field curField : curClassArray[0].getDeclaredFields()) {
+				if (curClassArray[0] == AbstractQuestionByIdQuery.class && curField.getName().equals("idsRequired"))
+					continue;
+				fields.add(new Field[]{curField});
+			}
+		return fields.toArray(new Field[fields.size()][]);
+	}
+
+	@Test(dataProvider = "noPrimativeTypesDataProvider")
+	public void noPrimativeTypes(Field curField) {
 			assertFalse(curField.getType() == int.class, "No primative ints allowed for " + curField);
 			assertFalse(curField.getType() == long.class, "No primative longs allowed for " + curField);
 			assertFalse(curField.getType() == boolean.class, "No primative booleans allowed for " + curField);
-		}
 	}
 }
