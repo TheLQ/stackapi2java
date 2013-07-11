@@ -29,6 +29,6 @@ public class SuggestedEditsQuery extends AbstractComplexFullQuery<SuggestedEditS
 
 	@Override
 	public String getMethod() {
-		return QueryUtils.insertVector(method, suggestedEditIds);
+		return QueryUtils.insertVector(super.getMethod(), suggestedEditIds);
 	}
 }
