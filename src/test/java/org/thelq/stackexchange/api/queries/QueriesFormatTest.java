@@ -24,7 +24,7 @@ import org.thelq.stackexchange.api.queries.site.question.AbstractQuestionByIdQue
  * @author Leon
  */
 public class QueriesFormatTest {
-	public Object[][] getQueriesDataProvider(boolean includeAbstract, boolean includeQueries) throws IOException {
+	public Class[][] getQueriesDataProvider(boolean includeAbstract, boolean includeQueries) throws IOException {
 		ClassPath classPath = ClassPath.from(getClass().getClassLoader());
 		List<Class[]> params = new ArrayList<Class[]>();
 		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(AbstractQuery.class.getPackage().getName())) {
@@ -38,7 +38,7 @@ public class QueriesFormatTest {
 			} else if (includeQueries)
 				params.add(new Class[]{curClass});
 		}
-		return params.toArray(new Object[params.size()][]);
+		return params.toArray(new Class[params.size()][]);
 	}
 
 	@DataProvider
