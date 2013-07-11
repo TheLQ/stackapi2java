@@ -9,11 +9,13 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.NoInjection;
 import org.testng.annotations.Test;
 import org.thelq.stackexchange.api.queries.site.comments.CommentDeleteQuery;
 import org.thelq.stackexchange.api.queries.site.comments.CommentEditQuery;
@@ -90,18 +92,27 @@ public class QueriesFormatTest {
 	}
 
 	@Test(dataProvider = "fluentSettersAndAddersDataProvider")
-	public void fluentSettersAndAddersTest(Method curMethod) {
+	public void fluentSettersAndAddersTest(@NoInjection Method curMethod) {
 		//TODO: Check actual return type instead of this guessing?
-		TypeVariable<Class> genericReturn = (TypeVariable<Class>) curMethod.getGenericReturnType();
-		assertEquals(genericReturn.getName(), "Q", "Unknown return name");
-		assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
+		System.out.println("Current method: " + curMethod);
+		Type returnType = curMethod.getGenericReturnType();
+		assertNotEquals(returnType, Void.TYPE, "Cannot return void");
+		if (returnType instanceof TypeVariable) {
+			TypeVariable<Class> genericReturn = (TypeVariable<Class>) returnType;
+			assertEquals(genericReturn.getName(), "Q", "Unknown return name");
+			assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
+		} else if (returnType == curMethod.getDeclaringClass())
+			//Returning itself, make sure this is the final class
+			assertFalse(Modifier.isAbstract(curMethod.getDeclaringClass().getModifiers()));
+		else
+			throw new RuntimeException("Unknown return type " + returnType + " | " + returnType.getClass());
 	}
-	
+
 	@DataProvider
 	public Object[][] noPrimativeTypesDataProvider() throws IOException {
 		List<Field[]> fields = new ArrayList<Field[]>();
 		for (Class[] curClassArray : getQueriesDataProvider(true, true))
-			for(Field curField : curClassArray[0].getDeclaredFields()) {
+			for (Field curField : curClassArray[0].getDeclaredFields()) {
 				if (curClassArray[0] == AbstractQuestionByIdQuery.class && curField.getName().equals("idsRequired"))
 					continue;
 				fields.add(new Field[]{curField});
@@ -111,8 +122,8 @@ public class QueriesFormatTest {
 
 	@Test(dataProvider = "noPrimativeTypesDataProvider")
 	public void noPrimativeTypes(Field curField) {
-			assertFalse(curField.getType() == int.class, "No primative ints allowed for " + curField);
-			assertFalse(curField.getType() == long.class, "No primative longs allowed for " + curField);
-			assertFalse(curField.getType() == boolean.class, "No primative booleans allowed for " + curField);
+		assertFalse(curField.getType() == int.class, "No primative ints allowed for " + curField);
+		assertFalse(curField.getType() == long.class, "No primative longs allowed for " + curField);
+		assertFalse(curField.getType() == boolean.class, "No primative booleans allowed for " + curField);
 	}
 }
