@@ -81,7 +81,7 @@ public class QueriesFormatTest {
 	public Object[][] fluentSettersAndAddersDataProvider() throws IOException {
 		List<Method[]> methods = new ArrayList<Method[]>();
 		for (Class[] curClassArray : getQueriesDataProvider(true, true))
-			for (Method curMethod : curClassArray[0].getMethods()) {
+			for (Method curMethod : curClassArray[0].getDeclaredMethods()) {
 				if (!curMethod.getName().startsWith("set") && !curMethod.getName().startsWith("add"))
 					continue;
 				if (curMethod.isSynthetic())
@@ -94,16 +94,17 @@ public class QueriesFormatTest {
 	@Test(dataProvider = "fluentSettersAndAddersDataProvider")
 	public void fluentSettersAndAddersTest(@NoInjection Method curMethod) {
 		//TODO: Check actual return type instead of this guessing?
-		System.out.println("Current method: " + curMethod);
+		Class<?> curClass = curMethod.getDeclaringClass();
+		assertTrue(Modifier.isPublic(curClass.getModifiers()), "Must be public");
 		Type returnType = curMethod.getGenericReturnType();
 		assertNotEquals(returnType, Void.TYPE, "Cannot return void");
 		if (returnType instanceof TypeVariable) {
 			TypeVariable<Class> genericReturn = (TypeVariable<Class>) returnType;
 			assertEquals(genericReturn.getName(), "Q", "Unknown return name");
 			assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
-		} else if (returnType == curMethod.getDeclaringClass())
+		} else if (returnType == curClass)
 			//Returning itself, make sure this is the final class
-			assertFalse(Modifier.isAbstract(curMethod.getDeclaringClass().getModifiers()));
+			assertFalse(Modifier.isAbstract(curClass.getModifiers()));
 		else
 			throw new RuntimeException("Unknown return type " + returnType + " | " + returnType.getClass());
 	}
