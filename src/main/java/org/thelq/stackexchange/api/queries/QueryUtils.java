@@ -33,7 +33,7 @@ public final class QueryUtils {
 		finalParameters.put(key, valueString);
 	}
 
-	public static String insertVector(String method, List<?> vector1) {
+	public static String insertVector(String method, Iterable<?> vector1) {
 		if (!method.contains("{}"))
 			throw new RuntimeException("No vector to replace in method " + method);
 		String vectorCombined = PARAMETER_JOINER.join(vector1);
