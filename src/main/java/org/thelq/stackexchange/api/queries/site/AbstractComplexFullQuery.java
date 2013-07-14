@@ -15,7 +15,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
  * @author Leon
  */
 @Getter
-public abstract class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<F, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {
+public class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<F, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {
 	protected final Class<F> enumClass;
 	protected Order order;
 	protected F sort;

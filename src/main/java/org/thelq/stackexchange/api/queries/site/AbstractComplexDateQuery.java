@@ -14,7 +14,7 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  * @author Leon
  */
 @Getter
-public abstract class AbstractComplexDateQuery<Q extends AbstractComplexDateQuery<Q, I>, I extends ItemEntry> extends AbstractSitePagableQuery<Q, I> {
+public class AbstractComplexDateQuery<Q extends AbstractComplexDateQuery<Q, I>, I extends ItemEntry> extends AbstractSitePagableQuery<Q, I> {
 	protected DateTime toDate;
 	protected DateTime fromDate;
 
