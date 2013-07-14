@@ -18,18 +18,22 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  */
 @Getter
 public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends ItemEntry> {
-	protected final String method;
+	protected final String methodRaw;
 	protected final LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
 	protected final Class<I> itemClass;
 
-	public AbstractQuery(Class<I> itemClass, String method) {
+	public AbstractQuery(Class<I> itemClass, String methodRaw) {
 		this.itemClass = itemClass;
-		this.method = method;
+		this.methodRaw = methodRaw;
 	}
 
 	public Q setParameter(String key, String value) {
 		getParameters().put(key, value);
 		return (Q) this;
+	}
+	
+	public String getMethodFinal() {
+		return methodRaw;
 	}
 
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
