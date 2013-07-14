@@ -25,7 +25,7 @@ public final class QuestionQueries {
 
 	public static <Q extends AbstractComplexFullQuery<ByTaggedSort, Q, QuestionEntry>> Q all() {
 		return new AbstractComplexFullQuery<ByTaggedSort, Q, QuestionEntry>(ByTaggedSort.class, QuestionEntry.class, "questions")
-				.getThis();
+				.self();
 	}
 
 	public static <Q extends AbstractComplexFullQuery<ByTaggedSort, Q, QuestionEntry>> Q byTags(Iterable<String> tags) {
@@ -39,7 +39,7 @@ public final class QuestionQueries {
 
 	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byFeatured() {
 		return new AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>(QuestionSort.class, QuestionEntry.class, "questions/featured")
-				.getThis();
+				.self();
 	}
 
 	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byFeatured(Iterable<String> tags) {
@@ -49,7 +49,7 @@ public final class QuestionQueries {
 
 	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byUnanswered() {
 		return new AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>(QuestionSort.class, QuestionEntry.class, "questions/unanswered")
-				.getThis();
+				.self();
 	}
 
 	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byUnanswered(Iterable<String> tags) {
@@ -59,7 +59,7 @@ public final class QuestionQueries {
 
 	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byNoAnswers() {
 		return new AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>(QuestionSort.class, QuestionEntry.class, "questions/no-answers")
-				.getThis();
+				.self();
 	}
 
 	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byNoAnswers(Iterable<String> tags) {
