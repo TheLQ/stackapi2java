@@ -5,6 +5,7 @@
 package org.thelq.stackexchange.api.queries.site;
 
 import java.util.Collection;
+import lombok.NonNull;
 import org.thelq.stackexchange.api.model.SortableField;
 import org.thelq.stackexchange.api.model.sort.CommentsSort;
 import org.thelq.stackexchange.api.model.types.AnswerEntry;
@@ -29,7 +30,7 @@ public final class QuestionQueries {
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<ByTaggedSort, Q, QuestionEntry>> Q byTags(Collection<String> tags) {
+	public static <Q extends AbstractComplexFullQuery<ByTaggedSort, Q, QuestionEntry>> Q byTags(@NonNull Collection<String> tags) {
 		return new AbstractComplexFullQuery<ByTaggedSort, Q, QuestionEntry>(ByTaggedSort.class, QuestionEntry.class, new SimpleQueryMethod("questions"))
 				.setParameter("tagged", QueryUtils.PARAMETER_JOINER.join(tags));
 	}
@@ -44,7 +45,7 @@ public final class QuestionQueries {
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byFeatured(Collection<String> tags) {
+	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byFeatured(@NonNull Collection<String> tags) {
 		return new AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>(QuestionSort.class, QuestionEntry.class, new SimpleQueryMethod("questions/featured"))
 				.setParameter("tagged", QueryUtils.PARAMETER_JOINER.join(tags));
 	}
@@ -54,7 +55,7 @@ public final class QuestionQueries {
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byUnanswered(Collection<String> tags) {
+	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byUnanswered(@NonNull Collection<String> tags) {
 		return new AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>(QuestionSort.class, QuestionEntry.class, new SimpleQueryMethod("questions/unanswered"))
 				.setParameter("tagged", QueryUtils.PARAMETER_JOINER.join(tags));
 	}
@@ -64,7 +65,7 @@ public final class QuestionQueries {
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byNoAnswers(Collection<String> tags) {
+	public static <Q extends AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>> Q byNoAnswers(@NonNull Collection<String> tags) {
 		return new AbstractComplexFullQuery<QuestionSort, Q, QuestionEntry>(QuestionSort.class, QuestionEntry.class, new SimpleQueryMethod("questions/no-answers"))
 				.setParameter("tagged", QueryUtils.PARAMETER_JOINER.join(tags));
 	}
