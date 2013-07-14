@@ -24,6 +24,7 @@ public class VectorQueryMethod implements QueryMethod {
 	}
 
 	public VectorQueryMethod(String raw, Iterable<?> vector, boolean vectorRequired) {
+		Preconditions.checkArgument(raw.contains("{}"), "Raw method does not contain vector");
 		this.raw = raw;
 		this.vector = vector;
 		this.vectorRequired = vectorRequired;
