@@ -29,11 +29,15 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 
 	public Q setParameter(String key, String value) {
 		getParameters().put(key, value);
-		return (Q) this;
+		return self();
 	}
 	
 	public String getMethodFinal() {
 		return methodRaw;
+	}
+	
+	public Q self() {
+		return (Q) this;
 	}
 
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {

@@ -25,13 +25,13 @@ public abstract class AbstractSitePagableQuery<Q extends AbstractSitePagableQuer
 	@Override
 	public Q setPage(int page) {
 		this.page = page;
-		return (Q) this;
+		return self();
 	}
 
 	@Override
 	public Q setPageSize(int pageSize) {
 		this.pageSize = pageSize;
-		return (Q) this;
+		return self();
 	}
 
 	@Override

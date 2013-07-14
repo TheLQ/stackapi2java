@@ -29,22 +29,22 @@ public abstract class AbstractComplexFullQuery<F extends Enum<F> & SortableField
 
 	public Q setOrder(Order order) {
 		this.order = order;
-		return (Q) this;
+		return self();
 	}
 
 	public Q setSort(F sort) {
 		this.sort = sort;
-		return (Q) this;
+		return self();
 	}
 
 	public Q setMin(int min) {
 		this.min = min;
-		return (Q) this;
+		return self();
 	}
 
 	public Q setMax(int max) {
 		this.max = max;
-		return (Q) this;
+		return self();
 	}
 
 	@Override

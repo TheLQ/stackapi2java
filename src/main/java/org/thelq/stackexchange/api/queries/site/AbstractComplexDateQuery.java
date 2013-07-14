@@ -24,12 +24,12 @@ public abstract class AbstractComplexDateQuery<Q extends AbstractComplexDateQuer
 
 	public Q setFromDate(DateTime fromDate) {
 		this.fromDate = fromDate;
-		return (Q) this;
+		return self();
 	}
 
 	public Q setToDate(DateTime toDate) {
 		this.toDate = toDate;
-		return (Q) this;
+		return self();
 	}
 
 	@Override

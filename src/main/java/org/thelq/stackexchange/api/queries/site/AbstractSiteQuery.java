@@ -26,7 +26,7 @@ public abstract class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I ext
 
 	public Q setSite(String site) {
 		this.site = site;
-		return (Q) this;
+		return self();
 	}
 
 	@Override
