@@ -24,6 +24,7 @@ public class VectorQueryMethod implements QueryMethod {
 	public VectorQueryMethod(@NonNull String raw, @NonNull Collection<?> vector) {
 		Preconditions.checkArgument(raw.contains("{}"), "Raw method does not contain vector");
 		Preconditions.checkArgument(!vector.isEmpty(), "Vector collection is empty");
+		Preconditions.checkArgument(vector.size() < 100, "Vectors do not support more than 100 elements");
 		this.raw = raw;
 		this.vector = vector;
 	}
