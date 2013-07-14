@@ -25,7 +25,7 @@ public class AbstractComplexSortedQuery<F extends Enum<F> & SortableField, Q ext
 		super(itemClass, method);
 		this.enumClass = enumClass;
 	}
-	
+
 	public Q setSort(F sort) {
 		this.sort = sort;
 		return self();
@@ -34,5 +34,13 @@ public class AbstractComplexSortedQuery<F extends Enum<F> & SortableField, Q ext
 	public Q setOrder(Order order) {
 		this.order = order;
 		return self();
+	}
+
+	@Override
+	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
+		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
+		QueryUtils.putIfNotNull(finalParameters, "order", order);
+		QueryUtils.putIfNotNull(finalParameters, "sort", sort);
+		return finalParameters;
 	}
 }

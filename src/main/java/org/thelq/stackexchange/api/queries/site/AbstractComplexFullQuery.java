@@ -37,8 +37,6 @@ public class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q exten
 	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
-		QueryUtils.putIfNotNull(finalParameters, "order", order);
-		QueryUtils.putIfNotNull(finalParameters, "sort", sort);
 		QueryUtils.putIfNotNull(finalParameters, "min", min);
 		QueryUtils.putIfNotNull(finalParameters, "max", max);
 		return finalParameters;
