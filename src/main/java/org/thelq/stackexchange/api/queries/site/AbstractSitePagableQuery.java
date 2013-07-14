@@ -9,6 +9,7 @@ import lombok.Getter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.PagableQuery;
 import org.thelq.stackexchange.api.queries.QueryUtils;
+import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
  *
@@ -18,7 +19,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
 public class AbstractSitePagableQuery<Q extends AbstractSitePagableQuery<Q, I>, I extends ItemEntry> extends AbstractSiteQuery<Q, I> implements PagableQuery<Q> {
 	protected Integer page;
 	protected Integer pageSize;
-	public AbstractSitePagableQuery(Class<I> itemClass, String method) {
+	public AbstractSitePagableQuery(Class<I> itemClass, QueryMethod method) {
 		super(itemClass, method);
 	}
 

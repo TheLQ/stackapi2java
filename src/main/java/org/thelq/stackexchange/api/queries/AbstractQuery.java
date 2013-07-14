@@ -4,13 +4,10 @@
  */
 package org.thelq.stackexchange.api.queries;
 
-import com.google.common.collect.ImmutableList;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
  *
@@ -18,22 +15,18 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  */
 @Getter
 public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends ItemEntry> {
-	protected final String methodRaw;
+	protected final QueryMethod method;
 	protected final LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
 	protected final Class<I> itemClass;
 
-	public AbstractQuery(Class<I> itemClass, String methodRaw) {
+	public AbstractQuery(Class<I> itemClass, QueryMethod method) {
 		this.itemClass = itemClass;
-		this.methodRaw = methodRaw;
+		this.method = method;
 	}
 
 	public Q setParameter(String key, String value) {
 		getParameters().put(key, value);
 		return self();
-	}
-	
-	public String getMethodFinal() {
-		return methodRaw;
 	}
 	
 	public Q self() {

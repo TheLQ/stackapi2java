@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
+import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
  *
@@ -22,7 +23,7 @@ public class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q exten
 	protected Integer min;
 	protected Integer max;
 
-	public AbstractComplexFullQuery(Class<F> enumClass, Class<I> itemClass, String method) {
+	public AbstractComplexFullQuery(Class<F> enumClass, Class<I> itemClass, QueryMethod method) {
 		super(itemClass, method);
 		this.enumClass = enumClass;
 	}

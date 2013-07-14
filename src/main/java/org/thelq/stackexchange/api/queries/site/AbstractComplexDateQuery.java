@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import lombok.Getter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
  *
@@ -18,7 +19,7 @@ public class AbstractComplexDateQuery<Q extends AbstractComplexDateQuery<Q, I>, 
 	protected DateTime toDate;
 	protected DateTime fromDate;
 
-	public AbstractComplexDateQuery(Class<I> itemClass, String method) {
+	public AbstractComplexDateQuery(Class<I> itemClass, QueryMethod method) {
 		super(itemClass, method);
 	}
 
