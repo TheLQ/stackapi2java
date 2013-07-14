@@ -6,7 +6,6 @@ package org.thelq.stackexchange.api.queries.site;
 
 import java.util.Collection;
 import org.thelq.stackexchange.api.model.sort.AnswerSort;
-import org.thelq.stackexchange.api.model.sort.CommentsSort;
 import org.thelq.stackexchange.api.model.types.AnswerEntry;
 import org.thelq.stackexchange.api.model.types.CommentEntry;
 import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
