@@ -12,6 +12,7 @@ import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 import lombok.Getter;
@@ -25,11 +26,11 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.types.BadgeEntry;
+import org.thelq.stackexchange.api.model.types.QuestionEntry;
 import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
 import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
-import org.thelq.stackexchange.api.queries.site.badges.BadgeInfoByIdQuery;
+import org.thelq.stackexchange.api.queries.site.QuestionQueries;
 
 /**
  *
@@ -64,7 +65,7 @@ public class StackClient {
 		Map<String, String> finalParameters = query.buildFinalParameters();
 		if (query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
 			throw new RuntimeException("Query " + query.getClass().getName() + " requires an accessToken");
-		String method = query.getMethod();
+		String method = query.getMethod().getFinal();
 		if(method.contains("{}"))
 			throw new RuntimeException("Unreplaced vector remaining in method " + method);
 
@@ -133,7 +134,7 @@ public class StackClient {
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
 
-			ResponseEntry<BadgeEntry> response = client.query(new BadgeInfoByIdQuery().addBadgeId(94).setParameter("min", "5").setSite("stackoverflow"));
+			ResponseEntry<QuestionEntry> response = client.query(QuestionQueries.byTags(new ArrayList<String>()).setMax(6));
 			log.debug("Got " + response.getItems().size() + " badges");
 
 		} catch (QueryException e) {
