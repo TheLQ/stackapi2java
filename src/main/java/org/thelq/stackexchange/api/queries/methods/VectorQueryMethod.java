@@ -5,8 +5,10 @@
 package org.thelq.stackexchange.api.queries.methods;
 
 import com.google.common.base.Preconditions;
+import java.util.Collection;
 import java.util.Iterator;
 import lombok.Getter;
+import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.queries.QueryUtils;
 
@@ -17,10 +19,11 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
 @Getter
 public class VectorQueryMethod implements QueryMethod {
 	protected final String raw;
-	protected final Iterable<?> vector;
+	protected final Collection<?> vector;
 
-	public VectorQueryMethod(String raw, Iterable<?> vector) {
+	public VectorQueryMethod(@NonNull String raw, @NonNull Collection<?> vector) {
 		Preconditions.checkArgument(raw.contains("{}"), "Raw method does not contain vector");
+		Preconditions.checkArgument(!vector.isEmpty(), "Vector collection is empty");
 		this.raw = raw;
 		this.vector = vector;
 	}
