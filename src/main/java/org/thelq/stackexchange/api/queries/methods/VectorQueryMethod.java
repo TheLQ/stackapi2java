@@ -18,33 +18,21 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
 public class VectorQueryMethod implements QueryMethod {
 	protected final String raw;
 	protected final Iterable<?> vector;
-	protected final boolean vectorRequired;
 
 	public VectorQueryMethod(String raw, Iterable<?> vector) {
-		this(raw, vector, false);
-	}
-
-	public VectorQueryMethod(String raw, Iterable<?> vector, boolean vectorRequired) {
 		Preconditions.checkArgument(raw.contains("{}"), "Raw method does not contain vector");
 		this.raw = raw;
 		this.vector = vector;
-		this.vectorRequired = vectorRequired;
 	}
 
 	public String getFinal() {
 		//Verify vector if it is required
 		Iterator<?> vectorItr = vector.iterator();
-		boolean containsValues = vectorItr.hasNext();
-		if (vectorRequired && !containsValues)
+		if (!vectorItr.hasNext())
 			throw new RuntimeException("Vector cannot be empty");
 
 		//Do the replace
-		String methodFinal;
-		if (!containsValues)
-			//Just return the method minus the {}
-			methodFinal = StringUtils.remove(raw, "{}");
-		else
-			methodFinal = StringUtils.replaceOnce(raw, "{}", QueryUtils.PARAMETER_JOINER.join(vectorItr));
+		String methodFinal = StringUtils.replaceOnce(raw, "{}", QueryUtils.PARAMETER_JOINER.join(vectorItr));
 		
 		//Make sure we didn't miss anything
 		if(methodFinal.contains("{}"))
