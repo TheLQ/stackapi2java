@@ -16,9 +16,8 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
  * @author Leon
  */
 @Getter
-public class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<F, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {
+public class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<F, Q, I>, I extends ItemEntry> extends AbstractComplexOrderDateQuery<Q, I> {
 	protected final Class<F> enumClass;
-	protected Order order;
 	protected F sort;
 	protected Integer min;
 	protected Integer max;
@@ -26,11 +25,6 @@ public class AbstractComplexFullQuery<F extends Enum<F> & SortableField, Q exten
 	public AbstractComplexFullQuery(Class<F> enumClass, Class<I> itemClass, QueryMethod method) {
 		super(itemClass, method);
 		this.enumClass = enumClass;
-	}
-
-	public Q setOrder(Order order) {
-		this.order = order;
-		return self();
 	}
 
 	public Q setSort(F sort) {
