@@ -6,13 +6,12 @@ package org.thelq.stackexchange.api.queries.site;
 
 import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.model.SortableField;
+import org.thelq.stackexchange.api.model.sort.CommentsSort;
 import org.thelq.stackexchange.api.model.types.AnswerEntry;
 import org.thelq.stackexchange.api.model.types.CommentEntry;
 import org.thelq.stackexchange.api.model.types.QuestionEntry;
 import org.thelq.stackexchange.api.model.types.QuestionTimelineEntry;
 import org.thelq.stackexchange.api.queries.QueryUtils;
-import org.thelq.stackexchange.api.queries.site.AbstractComplexDateQuery;
-import org.thelq.stackexchange.api.queries.site.AbstractComplexFullQuery;
 
 /**
  *
@@ -79,8 +78,8 @@ public final class QuestionQueries {
 		return new QuestionByIdComplexQuery<QuestionSort, AnswerEntry>(QuestionSort.class, AnswerEntry.class, "questions/{}/answers", questionIds);
 	}
 
-	public static AbstractComplexFullQuery<CommentSort, ?, CommentEntry> comments(final Iterable<Integer> questionIds) {
-		return new QuestionByIdComplexQuery<CommentSort, CommentEntry>(CommentSort.class, CommentEntry.class, "questions/{}/comments", questionIds);
+	public static AbstractComplexFullQuery<CommentsSort, ?, CommentEntry> comments(final Iterable<Integer> questionIds) {
+		return new QuestionByIdComplexQuery<CommentsSort, CommentEntry>(CommentsSort.class, CommentEntry.class, "questions/{}/comments", questionIds);
 	}
 
 	public static <Q extends AbstractComplexDateQuery<Q, QuestionTimelineEntry>> Q timeline(final Iterable<Integer> questionIds) {
@@ -90,11 +89,6 @@ public final class QuestionQueries {
 				return QueryUtils.insertVector(super.getMethodFinal(), questionIds);
 			}
 		}.self();
-	}
-
-	public static enum CommentSort implements SortableField {
-		VOTES,
-		CREATION
 	}
 
 	public static enum QuestionSort implements SortableField {
