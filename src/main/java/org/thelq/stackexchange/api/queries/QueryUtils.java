@@ -32,15 +32,4 @@ public final class QueryUtils {
 		Preconditions.checkArgument(StringUtils.isNotBlank(valueString), "Value cannot be blank");
 		finalParameters.put(key, valueString);
 	}
-
-	public static String insertVector(String method, Iterable<?> vector1) {
-		if (!method.contains("{}"))
-			throw new RuntimeException("No vector to replace in method " + method);
-		String vectorCombined = PARAMETER_JOINER.join(vector1);
-		return StringUtils.replaceOnce(method, "{}", vectorCombined);
-	}
-
-	public static String insertVector(String method, List<?> vector1, List<?> vector2) {
-		return insertVector(insertVector(method, vector1), vector2);
-	}
 }
