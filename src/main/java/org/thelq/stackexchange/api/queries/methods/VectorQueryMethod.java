@@ -15,8 +15,8 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
 @RequiredArgsConstructor
 @Getter
 public class VectorQueryMethod implements QueryMethod {
-	protected String raw;
-	protected Iterable<?> iterator;
+	protected final String raw;
+	protected final Iterable<?> iterator;
 
 	public String getFinal() {
 		return QueryUtils.insertVector(raw, iterator);

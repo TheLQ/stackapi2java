@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class SimpleQueryMethod implements QueryMethod {
-	protected String raw;
+	protected final String raw;
 
 	public String getFinal() {
 		return raw;
