@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.thelq.stackexchange.api.model.sort;
+package org.thelq.stackexchange.api.queries.site;
 
 import org.thelq.stackexchange.api.model.SortableField;
 
