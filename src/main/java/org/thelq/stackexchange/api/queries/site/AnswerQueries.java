@@ -21,8 +21,8 @@ public class AnswerQueries {
 	 * @see <a href="https://api.stackexchange.com/docs/answers">StackExchange API /answers usage documentation</a>
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<AnswerSort, Q, AnswerEntry>> Q all() {
-		return new AbstractComplexFullQuery<AnswerSort, Q, AnswerEntry>(AnswerSort.class, AnswerEntry.class, new SimpleQueryMethod("answers"))
+	public static <Q extends AbstractComplexFullQuery<Integer, AnswerSort, Q, AnswerEntry>> Q all() {
+		return new AbstractComplexFullQuery<Integer, AnswerSort, Q, AnswerEntry>(AnswerSort.class, AnswerEntry.class, new SimpleQueryMethod("answers"))
 				.self();
 	}
 
@@ -32,8 +32,8 @@ public class AnswerQueries {
 	 * @param answerIds Non-null, non-empty collection of answer ids
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<AnswerSort, Q, AnswerEntry>> Q byIds(Collection<Integer> answerIds) {
-		return new AbstractComplexFullQuery<AnswerSort, Q, AnswerEntry>(AnswerSort.class, AnswerEntry.class, new VectorQueryMethod("answers/{}", answerIds))
+	public static <Q extends AbstractComplexFullQuery<Integer, AnswerSort, Q, AnswerEntry>> Q byIds(Collection<Integer> answerIds) {
+		return new AbstractComplexFullQuery<Integer, AnswerSort, Q, AnswerEntry>(AnswerSort.class, AnswerEntry.class, new VectorQueryMethod("answers/{}", answerIds))
 				.self();
 	}
 
@@ -43,8 +43,8 @@ public class AnswerQueries {
 	 * @param answerIds Non-null, non-empty collection of answer ids
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<CommentsSort, Q, CommentEntry>> Q comments(Collection<Integer> answerIds) {
-		return new AbstractComplexFullQuery<CommentsSort, Q, CommentEntry>(CommentsSort.class, CommentEntry.class, new VectorQueryMethod("answers/{}/comments", answerIds))
+	public static <Q extends AbstractComplexFullQuery<Integer, CommentsSort, Q, CommentEntry>> Q comments(Collection<Integer> answerIds) {
+		return new AbstractComplexFullQuery<Integer, CommentsSort, Q, CommentEntry>(CommentsSort.class, CommentEntry.class, new VectorQueryMethod("answers/{}/comments", answerIds))
 				.self();
 	}
 }
