@@ -16,12 +16,16 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
  * @author Leon
  */
 @Getter
-public class AbstractComplexFullQuery<M, F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<M, F, Q, I>, I extends ItemEntry> extends AbstractComplexSortedQuery<F, Q, I> {
+public class AbstractComplexFullQuery<M, F extends Enum<F> & SortableField, Q extends AbstractComplexFullQuery<M, F, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {
 	protected M min;
 	protected M max;
+	protected Order order;
+	protected final Class<F> enumClass;
+	protected F sort;
 
 	public AbstractComplexFullQuery(Class<F> enumClass, Class<I> itemClass, QueryMethod method) {
-		super(enumClass, itemClass, method);
+		super(itemClass, method);
+		this.enumClass = enumClass;
 	}
 
 	public Q setMin(M min) {
@@ -33,12 +37,24 @@ public class AbstractComplexFullQuery<M, F extends Enum<F> & SortableField, Q ex
 		this.max = max;
 		return self();
 	}
+	
+	public Q setSort(F sort) {
+		this.sort = sort;
+		return self();
+	}
+
+	public Q setOrder(Order order) {
+		this.order = order;
+		return self();
+	}
 
 	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
 		QueryUtils.putIfNotNull(finalParameters, "min", min);
 		QueryUtils.putIfNotNull(finalParameters, "max", max);
+		QueryUtils.putIfNotNull(finalParameters, "order", order);
+		QueryUtils.putIfNotNull(finalParameters, "sort", sort);
 		return finalParameters;
 	}
 }
