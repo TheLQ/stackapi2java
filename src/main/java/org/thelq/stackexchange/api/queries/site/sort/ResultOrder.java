@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.queries.site;
+package org.thelq.stackexchange.api.queries.site.sort;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 @RequiredArgsConstructor
 @Getter
 @Accessors(fluent = true)
-public enum Order {
+public enum ResultOrder {
 	ASCENDING("asc"),
 	DESCENDING("desc");
 	

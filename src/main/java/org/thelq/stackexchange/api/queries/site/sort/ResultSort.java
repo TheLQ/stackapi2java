@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.model;
+package org.thelq.stackexchange.api.queries.site.sort;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.joda.time.DateTime;
  */
 @Getter
 @RequiredArgsConstructor
-public abstract class SortableField<M, F extends SortableField<M, F>> {
+public abstract class ResultSort<M, F extends ResultSort<M, F>> {
 	protected final String name;
 	protected M min;
 	protected M max;
