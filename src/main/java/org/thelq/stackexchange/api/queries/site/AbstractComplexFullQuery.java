@@ -4,7 +4,8 @@
  */
 package org.thelq.stackexchange.api.queries.site;
 
-import org.thelq.stackexchange.api.model.SortableField;
+import org.thelq.stackexchange.api.queries.site.sort.ResultOrder;
+import org.thelq.stackexchange.api.queries.site.sort.ResultSort;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.ItemEntry;
@@ -16,9 +17,9 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
  * @author Leon
  */
 @Getter
-public class AbstractComplexFullQuery<S extends SortableField<?, S>, Q extends AbstractComplexFullQuery<S, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {
+public class AbstractComplexFullQuery<S extends ResultSort, Q extends AbstractComplexFullQuery<S, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {
 	protected S sort;
-	protected Order order;
+	protected ResultOrder order;
 
 	public AbstractComplexFullQuery(Class<I> itemClass, QueryMethod method) {
 		super(itemClass, method);
@@ -29,7 +30,7 @@ public class AbstractComplexFullQuery<S extends SortableField<?, S>, Q extends A
 		return self();
 	}
 
-	public Q setOrder(Order order) {
+	public Q setOrder(ResultOrder order) {
 		this.order = order;
 		return self();
 	}
