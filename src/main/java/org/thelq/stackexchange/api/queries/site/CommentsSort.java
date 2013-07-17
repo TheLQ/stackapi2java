@@ -2,16 +2,25 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.thelq.stackexchange.api.queries.site;
 
-import org.thelq.stackexchange.api.model.SortableField;
+import org.joda.time.DateTime;
+import org.thelq.stackexchange.api.queries.site.sort.ResultSort;
 
 /**
  *
  * @author Leon
  */
-public enum CommentsSort implements SortableField {
-	CREATION,
-	VOTES
+public class CommentsSort<M> extends ResultSort<M, CommentsSort<M>> {
+	public static CommentsSort<DateTime> creation() {
+		return new CommentsSort<DateTime>("creation");
+	}
+
+	public static CommentsSort<Integer> votes() {
+		return new CommentsSort<Integer>("votes");
+	}
+
+	public CommentsSort(String name) {
+		super(name);
+	}
 }
