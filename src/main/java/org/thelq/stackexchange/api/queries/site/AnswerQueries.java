@@ -4,9 +4,9 @@
  */
 package org.thelq.stackexchange.api.queries.site;
 
-import org.thelq.stackexchange.api.queries.site.sort.CommentsSort;
+import org.thelq.stackexchange.api.queries.site.sort.BaseCommentSort;
 import java.util.Collection;
-import org.thelq.stackexchange.api.queries.site.sort.AnswerSort;
+import org.thelq.stackexchange.api.queries.site.sort.BaseAnswerSort;
 import org.thelq.stackexchange.api.model.types.AnswerEntry;
 import org.thelq.stackexchange.api.model.types.CommentEntry;
 import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
@@ -22,8 +22,8 @@ public class AnswerQueries {
 	 * @see <a href="https://api.stackexchange.com/docs/answers">StackExchange API /answers usage documentation</a>
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<AnswerSort<?>, Q, AnswerEntry>> Q all() {
-		return new AbstractComplexFullQuery<AnswerSort<?>, Q, AnswerEntry>(AnswerEntry.class, new SimpleQueryMethod("answers"))
+	public static <Q extends AbstractComplexFullQuery<BaseAnswerSort<?>, Q, AnswerEntry>> Q all() {
+		return new AbstractComplexFullQuery<BaseAnswerSort<?>, Q, AnswerEntry>(AnswerEntry.class, new SimpleQueryMethod("answers"))
 				.self();
 	}
 
@@ -33,8 +33,8 @@ public class AnswerQueries {
 	 * @param answerIds Non-null, non-empty collection of answer ids
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<AnswerSort<?>, Q, AnswerEntry>> Q byIds(Collection<Integer> answerIds) {
-		return new AbstractComplexFullQuery<AnswerSort<?>, Q, AnswerEntry>(AnswerEntry.class, new VectorQueryMethod("answers/{}", answerIds))
+	public static <Q extends AbstractComplexFullQuery<BaseAnswerSort<?>, Q, AnswerEntry>> Q byIds(Collection<Integer> answerIds) {
+		return new AbstractComplexFullQuery<BaseAnswerSort<?>, Q, AnswerEntry>(AnswerEntry.class, new VectorQueryMethod("answers/{}", answerIds))
 				.self();
 	}
 
@@ -44,8 +44,8 @@ public class AnswerQueries {
 	 * @param answerIds Non-null, non-empty collection of answer ids
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<CommentsSort<?>, Q, CommentEntry>> Q comments(Collection<Integer> answerIds) {
-		return new AbstractComplexFullQuery<CommentsSort<?>, Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("answers/{}/comments", answerIds))
+	public static <Q extends AbstractComplexFullQuery<BaseCommentSort<?>, Q, CommentEntry>> Q comments(Collection<Integer> answerIds) {
+		return new AbstractComplexFullQuery<BaseCommentSort<?>, Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("answers/{}/comments", answerIds))
 				.self();
 	}
 }
