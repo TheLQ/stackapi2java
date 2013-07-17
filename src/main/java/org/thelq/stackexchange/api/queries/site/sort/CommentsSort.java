@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.queries.site;
+package org.thelq.stackexchange.api.queries.site.sort;
 
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.queries.site.sort.ResultSort;
