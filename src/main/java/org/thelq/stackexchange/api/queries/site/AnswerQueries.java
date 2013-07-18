@@ -4,7 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries.site;
 
-import org.thelq.stackexchange.api.queries.site.sort.BaseCommentSort;
+import org.thelq.stackexchange.api.queries.site.sort.CommentSort;
 import java.util.Collection;
 import org.thelq.stackexchange.api.queries.site.sort.BaseAnswerSort;
 import org.thelq.stackexchange.api.model.types.AnswerEntry;
@@ -44,8 +44,8 @@ public class AnswerQueries {
 	 * @param answerIds Non-null, non-empty collection of answer ids
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<BaseCommentSort<?>, Q, CommentEntry>> Q comments(Collection<Integer> answerIds) {
-		return new AbstractComplexFullQuery<BaseCommentSort<?>, Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("answers/{}/comments", answerIds))
+	public static <Q extends AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q comments(Collection<Integer> answerIds) {
+		return new AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("answers/{}/comments", answerIds))
 				.self();
 	}
 }
