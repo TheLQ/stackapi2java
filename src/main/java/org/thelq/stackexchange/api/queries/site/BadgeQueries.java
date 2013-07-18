@@ -4,9 +4,11 @@
  */
 package org.thelq.stackexchange.api.queries.site;
 
+import java.util.Collection;
 import lombok.NonNull;
 import org.thelq.stackexchange.api.model.types.BadgeEntry;
 import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
+import org.thelq.stackexchange.api.queries.methods.VectorQueryMethod;
 import org.thelq.stackexchange.api.queries.site.sort.BaseBadgeSort;
 import org.thelq.stackexchange.api.queries.site.sort.TypeBadgeSort;
 
@@ -43,5 +45,20 @@ public class BadgeQueries {
 	public static <Q extends AbstractComplexFullQuery<BaseBadgeSort<?>, Q, BadgeEntry>> Q allTagBased(@NonNull String inname) {
 		return new AbstractComplexFullQuery<BaseBadgeSort<?>, Q, BadgeEntry>(BadgeEntry.class, new SimpleQueryMethod("badges/tags"))
 				.setParameter("inname", inname);
+	}
+	
+	public static <Q extends AbstractComplexFullQuery<BaseBadgeSort<?>, Q, BadgeEntry>> Q byIds(@NonNull Collection<Integer> badgeIds) {
+		return new AbstractComplexFullQuery<BaseBadgeSort<?>, Q, BadgeEntry>(BadgeEntry.class, new VectorQueryMethod("badges/tags", badgeIds))
+				.self();
+	}
+	
+	public static <Q extends AbstractComplexDateQuery<Q, BadgeEntry>> Q recipients() {
+		return new AbstractComplexDateQuery<Q, BadgeEntry>(BadgeEntry.class, new SimpleQueryMethod("badges/tags"))
+				.self();
+	}
+	
+	public static <Q extends AbstractComplexDateQuery<Q, BadgeEntry>> Q recipientsByIds(@NonNull Collection<Integer> badgeIds) {
+		return new AbstractComplexDateQuery<Q, BadgeEntry>(BadgeEntry.class, new VectorQueryMethod("badges/tags", badgeIds))
+				.self();
 	}
 }
