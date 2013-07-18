@@ -4,6 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries.site.sort;
 
+import java.util.LinkedHashMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.joda.time.DateTime;
@@ -44,5 +45,8 @@ public abstract class ResultSort<M, F extends ResultSort<M, F>> {
 
 	public F self() {
 		return (F) this;
+	}
+	
+	public void validate(LinkedHashMap<String, String> parameters) {
 	}
 }
