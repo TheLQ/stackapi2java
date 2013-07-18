@@ -38,7 +38,7 @@ public class CommentQueries {
 				.self();
 	}
 
-	protected static class CommentWriteQuery<Q extends AbstractCommentWriteQuery<Q>> extends AbstractSiteQuery<Q, CommentEntry> implements AuthRequiredQuery {
+	protected static class CommentWriteQuery<Q extends AbstractSiteQuery<Q, CommentEntry>> extends AbstractSiteQuery<Q, CommentEntry> implements AuthRequiredQuery {
 		public CommentWriteQuery(Class<CommentEntry> itemClass, QueryMethod method) {
 			super(itemClass, method);
 		}
