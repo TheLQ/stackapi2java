@@ -22,7 +22,7 @@ public class VectorQueryMethod implements QueryMethod {
 	protected final Collection<?> vector;
 
 	public VectorQueryMethod(@NonNull String raw, @NonNull Collection<?> vector) {
-		Preconditions.checkArgument(raw.contains("{}"), "Raw method does not contain vector");
+		Preconditions.checkArgument(StringUtils.countMatches(raw, "{}") == 1, "Raw method does not contain vector");
 		Preconditions.checkArgument(!vector.isEmpty(), "Vector collection is empty");
 		Preconditions.checkArgument(vector.size() < 100, "Vectors do not support more than 100 elements");
 		this.raw = raw;
@@ -37,11 +37,11 @@ public class VectorQueryMethod implements QueryMethod {
 
 		//Do the replace
 		String methodFinal = StringUtils.replaceOnce(raw, "{}", QueryUtils.PARAMETER_JOINER.join(vectorItr));
-		
+
 		//Make sure we didn't miss anything
-		if(methodFinal.contains("{}"))
+		if (methodFinal.contains("{}"))
 			throw new RuntimeException("Still contains vector: " + methodFinal);
-		
+
 		return methodFinal;
 	}
 }
