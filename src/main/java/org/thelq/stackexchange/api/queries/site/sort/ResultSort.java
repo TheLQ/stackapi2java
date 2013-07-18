@@ -46,7 +46,4 @@ public abstract class ResultSort<M, F extends ResultSort<M, F>> {
 	public F self() {
 		return (F) this;
 	}
-	
-	public void validate(LinkedHashMap<String, String> parameters) {
-	}
 }
