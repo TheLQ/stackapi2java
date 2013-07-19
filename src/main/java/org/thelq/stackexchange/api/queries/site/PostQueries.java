@@ -38,7 +38,7 @@ public class PostQueries {
 	}
 	
 	public static <Q extends AbstractSiteQuery<Q, CommentEntry>> Q commentAdd(int postId, @NonNull String body) {
-		return new AbstractCommentWriteQuery<Q>(CommentEntry.class, new VectorQueryMethod("posts/{}/comments/add", String.valueOf(postId)))
+		return new AbstractCommentWriteQuery<Q>(new VectorQueryMethod("posts/{}/comments/add", String.valueOf(postId)))
 				.setParameter("body", body);
 	}
 	

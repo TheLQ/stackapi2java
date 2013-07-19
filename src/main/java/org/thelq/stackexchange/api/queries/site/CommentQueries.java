@@ -29,12 +29,12 @@ public class CommentQueries {
 	}
 
 	public static <Q extends AbstractCommentWriteQuery<Q>> Q edit(int commentId, @NonNull String body) {
-		return new AbstractCommentWriteQuery<Q>(CommentEntry.class, new VectorQueryMethod("comments/{}/edit", String.valueOf(commentId)))
+		return new AbstractCommentWriteQuery<Q>(new VectorQueryMethod("comments/{}/edit", String.valueOf(commentId)))
 				.setParameter("body", body);
 	}
 
 	public static <Q extends AbstractCommentWriteQuery<Q>> Q delete(int commentId) {
-		return new AbstractCommentWriteQuery<Q>(CommentEntry.class, new VectorQueryMethod("comments/{}/delete", String.valueOf(commentId)))
+		return new AbstractCommentWriteQuery<Q>(new VectorQueryMethod("comments/{}/delete", String.valueOf(commentId)))
 				.self();
 	}
 }
