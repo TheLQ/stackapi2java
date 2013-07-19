@@ -15,7 +15,7 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
 import org.thelq.stackexchange.api.queries.methods.VectorQueryMethod;
 import org.thelq.stackexchange.api.queries.site.sort.QuestionRelatedSort;
-import org.thelq.stackexchange.api.queries.site.sort.QuestionSort;
+import org.thelq.stackexchange.api.queries.site.sort.PostSort;
 import org.thelq.stackexchange.api.queries.site.sort.QuestionTaggedSort;
 
 /**
@@ -37,38 +37,38 @@ public final class QuestionQueries {
 				.setParameter("tagged", QueryUtils.PARAMETER_JOINER.join(tags));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>> Q byIds(Collection<Integer> questionIds) {
-		return new AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>(QuestionEntry.class, new VectorQueryMethod("questions/{}", questionIds))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q byIds(Collection<Integer> questionIds) {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, new VectorQueryMethod("questions/{}", questionIds))
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>> Q byFeatured() {
-		return new AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/featured"))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q byFeatured() {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/featured"))
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>> Q byFeatured(@NonNull Collection<String> tags) {
-		return new AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/featured"))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q byFeatured(@NonNull Collection<String> tags) {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/featured"))
 				.setParameter("tagged", QueryUtils.PARAMETER_JOINER.join(tags));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>> Q byUnanswered() {
-		return new AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/unanswered"))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q byUnanswered() {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/unanswered"))
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>> Q byUnanswered(@NonNull Collection<String> tags) {
-		return new AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/unanswered"))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q byUnanswered(@NonNull Collection<String> tags) {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/unanswered"))
 				.setParameter("tagged", QueryUtils.PARAMETER_JOINER.join(tags));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>> Q byNoAnswers() {
-		return new AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/no-answers"))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q byNoAnswers() {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/no-answers"))
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>> Q byNoAnswers(@NonNull Collection<String> tags) {
-		return new AbstractComplexFullQuery<QuestionSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/no-answers"))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q byNoAnswers(@NonNull Collection<String> tags) {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, new SimpleQueryMethod("questions/no-answers"))
 				.setParameter("tagged", QueryUtils.PARAMETER_JOINER.join(tags));
 	}
 
@@ -82,8 +82,8 @@ public final class QuestionQueries {
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionSort<?>, Q, AnswerEntry>> Q answers(Collection<Integer> questionIds) {
-		return new AbstractComplexFullQuery<QuestionSort<?>, Q, AnswerEntry>(AnswerEntry.class, new VectorQueryMethod("questions/{}/answers", questionIds))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q answers(Collection<Integer> questionIds) {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, new VectorQueryMethod("questions/{}/answers", questionIds))
 				.self();
 	}
 
