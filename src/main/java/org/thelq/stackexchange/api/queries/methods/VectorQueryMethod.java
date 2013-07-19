@@ -5,6 +5,7 @@
 package org.thelq.stackexchange.api.queries.methods;
 
 import com.google.common.base.Preconditions;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import lombok.Getter;
@@ -19,10 +20,10 @@ import org.thelq.stackexchange.api.queries.QueryUtils;
 @Getter
 public class VectorQueryMethod implements QueryMethod {
 	protected final String raw;
-	protected final String vectorSingle;
+	protected final String[] vectorSingle;
 	protected final Collection<?> vectorCollection;
 
-	public VectorQueryMethod(@NonNull String raw, @NonNull String vectorSingle) {
+	public VectorQueryMethod(@NonNull String raw, @NonNull String... vectorSingle) {
 		Preconditions.checkArgument(StringUtils.countMatches(raw, "{}") == 1, "Raw method does not contain vector");
 		this.raw = raw;
 		this.vectorSingle = vectorSingle;
@@ -40,9 +41,11 @@ public class VectorQueryMethod implements QueryMethod {
 
 	public String getFinal() {
 		String methodFinal = raw;
-		if (vectorSingle != null)
-			methodFinal = StringUtils.replaceOnce(raw, "{}", vectorSingle);
-		else if (vectorCollection != null) {
+		if (vectorSingle != null) {
+			String[] subsitutions = new String[vectorSingle.length];
+			Arrays.fill(subsitutions, "{}");
+			methodFinal = StringUtils.replaceEach(raw, subsitutions, vectorSingle);
+		} else if (vectorCollection != null) {
 			if (StringUtils.countMatches(raw, "{}") != 1)
 				throw new RuntimeException("No more vectors to replace! Raw: " + raw + " | Final: " + methodFinal);
 			//Verify vector if it is required
