@@ -38,7 +38,9 @@ public abstract class ResultSort<M, F extends ResultSort<M, F>> {
 	 * @return String version of that value
 	 */
 	public String convert(Object value) {
-		if (value instanceof DateTime)
+		if (value == null)
+			return null;
+		else if (value instanceof DateTime)
 			return String.valueOf(((DateTime) value).getMillis());
 		return value.toString();
 	}
