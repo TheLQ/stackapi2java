@@ -38,9 +38,11 @@ public class AbstractComplexFullQuery<S extends ResultSort, Q extends AbstractCo
 	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
-		QueryUtils.putIfNotNull(finalParameters, "sort", sort);
-		QueryUtils.putIfNotNull(finalParameters, "min", sort.convert(sort.getMin()));
-		QueryUtils.putIfNotNull(finalParameters, "max", sort.convert(sort.getMax()));
+		if (sort != null) {
+			finalParameters.put("sort", sort.getName());
+			QueryUtils.putIfNotNull(finalParameters, "min", sort.convert(sort.getMin()));
+			QueryUtils.putIfNotNull(finalParameters, "max", sort.convert(sort.getMax()));
+		}
 		QueryUtils.putIfNotNull(finalParameters, "order", order);
 		return finalParameters;
 	}
