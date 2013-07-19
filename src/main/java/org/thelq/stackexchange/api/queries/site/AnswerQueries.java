@@ -6,11 +6,11 @@ package org.thelq.stackexchange.api.queries.site;
 
 import org.thelq.stackexchange.api.queries.site.sort.CommentSort;
 import java.util.Collection;
-import org.thelq.stackexchange.api.queries.site.sort.AnswerSort;
 import org.thelq.stackexchange.api.model.types.AnswerEntry;
 import org.thelq.stackexchange.api.model.types.CommentEntry;
 import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
 import org.thelq.stackexchange.api.queries.methods.VectorQueryMethod;
+import org.thelq.stackexchange.api.queries.site.sort.PostSort;
 
 /**
  * Utility factory for <code>/answers</code> queries
@@ -22,8 +22,8 @@ public class AnswerQueries {
 	 * @see <a href="https://api.stackexchange.com/docs/answers">StackExchange API /answers usage documentation</a>
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<AnswerSort<?>, Q, AnswerEntry>> Q all() {
-		return new AbstractComplexFullQuery<AnswerSort<?>, Q, AnswerEntry>(AnswerEntry.class, new SimpleQueryMethod("answers"))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q all() {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, new SimpleQueryMethod("answers"))
 				.self();
 	}
 
@@ -33,8 +33,8 @@ public class AnswerQueries {
 	 * @param answerIds Non-null, non-empty collection of answer ids
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<AnswerSort<?>, Q, AnswerEntry>> Q byIds(Collection<Integer> answerIds) {
-		return new AbstractComplexFullQuery<AnswerSort<?>, Q, AnswerEntry>(AnswerEntry.class, new VectorQueryMethod("answers/{}", answerIds))
+	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q byIds(Collection<Integer> answerIds) {
+		return new AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, new VectorQueryMethod("answers/{}", answerIds))
 				.self();
 	}
 
