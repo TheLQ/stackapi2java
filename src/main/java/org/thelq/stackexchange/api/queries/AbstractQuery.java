@@ -30,8 +30,8 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 		return self();
 	}
 	
-	public Q setAuthRequired() {
-		authRequired = true;
+	public Q setAuthRequired(boolean authRequired) {
+		this.authRequired = authRequired;
 		return self();
 	}
 	
