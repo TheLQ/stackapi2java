@@ -29,12 +29,16 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 		getParameters().put(key, value);
 		return self();
 	}
-	
+
+	public Q setParameter(String key, int value) {
+		return setParameter(key, String.valueOf(value));
+	}
+
 	public Q setAuthRequired(boolean authRequired) {
 		this.authRequired = authRequired;
 		return self();
 	}
-	
+
 	public Q self() {
 		return (Q) this;
 	}
