@@ -12,7 +12,7 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
 public class ShallowUserEntry {
 	@MaybeAbsent
 	protected int userId;
-	protected Type userType;
+	protected UserType userType;
 	@MaybeAbsent
 	protected String displayName;
 	@MaybeAbsent
@@ -23,16 +23,4 @@ public class ShallowUserEntry {
 	protected String profileImage;
 	@MaybeAbsent
 	protected int reputation;
-
-	public static enum Type {
-		UNREGISTERED,
-		REGISTERED,
-		MODERATOR,
-		DOES_NOT_EXIST;
-
-		@JsonValue
-		public String jsonValue() {
-			return name().toLowerCase();
-		}
-	}
 }
