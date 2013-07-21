@@ -28,7 +28,6 @@ import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.model.types.BadgeEntry;
 import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.queries.AbstractQuery;
-import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
 import org.thelq.stackexchange.api.queries.site.UserQueries;
 
 /**
@@ -62,7 +61,7 @@ public class StackClient {
 	protected URI createUri(@NonNull AbstractQuery<?, ?> query) {
 		//Run query verification
 		Map<String, String> finalParameters = query.buildFinalParameters();
-		if (query instanceof AuthRequiredQuery && StringUtils.isBlank(accessToken))
+		if (query.isAuthRequired() && StringUtils.isBlank(accessToken))
 			throw new RuntimeException("Query " + query.getClass().getName() + " requires an accessToken");
 		String method = query.getMethod().getFinal();
 		if (method.contains("{}"))

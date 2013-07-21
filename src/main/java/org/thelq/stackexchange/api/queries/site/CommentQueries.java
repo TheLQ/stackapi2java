@@ -7,8 +7,6 @@ package org.thelq.stackexchange.api.queries.site;
 import java.util.Collection;
 import lombok.NonNull;
 import org.thelq.stackexchange.api.model.types.CommentEntry;
-import org.thelq.stackexchange.api.queries.AuthRequiredQuery;
-import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
 import org.thelq.stackexchange.api.queries.methods.VectorQueryMethod;
 import org.thelq.stackexchange.api.queries.site.sort.CommentSort;
@@ -28,13 +26,14 @@ public class CommentQueries {
 				.self();
 	}
 
-	public static <Q extends AbstractCommentWriteQuery<Q>> Q edit(int commentId, @NonNull String body) {
-		return new AbstractCommentWriteQuery<Q>(new VectorQueryMethod("comments/{}/edit", String.valueOf(commentId)))
-				.setParameter("body", body);
+	public static <Q extends AbstractSiteQuery<Q, CommentEntry>> Q edit(int commentId, @NonNull String body) {
+		return new AbstractSiteQuery<Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}/edit", String.valueOf(commentId)))
+				.setParameter("body", body)
+				.setAuthRequired();
 	}
 
-	public static <Q extends AbstractCommentWriteQuery<Q>> Q delete(int commentId) {
-		return new AbstractCommentWriteQuery<Q>(new VectorQueryMethod("comments/{}/delete", String.valueOf(commentId)))
-				.self();
+	public static <Q extends AbstractSiteQuery<Q, CommentEntry>> Q delete(int commentId) {
+		return new AbstractSiteQuery<Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}/delete", String.valueOf(commentId)))
+				.setAuthRequired();
 	}
 }

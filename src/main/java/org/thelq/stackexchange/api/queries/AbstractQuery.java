@@ -18,6 +18,7 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 	protected final QueryMethod method;
 	protected final LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
 	protected final Class<I> itemClass;
+	protected boolean authRequired = false;
 
 	public AbstractQuery(Class<I> itemClass, QueryMethod method) {
 		this.itemClass = itemClass;
@@ -26,6 +27,11 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 
 	public Q setParameter(String key, String value) {
 		getParameters().put(key, value);
+		return self();
+	}
+	
+	public Q setAuthRequired() {
+		authRequired = true;
 		return self();
 	}
 	
