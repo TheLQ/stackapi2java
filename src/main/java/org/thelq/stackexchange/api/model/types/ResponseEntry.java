@@ -16,14 +16,14 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
 @EqualsAndHashCode
 public class ResponseEntry<E> {
 	@MaybeAbsent
-	protected int backoff;
-	protected boolean hasMore;
+	protected Integer backoff;
+	protected Boolean hasMore;
 	protected ImmutableList<E> items;
-	protected int page;
-	protected int pageSize;
-	protected int quotaMax;
-	protected int quotaRemaining;
-	protected int total;
+	protected Integer page;
+	protected Integer pageSize;
+	protected Integer quotaMax;
+	protected Integer quotaRemaining;
+	protected Integer total;
 	//TODO: Comprehensive list of types?
 	protected String type;
 }

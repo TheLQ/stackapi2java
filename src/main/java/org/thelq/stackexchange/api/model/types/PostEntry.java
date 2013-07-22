@@ -13,19 +13,19 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
  */
 @Data
 public class PostEntry implements ItemEntry {
-	protected int postId;
+	protected Integer postId;
 	protected PostType postType;
 	@MaybeAbsent
 	protected ShallowUserEntry owner;
 	protected String body;
 	@MaybeAbsent
 	protected ImmutableList<CommentEntry> comments;
-	protected int downVoteCount;
-	protected int upVoteCount;
+	protected Integer downVoteCount;
+	protected Integer upVoteCount;
 	protected DateTime creationDate;
 	protected DateTime lastActivityDate;
 	@MaybeAbsent
 	protected DateTime lastEditDate;
 	protected URI link;
-	protected int score;
+	protected Integer score;
 }

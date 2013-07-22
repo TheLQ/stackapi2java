@@ -17,7 +17,7 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
 @Getter
 public class EventEntry implements ItemEntry {
 	protected DateTime creationDate;
-	protected int eventId;
+	protected Integer eventId;
 	protected Type eventType;
 	@MaybeAbsent
 	protected String Excerpt;

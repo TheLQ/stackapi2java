@@ -22,8 +22,8 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class AnswerEntry extends ResponseEntry<AnswerEntry> implements ItemEntry {
-	protected long answerId;
-	protected long questionId;
+	protected Integer answerId;
+	protected Integer questionId;
 	protected String title;
 	protected String body;
 	@MaybeAbsent
@@ -35,11 +35,11 @@ public class AnswerEntry extends ResponseEntry<AnswerEntry> implements ItemEntry
 	@MaybeAbsent
 	protected DateTime lastEditDate;
 	protected DateTime lockDate;
-	protected int score;
-	protected int downVoteCount;
-	protected int upVoteCount;
+	protected Integer score;
+	protected Integer downVoteCount;
+	protected Integer upVoteCount;
 	@JsonProperty("is_accepted")
-	protected boolean accepted;
+	protected Boolean accepted;
 	protected String link;
 	@MaybeAbsent
 	protected ShallowUserEntry owner;

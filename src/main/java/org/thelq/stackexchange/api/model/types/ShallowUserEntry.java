@@ -11,16 +11,16 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
 @Data
 public class ShallowUserEntry {
 	@MaybeAbsent
-	protected int userId;
+	protected Integer userId;
 	protected UserType userType;
 	@MaybeAbsent
 	protected String displayName;
 	@MaybeAbsent
-	protected int acceptRate;
+	protected Integer acceptRate;
 	@MaybeAbsent
 	protected String link;
 	@MaybeAbsent
 	protected String profileImage;
 	@MaybeAbsent
-	protected int reputation;
+	protected Integer reputation;
 }

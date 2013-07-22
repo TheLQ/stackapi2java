@@ -15,8 +15,8 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
  */
 @Getter
 public class BadgeEntry implements ItemEntry {
-	protected int badgeId;
-	protected int awardCount;
+	protected Integer badgeId;
+	protected Integer awardCount;
 	protected Type badgeType;
 	protected String description;
 	protected URI link;

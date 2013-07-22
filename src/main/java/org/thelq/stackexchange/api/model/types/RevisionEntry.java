@@ -24,7 +24,7 @@ public class RevisionEntry implements ItemEntry {
 	protected String comment;
 	protected DateTime creationDate;
 	@JsonProperty("is_rollback")
-	protected boolean rollback;
+	protected Boolean rollback;
 	@MaybeAbsent
 	protected String lastBody;
 	@MaybeAbsent
