@@ -30,7 +30,7 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 		return self();
 	}
 
-	public Q setParameter(String key, int value) {
+	public Q setParameter(String key, long value) {
 		return setParameter(key, String.valueOf(value));
 	}
 
