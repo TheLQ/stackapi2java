@@ -40,9 +40,6 @@ public class EntryFormatTest {
 			for (Field curField : curClass.getDeclaredFields()) {
 				if (allowedFilter != null && !allowedFilter.apply(curField))
 					continue;
-				Class type = curField.getType();
-				if (!type.isEnum() || type.getDeclaringClass() == null)
-					continue;
 				fields.add(new Field[]{curField});
 			}
 		return fields.toArray(new Field[fields.size()][]);
@@ -62,4 +59,14 @@ public class EntryFormatTest {
 	public void enumsInFieldsAreNotFromAnotherClass(Field curField) {
 		assertEquals(curField.getDeclaringClass(), curField.getType().getDeclaringClass(), "Classes do not match");
 	}
+	
+	@DataProvider
+	public Object[][] noPrimativesDataProvider() throws IOException {
+		return getEntriesFields(null);
+	}
+	
+	@Test(dataProvider = "noPrimativesDataProvider")
+	public void noPrimatives(Field curField) {
+		assertFalse(curField.getType().isPrimitive(), "No primatives allowed for " + curField);
+	} 
 }
