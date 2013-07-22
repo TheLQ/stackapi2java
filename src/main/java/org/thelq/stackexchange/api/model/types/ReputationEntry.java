@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.thelq.stackexchange.api.model.types;
 
 import java.net.URI;
@@ -23,5 +22,15 @@ public class ReputationEntry implements ItemEntry {
 	protected Integer reputationChange;
 	protected String title;
 	protected Integer userId;
-	protected ReputationVoteType voteType;
+	protected Type voteType;
+
+	public static enum Type {
+		ACCEPTS,
+		UP_VOTES,
+		DOWN_VOTES,
+		BOUNTIES_OFFERED,
+		BOUNTIES_WON,
+		SPAM,
+		SUGGESTED_EDITS
+	}
 }

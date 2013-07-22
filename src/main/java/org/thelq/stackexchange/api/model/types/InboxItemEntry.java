@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.thelq.stackexchange.api.model.types;
 
 import java.net.URI;
@@ -24,9 +23,20 @@ public class InboxItemEntry implements ItemEntry {
 	protected String body;
 	protected DateTime creationDate;
 	protected Boolean unread;
-	protected InboxItemType itemType;
+	protected Type itemType;
 	protected URI link;
 	@MaybeAbsent
 	protected SiteEntry site;
 	protected String title;
+
+	public enum Type {
+		COMMENT,
+		CHAT_MESSAGE,
+		NEW_ANSWER,
+		CAREERS_MESSAGE,
+		CAREERS_INVITATIONS,
+		META_QUESTION,
+		POST_NOTICE,
+		MODERATOR_MESSAGE
+	}
 }

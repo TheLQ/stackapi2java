@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.thelq.stackexchange.api.model.types;
 
 import java.net.URI;
@@ -31,7 +30,18 @@ public class UserTimelineEntry implements ItemEntry {
 	protected String detail;
 	protected URI link;
 	protected PostType postType;
-	protected UserTimelineType timelineType;
+	protected Type timelineType;
 	@MaybeAbsent
 	protected String title;
+
+	public static enum Type {
+		COMMENTED,
+		ASKED,
+		ANSWERED,
+		BADGE,
+		REVISION,
+		ACCEPTED,
+		REVIEWED,
+		SUGGESTED
+	}
 }
