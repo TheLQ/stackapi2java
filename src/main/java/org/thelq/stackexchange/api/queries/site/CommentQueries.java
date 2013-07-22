@@ -29,11 +29,11 @@ public class CommentQueries {
 	public static <Q extends AbstractSiteQuery<Q, CommentEntry>> Q edit(int commentId, @NonNull String body) {
 		return new AbstractSiteQuery<Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}/edit", String.valueOf(commentId)))
 				.setParameter("body", body)
-				.setAuthRequired();
+				.setAuthRequired(true);
 	}
 
 	public static <Q extends AbstractSiteQuery<Q, CommentEntry>> Q delete(int commentId) {
 		return new AbstractSiteQuery<Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}/delete", String.valueOf(commentId)))
-				.setAuthRequired();
+				.setAuthRequired(true);
 	}
 }

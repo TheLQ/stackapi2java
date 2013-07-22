@@ -16,12 +16,12 @@ import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
 public class EventQueries {
 	public static <Q extends AbstractSitePagableQuery<Q, EventEntry>> Q all() {
 		return new AbstractSitePagableQuery<Q, EventEntry>(EventEntry.class, new SimpleQueryMethod("events"))
-				.setAuthRequired();
+				.setAuthRequired(true);
 	}
 
 	public static <Q extends AbstractSitePagableQuery<Q, EventEntry>> Q all(@NonNull DateTime since) {
 		return new AbstractSitePagableQuery<Q, EventEntry>(EventEntry.class, new SimpleQueryMethod("events"))
 				.setParameter("since", String.valueOf(since.getMillis()))
-				.setAuthRequired();
+				.setAuthRequired(true);
 	}
 }
