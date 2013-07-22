@@ -40,12 +40,23 @@ public class QueriesFormatTest {
 		}
 		return params.toArray(new Class[params.size()][]);
 	}
+	
+	protected static List<Class> getQuerySubtypes() throws IOException {
+		ImmutableList.Builder<Class> subclasses = ImmutableList.builder();
+		ClassPath classPath = ClassPath.from(AbstractQuery.class.getClassLoader());
+		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(AbstractQuery.class.getPackage().getName())) {
+			Class curClass = curClassInfo.load();
+			if (AbstractQuery.class.isAssignableFrom(curClass))
+				subclasses.add(curClass);
+		}
+		return subclasses.build();
+	}
 
 	@DataProvider
 	public Object[][] fluentSettersAndAddersDataProvider() throws IOException {
 		List<Method[]> methods = new ArrayList<Method[]>();
-		for (Class[] curClassArray : getQueriesDataProvider(true, true))
-			for (Method curMethod : curClassArray[0].getDeclaredMethods()) {
+		for (Class curClass : getQuerySubtypes())
+			for (Method curMethod : curClass.getDeclaredMethods()) {
 				if (!curMethod.getName().startsWith("set") && !curMethod.getName().startsWith("add"))
 					continue;
 				if (curMethod.isSynthetic())
@@ -71,17 +82,6 @@ public class QueriesFormatTest {
 			assertFalse(Modifier.isAbstract(curClass.getModifiers()));
 		else
 			throw new RuntimeException("Unknown return type " + returnType + " | " + returnType.getClass());
-	}
-
-	protected static List<Class> getQuerySubtypes() throws IOException {
-		ImmutableList.Builder<Class> subclasses = ImmutableList.builder();
-		ClassPath classPath = ClassPath.from(AbstractQuery.class.getClassLoader());
-		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(AbstractQuery.class.getPackage().getName())) {
-			Class curClass = curClassInfo.load();
-			if (AbstractQuery.class.isAssignableFrom(curClass))
-				subclasses.add(curClass);
-		}
-		return subclasses.build();
 	}
 
 	@DataProvider
