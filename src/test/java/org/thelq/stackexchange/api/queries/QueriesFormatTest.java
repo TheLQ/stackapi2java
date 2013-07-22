@@ -24,23 +24,6 @@ import org.testng.annotations.Test;
  * @author Leon
  */
 public class QueriesFormatTest {
-	protected static Class[][] getQueriesDataProvider(boolean includeAbstract, boolean includeQueries) throws IOException {
-		ClassPath classPath = ClassPath.from(QueriesFormatTest.class.getClassLoader());
-		List<Class[]> params = new ArrayList<Class[]>();
-		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(AbstractQuery.class.getPackage().getName())) {
-			Class curClass = curClassInfo.load();
-			if (curClass.isInterface() || curClass.isEnum())
-				//Skip
-				continue;
-			else if (Modifier.isAbstract(curClass.getModifiers())) {
-				if (includeAbstract)
-					params.add(new Class[]{curClass});
-			} else if (includeQueries)
-				params.add(new Class[]{curClass});
-		}
-		return params.toArray(new Class[params.size()][]);
-	}
-	
 	protected static List<Class> getQuerySubtypes() throws IOException {
 		ImmutableList.Builder<Class> subclasses = ImmutableList.builder();
 		ClassPath classPath = ClassPath.from(AbstractQuery.class.getClassLoader());
