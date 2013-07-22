@@ -59,14 +59,19 @@ public class EntryFormatTest {
 	public void enumsInFieldsAreNotFromAnotherClass(Field curField) {
 		assertEquals(curField.getDeclaringClass(), curField.getType().getDeclaringClass(), "Classes do not match");
 	}
-	
+
 	@DataProvider
-	public Object[][] noPrimativesDataProvider() throws IOException {
+	public Object[][] fieldsAllDataProvider() throws IOException {
 		return getEntriesFields(null);
 	}
-	
-	@Test(dataProvider = "noPrimativesDataProvider")
+
+	@Test(dataProvider = "fieldsAllDataProvider")
 	public void noPrimatives(Field curField) {
 		assertFalse(curField.getType().isPrimitive(), "No primatives allowed for " + curField);
-	} 
+	}
+
+	@Test(dataProvider = "fieldsAllDataProvider")
+	public void noLong(Field curField) {
+		assertNotEquals(curField.getType(), Long.class);
+	}
 }
