@@ -4,6 +4,7 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.ClassPath;
 import java.io.IOException;
@@ -33,17 +34,28 @@ public class EntryFormatTest {
 		return entries.build();
 	}
 
-	@DataProvider
-	public Object[][] enumsInFieldsAreNotFromAnotherClassDataProvider() throws IOException {
+	protected static Object[][] getEntriesFields(Predicate<Field> allowedFilter) throws IOException {
 		List<Field[]> fields = new ArrayList<Field[]>();
 		for (Class curClass : getEntries())
 			for (Field curField : curClass.getDeclaredFields()) {
+				if (allowedFilter != null && !allowedFilter.apply(curField))
+					continue;
 				Class type = curField.getType();
 				if (!type.isEnum() || type.getDeclaringClass() == null)
 					continue;
 				fields.add(new Field[]{curField});
 			}
 		return fields.toArray(new Field[fields.size()][]);
+	}
+
+	@DataProvider
+	public Object[][] enumsInFieldsAreNotFromAnotherClassDataProvider() throws IOException {
+		return getEntriesFields(new Predicate<Field>() {
+			public boolean apply(Field input) {
+				Class type = input.getType();
+				return type.isEnum() && type.getDeclaringClass() != null;
+			}
+		});
 	}
 
 	@Test(dataProvider = "enumsInFieldsAreNotFromAnotherClassDataProvider")
