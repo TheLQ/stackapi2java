@@ -4,6 +4,7 @@
  */
 package org.thelq.stackexchange.api.queries;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.ClassPath;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -17,9 +18,6 @@ import static org.testng.Assert.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.NoInjection;
 import org.testng.annotations.Test;
-import org.thelq.stackexchange.api.queries.site.comments.CommentDeleteQuery;
-import org.thelq.stackexchange.api.queries.site.comments.CommentEditQuery;
-import org.thelq.stackexchange.api.queries.site.question.AbstractQuestionByIdQuery;
 
 /**
  *
@@ -72,8 +70,8 @@ public class QueriesFormatTest {
 	@Test(dataProvider = "queriesDataProvider", dependsOnMethods = {"singleConstructorTest", "abstractNamingTest"})
 	public void emptyConstructorTest(Class<?> curClass) {
 		//Skip exceptional classes
-		if (curClass.equals(CommentEditQuery.class) || curClass.equals(CommentDeleteQuery.class))
-			return;
+		//if (curClass.equals(CommentEditQuery.class) || curClass.equals(CommentDeleteQuery.class))
+		//	return;
 		assertEquals(curClass.getDeclaredConstructors()[0].getParameterTypes().length, 0, "Query " + curClass + " cannot have parameters");
 	}
 
@@ -109,22 +107,31 @@ public class QueriesFormatTest {
 			throw new RuntimeException("Unknown return type " + returnType + " | " + returnType.getClass());
 	}
 
+	protected static List<Class> getQuerySubtypes() throws IOException {
+		ImmutableList.Builder<Class> subclasses = ImmutableList.builder();
+		ClassPath classPath = ClassPath.from(AbstractQuery.class.getClassLoader());
+		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(AbstractQuery.class.getPackage().getName())) {
+			Class curClass = curClassInfo.load();
+			if (AbstractQuery.class.isAssignableFrom(curClass))
+				subclasses.add(curClass);
+		}
+		return subclasses.build();
+	}
+
 	@DataProvider
-	public Object[][] noPrimativeTypesDataProvider() throws IOException {
+	public Object[][] noPrimativeFieldsDataProvider() throws IOException, NoSuchFieldException {
 		List<Field[]> fields = new ArrayList<Field[]>();
-		for (Class[] curClassArray : getQueriesDataProvider(true, true))
-			for (Field curField : curClassArray[0].getDeclaredFields()) {
-				if (curClassArray[0] == AbstractQuestionByIdQuery.class && curField.getName().equals("idsRequired"))
+		for (Class curClass : getQuerySubtypes())
+			for (Field curField : curClass.getDeclaredFields()) {
+				if (curField == AbstractQuery.class.getDeclaredField("authRequired"))
 					continue;
 				fields.add(new Field[]{curField});
 			}
 		return fields.toArray(new Field[fields.size()][]);
 	}
 
-	@Test(dataProvider = "noPrimativeTypesDataProvider")
-	public void noPrimativeTypes(Field curField) {
-		assertFalse(curField.getType() == int.class, "No primative ints allowed for " + curField);
-		assertFalse(curField.getType() == long.class, "No primative longs allowed for " + curField);
-		assertFalse(curField.getType() == boolean.class, "No primative booleans allowed for " + curField);
+	@Test(dataProvider = "noPrimativeFieldsDataProvider")
+	public void noPrimativeFields(Field curField) {
+		assertFalse(curField.getType().isPrimitive(), "No primatives allowed for " + curField);
 	}
 }
