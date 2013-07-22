@@ -24,8 +24,8 @@ import org.testng.annotations.Test;
  * @author Leon
  */
 public class QueriesFormatTest {
-	public Class[][] getQueriesDataProvider(boolean includeAbstract, boolean includeQueries) throws IOException {
-		ClassPath classPath = ClassPath.from(getClass().getClassLoader());
+	protected static Class[][] getQueriesDataProvider(boolean includeAbstract, boolean includeQueries) throws IOException {
+		ClassPath classPath = ClassPath.from(QueriesFormatTest.class.getClassLoader());
 		List<Class[]> params = new ArrayList<Class[]>();
 		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(AbstractQuery.class.getPackage().getName())) {
 			Class curClass = curClassInfo.load();
@@ -39,40 +39,6 @@ public class QueriesFormatTest {
 				params.add(new Class[]{curClass});
 		}
 		return params.toArray(new Class[params.size()][]);
-	}
-
-	@DataProvider
-	public Object[][] queriesAbstractDataProvider() throws IOException {
-		return getQueriesDataProvider(true, false);
-	}
-
-	@DataProvider
-	public Object[][] queriesDataProvider() throws IOException {
-		return getQueriesDataProvider(false, true);
-	}
-
-	@DataProvider
-	public Object[][] queriesAllDataProvider() throws IOException {
-		return getQueriesDataProvider(true, true);
-	}
-
-	@Test(dataProvider = "queriesDataProvider")
-	public void abstractNamingTest(Class<?> curClass) {
-		if (curClass.getSimpleName().startsWith("Abstract"))
-			assertTrue(Modifier.isAbstract(curClass.getModifiers()), curClass + " prefixed with abstract, must have abstract modifier");
-	}
-
-	@Test(dataProvider = "queriesAllDataProvider")
-	public void singleConstructorTest(Class<?> curClass) {
-		assertEquals(curClass.getDeclaredConstructors().length, 1, curClass + " can only have a single constructor");
-	}
-
-	@Test(dataProvider = "queriesDataProvider", dependsOnMethods = {"singleConstructorTest", "abstractNamingTest"})
-	public void emptyConstructorTest(Class<?> curClass) {
-		//Skip exceptional classes
-		//if (curClass.equals(CommentEditQuery.class) || curClass.equals(CommentDeleteQuery.class))
-		//	return;
-		assertEquals(curClass.getDeclaredConstructors()[0].getParameterTypes().length, 0, "Query " + curClass + " cannot have parameters");
 	}
 
 	@DataProvider
