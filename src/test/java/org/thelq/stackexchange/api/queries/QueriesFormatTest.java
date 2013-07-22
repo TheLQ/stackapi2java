@@ -89,7 +89,7 @@ public class QueriesFormatTest {
 		List<Field[]> fields = new ArrayList<Field[]>();
 		for (Class curClass : getQuerySubtypes())
 			for (Field curField : curClass.getDeclaredFields()) {
-				if (curField == AbstractQuery.class.getDeclaredField("authRequired"))
+				if (curField.equals(AbstractQuery.class.getDeclaredField("authRequired")))
 					continue;
 				fields.add(new Field[]{curField});
 			}
