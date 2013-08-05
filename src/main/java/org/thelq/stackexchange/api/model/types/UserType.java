@@ -17,18 +17,13 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public enum UserType {
-	UNREGISTERED, REGISTERED, MODERATOR, DOES_NOT_EXIST;
-
-	@JsonValue
-	public String jsonValue() {
-		return name().toLowerCase();
-	}
-	
+	UNREGISTERED,
+	REGISTERED,
+	MODERATOR,
+	DOES_NOT_EXIST;
 }
