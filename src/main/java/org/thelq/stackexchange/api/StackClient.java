@@ -29,41 +29,34 @@ import com.fasterxml.jackson.databind.Module.SetupContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.deser.Deserializers;
-import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
-import com.fasterxml.jackson.databind.deser.std.JdkDeserializers;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URLConnection;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.util.BitSet;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.model.types.TagEntry;
 import org.thelq.stackexchange.api.queries.BaseQuery;
 import org.thelq.stackexchange.api.queries.site.TagQueries;
+import sun.net.www.http.HttpClient;
 
 /**
  *
@@ -89,7 +82,6 @@ public class StackClient {
 	};
 	@Getter
 	protected final String seApiKey;
-	protected final HttpClient httpclient;
 	protected final ObjectMapper jsonMapper;
 	@Getter
 	@Setter
@@ -115,10 +107,6 @@ public class StackClient {
 				});
 			}
 		});
-
-		//Setup httpclient
-		this.httpclient = HttpClientBuilder.create()
-				.build();
 	}
 
 	protected URI createUri(@NonNull BaseQuery<?, ?> query) {
@@ -164,10 +152,18 @@ public class StackClient {
 
 		return URI.create(uriBuilder.toString());
 	}
+	
+	protected InputStream createResponse(URI uri) {
+		try {
+			URLConnection connection = uri.toURL().openConnection();
+			return connection.getInputStream();
+		} catch (Exception ex) {
+			throw new RuntimeException("Cannot create response", ex);
+		}
+	}
 
 	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull BaseQuery<?, E> query) {
 		URI uri = createUri(query);
-		HttpGet httpGet = null;
 		String responseRaw = null;
 		try {
 			//Do the request
@@ -175,12 +171,9 @@ public class StackClient {
 			//TODO: Handle backoff times
 			log.debug("Querying API with URL: " + uri);
 
-			httpGet = new HttpGet(uri);
-			HttpResponse responseHttp = httpclient.execute(httpGet);
-
 			//Handle errors
 			//TODO: More efficent way to do this?
-			JsonNode responseTree = jsonMapper.readTree(responseHttp.getEntity().getContent());
+			JsonNode responseTree = jsonMapper.readTree(createResponse(uri));
 			JsonNode errorIdNode = responseTree.get("error_id");
 			if (errorIdNode != null)
 				//Have an error, throw an exception
@@ -197,9 +190,6 @@ public class StackClient {
 			throw e;
 		} catch (Exception e) {
 			throw new QueryException(uri, responseRaw, "Unable to excute query", e);
-		} finally {
-			if (httpGet != null)
-				httpGet.releaseConnection();
 		}
 	}
 
