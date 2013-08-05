@@ -23,7 +23,6 @@ package org.thelq.stackexchange.api.model.types;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.reflect.ClassPath;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -31,45 +30,39 @@ import java.util.List;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
+import org.thelq.stackexchange.api.TestUtils;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class EntryFormatTest {
-	protected static ImmutableList<Class> getEntries() throws IOException {
-		Class baseClass = PostEntry.class;
-		ImmutableList.Builder<Class> entries = ImmutableList.builder();
-		ClassPath classPath = ClassPath.from(baseClass.getClassLoader());
-		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(baseClass.getPackage().getName())) {
-			Class curClass = curClassInfo.load();
-			if (curClass.isEnum())
-				//Skip
-				continue;
-			entries.add(curClass);
+	protected static final Predicate<Class<?>> NO_ENUMS_FILTER = new Predicate<Class<?>>() {
+		public boolean apply(Class<?> input) {
+			return !input.isEnum();
 		}
-		return entries.build();
-	}
+	};
+	
 
-	protected static Object[][] getEntriesFields(Predicate<Field> allowedFilter) throws IOException {
-		List<Field[]> fields = new ArrayList<Field[]>();
-		for (Class curClass : getEntries())
+	protected static ImmutableList<Field> getEntriesFields(Predicate<Field> allowedFilter) throws IOException {
+		ImmutableList.Builder<Field> fields = ImmutableList.builder();
+		for (Class<?> curClass : TestUtils.loadClasses(PostEntry.class, NO_ENUMS_FILTER))
 			for (Field curField : curClass.getDeclaredFields()) {
 				if (allowedFilter != null && !allowedFilter.apply(curField))
 					continue;
 				fields.add(new Field[]{curField});
 			}
-		return fields.toArray(new Field[fields.size()][]);
+		return fields.build();
 	}
 
 	@DataProvider
 	public Object[][] enumsInFieldsAreNotFromAnotherClassDataProvider() throws IOException {
-		return getEntriesFields(new Predicate<Field>() {
+		return TestUtils.toTestParameters(getEntriesFields(new Predicate<Field>() {
 			public boolean apply(Field input) {
 				Class type = input.getType();
 				return type.isEnum() && type.getDeclaringClass() != null;
 			}
-		});
+		}));
 	}
 
 	@Test(dataProvider = "enumsInFieldsAreNotFromAnotherClassDataProvider")
@@ -79,7 +72,7 @@ public class EntryFormatTest {
 
 	@DataProvider
 	public Object[][] fieldsAllDataProvider() throws IOException {
-		return getEntriesFields(null);
+		return TestUtils.toTestParameters(getEntriesFields(null));
 	}
 
 	@Test(dataProvider = "fieldsAllDataProvider")
@@ -94,23 +87,20 @@ public class EntryFormatTest {
 
 	@DataProvider
 	public Object[][] noToStringEnumDataProvider() throws IOException {
-		List<Class[]> enums = new ArrayList<Class[]>();
-		Class baseClass = PostEntry.class;
-		ClassPath classPath = ClassPath.from(baseClass.getClassLoader());
-		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(baseClass.getPackage().getName())) {
-			Class curClass = curClassInfo.load();
+		List<Class<?>> enumClasses = new ArrayList<Class<?>>();
+		for(Class<?> curClass : TestUtils.loadClasses(PostEntry.class, null)) {
 			if (curClass.isEnum())
-				enums.add(new Class[]{curClass});
+				enumClasses.add(curClass);
 			//Load subtypes
-			for (Class curSubClass : curClass.getDeclaredClasses())
+			for (Class<?> curSubClass : curClass.getDeclaredClasses())
 				if (curSubClass.isEnum())
-					enums.add(new Class[]{curSubClass});
+					enumClasses.add(curSubClass);
 		}
-		return enums.toArray(new Object[enums.size()][]);
+		return TestUtils.toTestParameters(enumClasses);
 	}
 
 	@Test(dataProvider = "noToStringEnumDataProvider")
-	public void noToStringEnum(Class curEnum) throws NoSuchMethodException {
+	public void noToStringEnum(Class<?> curEnum) throws NoSuchMethodException {
 		System.out.println("Handling " + curEnum);
 		assertNotEquals(curEnum.getMethod("toString").getDeclaringClass(), curEnum);
 	}

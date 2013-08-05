@@ -21,8 +21,7 @@
  */
 package org.thelq.stackexchange.api.queries;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.reflect.ClassPath;
+import com.google.common.base.Predicate;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -35,35 +34,31 @@ import static org.testng.Assert.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.NoInjection;
 import org.testng.annotations.Test;
+import org.thelq.stackexchange.api.TestUtils;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class QueriesFormatTest {
-	protected static List<Class> getQuerySubtypes() throws IOException {
-		ImmutableList.Builder<Class> subclasses = ImmutableList.builder();
-		ClassPath classPath = ClassPath.from(AbstractQuery.class.getClassLoader());
-		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(AbstractQuery.class.getPackage().getName())) {
-			Class curClass = curClassInfo.load();
-			if (AbstractQuery.class.isAssignableFrom(curClass))
-				subclasses.add(curClass);
+	protected static final Predicate<Class<?>> QUERY_SUBTYPES_FILTER = new Predicate<Class<?>>() {
+		public boolean apply(Class<?> input) {
+			return AbstractQuery.class.isAssignableFrom(input);
 		}
-		return subclasses.build();
-	}
+	};
 
 	@DataProvider
 	public Object[][] fluentSettersAndAddersDataProvider() throws IOException {
-		List<Method[]> methods = new ArrayList<Method[]>();
-		for (Class curClass : getQuerySubtypes())
+		List<Method> methods = new ArrayList<Method>();
+		for (Class<?> curClass : TestUtils.loadClasses(AbstractQuery.class, QUERY_SUBTYPES_FILTER))
 			for (Method curMethod : curClass.getDeclaredMethods()) {
 				if (!curMethod.getName().startsWith("set") && !curMethod.getName().startsWith("add"))
 					continue;
 				if (curMethod.isSynthetic())
 					continue;
-				methods.add(new Method[]{curMethod});
+				methods.add(curMethod);
 			}
-		return methods.toArray(new Method[methods.size()][]);
+		return TestUtils.toTestParameters(methods);
 	}
 
 	@Test(dataProvider = "fluentSettersAndAddersDataProvider")
@@ -86,14 +81,14 @@ public class QueriesFormatTest {
 
 	@DataProvider
 	public Object[][] noPrimativeFieldsDataProvider() throws IOException, NoSuchFieldException {
-		List<Field[]> fields = new ArrayList<Field[]>();
-		for (Class curClass : getQuerySubtypes())
+		List<Field> fields = new ArrayList<Field>();
+		for (Class<?> curClass : TestUtils.loadClasses(AbstractQuery.class, QUERY_SUBTYPES_FILTER))
 			for (Field curField : curClass.getDeclaredFields()) {
 				if (curField.equals(AbstractQuery.class.getDeclaredField("authRequired")))
 					continue;
-				fields.add(new Field[]{curField});
+				fields.add(curField);
 			}
-		return fields.toArray(new Field[fields.size()][]);
+		return TestUtils.toTestParameters(fields);
 	}
 
 	@Test(dataProvider = "noPrimativeFieldsDataProvider")
