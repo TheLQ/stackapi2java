@@ -35,14 +35,18 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
+import com.google.common.io.CharStreams;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
 import java.util.Map;
 import java.util.Properties;
+import java.util.zip.DeflaterInputStream;
+import java.util.zip.GZIPInputStream;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -148,11 +152,18 @@ public class StackClient {
 
 		return URI.create(uriBuilder.toString());
 	}
-	
+
 	protected InputStream createResponse(URI uri) {
 		try {
 			URLConnection connection = uri.toURL().openConnection();
-			return connection.getInputStream();
+			connection.setDoInput(true);
+			connection.connect();
+			if (connection.getContentEncoding().equalsIgnoreCase("gzip"))
+				return new GZIPInputStream(connection.getInputStream());
+			else if (connection.getContentEncoding().equalsIgnoreCase("deflate"))
+				return new DeflaterInputStream(connection.getInputStream());
+			else
+				return connection.getInputStream();
 		} catch (Exception ex) {
 			throw new RuntimeException("Cannot create response", ex);
 		}
@@ -194,6 +205,8 @@ public class StackClient {
 			Properties authProperties = new Properties();
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
+
+			log.info(CharStreams.toString(new InputStreamReader(client.createResponse(client.createUri(TagQueries.all().setSite("stackoverflow"))))));
 
 			//Get posts
 			ResponseEntry<TagEntry> response = client.query(TagQueries.all()
