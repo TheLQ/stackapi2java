@@ -25,7 +25,7 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
 public class UserTimelineEntry implements ItemEntry {

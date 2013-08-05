@@ -26,7 +26,7 @@ import org.thelq.stackexchange.api.queries.site.sort.SuggestedEditSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class SuggestedEditQueries {
 	public static <Q extends AbstractComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>> Q all() {

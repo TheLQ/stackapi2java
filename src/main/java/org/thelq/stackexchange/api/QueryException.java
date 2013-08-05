@@ -22,7 +22,7 @@ import lombok.Getter;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
 public class QueryException extends RuntimeException {

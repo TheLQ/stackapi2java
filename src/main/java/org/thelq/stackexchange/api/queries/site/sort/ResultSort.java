@@ -24,7 +24,7 @@ import org.joda.time.DateTime;
 
 /**
  * Marker interface for a field that is sortable
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
 @RequiredArgsConstructor

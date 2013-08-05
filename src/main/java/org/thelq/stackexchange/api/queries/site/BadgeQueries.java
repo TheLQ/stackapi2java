@@ -27,7 +27,7 @@ import org.thelq.stackexchange.api.queries.site.sort.BadgeTypeSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class BadgeQueries {
 	public static <Q extends AbstractComplexFullQuery<BadgeTypeSort<?>, Q, BadgeEntry>> Q all() {

@@ -21,7 +21,7 @@ import org.joda.time.DateTime;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class QuestionTaggedSort<M> extends ResultSort<M, QuestionTaggedSort<M>> {
 	public static QuestionTaggedSort<DateTime> activity() {

@@ -21,7 +21,7 @@ import org.thelq.stackexchange.api.model.types.BadgeEntry;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class BadgeSort<M> extends ResultSort<M, BadgeSort<M>> {
 	public static BadgeSort<BadgeEntry.Rank> rank() {

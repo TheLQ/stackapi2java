@@ -27,7 +27,7 @@ import org.thelq.stackexchange.api.queries.site.sort.PostSort;
 
 /**
  * Utility factory for <code>/answers</code> queries
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class AnswerQueries {
 	/**

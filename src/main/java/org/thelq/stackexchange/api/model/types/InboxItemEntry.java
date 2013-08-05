@@ -24,7 +24,7 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class InboxItemEntry implements ItemEntry {
 	@MaybeAbsent

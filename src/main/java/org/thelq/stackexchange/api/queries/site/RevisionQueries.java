@@ -25,7 +25,7 @@ import org.thelq.stackexchange.api.queries.methods.VectorQueryMethod;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class RevisionQueries {
 	public static <Q extends AbstractComplexDateQuery<Q, RevisionEntry>> Q byIds(@NonNull Collection<String> revisionGuids) {

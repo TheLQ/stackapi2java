@@ -26,7 +26,7 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
 public class AbstractSitePagableQuery<Q extends AbstractSitePagableQuery<Q, I>, I extends ItemEntry> extends AbstractSiteQuery<Q, I> implements PagableQuery<Q> {

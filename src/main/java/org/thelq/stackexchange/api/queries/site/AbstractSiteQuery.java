@@ -28,7 +28,7 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
 public class AbstractSiteQuery<Q extends AbstractSiteQuery<Q, I>, I extends ItemEntry> extends AbstractQuery<Q, I> {

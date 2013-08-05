@@ -22,7 +22,7 @@ import org.thelq.stackexchange.api.queries.site.sort.ResultSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class CommentSort<M> extends ResultSort<M, CommentSort<M>> {
 	public static CommentSort<DateTime> creation() {

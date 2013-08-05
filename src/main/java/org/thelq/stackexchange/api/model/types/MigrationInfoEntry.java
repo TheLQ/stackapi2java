@@ -23,7 +23,7 @@ import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
 public class MigrationInfoEntry implements ItemEntry {

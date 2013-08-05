@@ -20,7 +20,7 @@ package org.thelq.stackexchange.api.model;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public @interface MaybeAbsent {
 }

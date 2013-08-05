@@ -21,7 +21,7 @@ import org.joda.time.DateTime;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class SuggestedEditSort<M> extends ResultSort<M, SuggestedEditSort<M>> {
 	public static SuggestedEditSort<DateTime> creation() {

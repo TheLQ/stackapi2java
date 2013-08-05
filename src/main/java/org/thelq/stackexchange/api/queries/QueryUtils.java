@@ -25,7 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public final class QueryUtils {
 	/**

@@ -26,7 +26,7 @@ import org.thelq.stackexchange.api.queries.site.sort.CommentSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class CommentQueries {
 	public static <Q extends AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q all() {

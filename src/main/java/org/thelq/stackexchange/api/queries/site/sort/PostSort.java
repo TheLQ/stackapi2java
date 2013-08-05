@@ -21,7 +21,7 @@ import org.joda.time.DateTime;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class PostSort<M> extends ResultSort<M, PostSort<M>> {
 	public static PostSort<DateTime> activity() {

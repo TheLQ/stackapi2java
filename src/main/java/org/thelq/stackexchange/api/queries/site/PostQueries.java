@@ -31,7 +31,7 @@ import org.thelq.stackexchange.api.queries.site.sort.SuggestedEditSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class PostQueries {
 	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, PostEntry>> Q all() {

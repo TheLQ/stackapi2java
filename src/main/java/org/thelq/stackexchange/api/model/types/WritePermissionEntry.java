@@ -21,7 +21,7 @@ import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class WritePermissionEntry implements ItemEntry {
 	protected Boolean canAdd;

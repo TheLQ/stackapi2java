@@ -27,7 +27,7 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
 public class AbstractComplexFullQuery<S extends ResultSort, Q extends AbstractComplexFullQuery<S, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {

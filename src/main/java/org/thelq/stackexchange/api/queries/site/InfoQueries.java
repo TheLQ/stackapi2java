@@ -23,7 +23,7 @@ import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class InfoQueries {
 	public static <Q extends AbstractSiteQuery<Q, InfoEntry>> Q info(@NonNull String site) {

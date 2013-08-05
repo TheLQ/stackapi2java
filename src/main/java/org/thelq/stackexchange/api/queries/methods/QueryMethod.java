@@ -19,7 +19,7 @@ package org.thelq.stackexchange.api.queries.methods;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public interface QueryMethod {
 	public String getRaw();

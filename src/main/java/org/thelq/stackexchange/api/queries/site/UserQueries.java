@@ -49,7 +49,7 @@ import org.thelq.stackexchange.api.queries.site.sort.UserSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class UserQueries {
 	public static Collection<Integer> ME_IDS = Collections.unmodifiableCollection(Collections.<Integer>emptyList());

@@ -33,7 +33,7 @@ import org.thelq.stackexchange.api.queries.site.sort.QuestionTaggedSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public final class QuestionQueries {
 	private QuestionQueries() {

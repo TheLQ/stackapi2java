@@ -19,7 +19,7 @@ package org.thelq.stackexchange.api.queries;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public interface PagableQuery<Q extends AbstractQuery<Q, ?>> {
 	public Integer getPage();

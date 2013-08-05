@@ -30,7 +30,7 @@ import org.thelq.stackexchange.api.queries.site.sort.TagSynonymSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class TagQueries {
 	public static <Q extends AbstractComplexFullQuery<TagSort<?>, Q, TagEntry>> Q all() {

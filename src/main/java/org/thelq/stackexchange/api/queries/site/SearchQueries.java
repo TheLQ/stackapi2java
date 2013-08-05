@@ -35,7 +35,7 @@ import org.thelq.stackexchange.api.queries.site.sort.SearchSort;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class SearchQueries {
 	public static SearchBasicQuery searchBasic() {

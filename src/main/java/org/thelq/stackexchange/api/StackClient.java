@@ -47,7 +47,7 @@ import org.thelq.stackexchange.api.queries.site.UserQueries;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Slf4j
 public class StackClient {
