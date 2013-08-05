@@ -18,7 +18,6 @@
 package org.thelq.stackexchange.api.model.types;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import lombok.Getter;
@@ -53,10 +52,5 @@ public class RevisionEntry implements ItemEntry {
 	public static enum Type {
 		SINGLE_USER,
 		VOTE_BASED;
-
-		@JsonValue
-		public String jsonName() {
-			return name().toLowerCase();
-		}
 	}
 }

@@ -17,8 +17,6 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
@@ -26,9 +24,4 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum PostType {
 	QUESTION, 
 	ANSWER;
-	
-	@JsonValue
-	public String jsonName() {
-		return name().toLowerCase();
-	}
 }
