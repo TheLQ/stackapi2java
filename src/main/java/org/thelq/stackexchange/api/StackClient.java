@@ -206,8 +206,6 @@ public class StackClient {
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
 
-			log.info(CharStreams.toString(new InputStreamReader(client.createResponse(client.createUri(TagQueries.all().setSite("stackoverflow"))))));
-
 			//Get posts
 			ResponseEntry<TagEntry> response = client.query(TagQueries.all()
 					.setSite("stackoverflow")
