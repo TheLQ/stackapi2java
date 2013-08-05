@@ -19,14 +19,12 @@ package org.thelq.stackexchange.api.model.types;
 
 import java.net.URI;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class RelatedSiteEntry implements ItemEntry {
-	@MaybeAbsent
 	protected String apiSiteParameter;
 	protected String name;
 	protected Relation relation;

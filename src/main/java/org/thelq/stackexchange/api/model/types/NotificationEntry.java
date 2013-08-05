@@ -20,7 +20,6 @@ package org.thelq.stackexchange.api.model.types;
 import lombok.Getter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
@@ -32,7 +31,6 @@ public class NotificationEntry implements ItemEntry {
 	protected DateTime creationDate;
 	protected Boolean unread;
 	protected Type notificationType;
-	@MaybeAbsent
 	protected Integer postId;
 	protected SiteEntry site;
 

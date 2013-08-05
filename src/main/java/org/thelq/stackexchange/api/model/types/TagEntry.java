@@ -21,7 +21,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
@@ -34,12 +33,10 @@ public class TagEntry implements ItemEntry {
 	protected Boolean hasSynonyms;
 	protected Boolean moderatorOnly;
 	protected Boolean required;
-	@MaybeAbsent
 	protected DateTime lastActivityDate;
 	protected String name;
-	@MaybeAbsent
 	protected Integer userId;
-	
+
 	public Boolean hasSynonyms() {
 		return hasSynonyms;
 	}

@@ -21,7 +21,6 @@ import java.net.URI;
 import lombok.Getter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
@@ -32,7 +31,6 @@ public class EventEntry implements ItemEntry {
 	protected DateTime creationDate;
 	protected Integer eventId;
 	protected Type eventType;
-	@MaybeAbsent
 	protected String Excerpt;
 	protected URI link;
 

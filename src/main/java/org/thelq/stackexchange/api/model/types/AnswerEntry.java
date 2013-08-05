@@ -25,10 +25,10 @@ import lombok.Getter;
 import lombok.ToString;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
- *
+ * Represents answer type
+ * @see https://api.stackexchange.com/docs/types/answer
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
@@ -39,13 +39,10 @@ public class AnswerEntry implements ItemEntry {
 	protected Integer questionId;
 	protected String title;
 	protected String body;
-	@MaybeAbsent
 	protected ImmutableList<CommentEntry> comments;
-	@MaybeAbsent
 	protected DateTime communityOwnedDate;
 	protected DateTime creationDate;
 	protected DateTime lastActivityDate;
-	@MaybeAbsent
 	protected DateTime lastEditDate;
 	protected DateTime lockedDate;
 	protected Integer score;
@@ -54,7 +51,6 @@ public class AnswerEntry implements ItemEntry {
 	@JsonProperty("is_accepted")
 	protected Boolean accepted;
 	protected URI link;
-	@MaybeAbsent
 	protected ShallowUserEntry owner;
 	protected ImmutableList<String> tags;
 	

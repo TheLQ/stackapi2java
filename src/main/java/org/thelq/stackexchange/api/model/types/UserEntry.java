@@ -21,7 +21,6 @@ import java.net.URI;
 import lombok.Getter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
@@ -29,12 +28,9 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
  */
 @Getter
 public class UserEntry implements ItemEntry {
-	@MaybeAbsent
 	protected String aboutMe;
-	@MaybeAbsent
 	protected Integer acceptRate;
 	protected Integer accountId;
-	@MaybeAbsent
 	protected Integer age;
 	protected Integer answerCount;
 	protected BadgeCountEntry badgeCounts;
@@ -43,10 +39,8 @@ public class UserEntry implements ItemEntry {
 	protected Integer downVoteCount;
 	protected Boolean isEmployee;
 	protected DateTime lastAccessDate;
-	@MaybeAbsent
 	protected DateTime lastModifiedDate;
 	protected URI link;
-	@MaybeAbsent
 	protected String location;
 	protected URI profileImage;
 	protected Integer questionCount;
@@ -56,12 +50,10 @@ public class UserEntry implements ItemEntry {
 	protected Integer reputationChangeQuarter;
 	protected Integer reputationChangeWeek;
 	protected Integer reputationChangeYear;
-	@MaybeAbsent
 	protected DateTime timedPenaltyDate;
 	protected Integer upVoteCount;
 	protected Integer userId;
 	protected UserType userType;
 	protected Integer viewCount;
-	@MaybeAbsent
 	protected URI websiteUrl;
 }

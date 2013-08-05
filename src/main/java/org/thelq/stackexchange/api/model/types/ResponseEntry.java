@@ -15,14 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.thelq.stackexchange.api.model.types;
 
 import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
@@ -32,7 +30,6 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
 @ToString
 @EqualsAndHashCode
 public class ResponseEntry<E> {
-	@MaybeAbsent
 	protected Integer backoff;
 	protected Boolean hasMore;
 	protected ImmutableList<E> items;

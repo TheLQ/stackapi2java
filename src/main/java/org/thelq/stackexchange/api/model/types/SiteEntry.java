@@ -22,7 +22,6 @@ import java.net.URI;
 import lombok.Getter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
@@ -30,28 +29,21 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
  */
 @Getter
 public class SiteEntry implements ItemEntry {
-	@MaybeAbsent
 	protected ImmutableList<String> aliases;
 	protected String apiSiteParameter;
 	protected String audience;
-	@MaybeAbsent
 	protected DateTime closedBetaDate;
 	protected URI faviconUrl;
-	@MaybeAbsent
 	protected URI highResolutionIconUrl;
 	protected URI iconUrl;
 	protected DateTime launchDate;
 	protected URI logoUrl;
-	@MaybeAbsent
 	protected ImmutableList<String> markdownExtensions;
 	protected String name;
-	@MaybeAbsent
 	protected String openBetaDate;
-	@MaybeAbsent
 	protected ImmutableList<RelatedSiteEntry> relatedSites;
 	protected URI siteUrl;
 	protected StyleEntry styling;
-	@MaybeAbsent
 	protected String twitterAccount;
 
 	public static enum State {

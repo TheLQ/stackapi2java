@@ -17,12 +17,10 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
-import org.thelq.stackexchange.api.model.MaybeAbsent;
-import org.thelq.stackexchange.api.model.types.ShallowUserEntry;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
@@ -38,12 +36,11 @@ public class CommentEntry implements ItemEntry {
 	protected DateTime creationDate;
 	protected Boolean edited;
 	protected String link;
-	@MaybeAbsent
 	protected ShallowUserEntry owner;
-	@MaybeAbsent
 	protected ShallowUserEntry replyToUser;
 	protected Integer score;
 
+	@JsonFormat(shape= JsonFormat.Shape.OBJECT) 
 	protected static enum Type {
 		QUESTION,
 		ANSWER

@@ -20,7 +20,6 @@ package org.thelq.stackexchange.api.model.types;
 import java.net.URI;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.MaybeAbsent;
 
 /**
  *
@@ -35,7 +34,6 @@ public class BadgeEntry implements ItemEntry {
 	protected URI link;
 	protected String name;
 	protected Rank rank;
-	@MaybeAbsent
 	protected ShallowUserEntry user;
 
 	public static enum Type {
