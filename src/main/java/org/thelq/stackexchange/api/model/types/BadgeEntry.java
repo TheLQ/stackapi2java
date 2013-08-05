@@ -39,23 +39,11 @@ public class BadgeEntry implements ItemEntry {
 	public static enum Type {
 		NAMED,
 		TAG_BASED;
-
-		@Override
-		public String toString() {
-			//TODO: Less hacky way?
-			return name().toLowerCase();
-		}
 	}
 
 	public static enum Rank {
 		GOLD,
 		SILVER,
 		BRONZE;
-
-		@Override
-		public String toString() {
-			//TODO: Less hacky way?
-			return name().toLowerCase();
-		}
 	}
 }
