@@ -43,7 +43,6 @@ public class CommentEntry implements ItemEntry {
 	protected ShallowUserEntry replyToUser;
 	protected Integer score;
 
-	@JsonFormat(shape= JsonFormat.Shape.OBJECT) 
 	protected static enum Type {
 		QUESTION,
 		ANSWER
