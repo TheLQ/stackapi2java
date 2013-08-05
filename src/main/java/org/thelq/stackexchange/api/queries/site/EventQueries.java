@@ -27,13 +27,13 @@ import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class EventQueries {
-	public static <Q extends AbstractSitePagableQuery<Q, EventEntry>> Q all() {
-		return new AbstractSitePagableQuery<Q, EventEntry>(EventEntry.class, new SimpleQueryMethod("events"))
+	public static <Q extends BaseSitePagableQuery<Q, EventEntry>> Q all() {
+		return new BaseSitePagableQuery<Q, EventEntry>(EventEntry.class, new SimpleQueryMethod("events"))
 				.setAuthRequired(true);
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, EventEntry>> Q all(@NonNull DateTime since) {
-		return new AbstractSitePagableQuery<Q, EventEntry>(EventEntry.class, new SimpleQueryMethod("events"))
+	public static <Q extends BaseSitePagableQuery<Q, EventEntry>> Q all(@NonNull DateTime since) {
+		return new BaseSitePagableQuery<Q, EventEntry>(EventEntry.class, new SimpleQueryMethod("events"))
 				.setParameter("since", String.valueOf(since.getMillis()))
 				.setAuthRequired(true);
 	}

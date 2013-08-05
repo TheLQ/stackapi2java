@@ -15,11 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thelq.stackexchange.api.queries;
+package org.thelq.stackexchange.api.queries.site;
 
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.queries.PagableQuery;
+import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
@@ -27,45 +29,32 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
-public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends ItemEntry> {
-	protected final QueryMethod method;
-	protected final LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
-	protected final Class<I> itemClass;
-	protected boolean authRequired = false;
-	protected String filter;
-
-	public AbstractQuery(Class<I> itemClass, QueryMethod method) {
-		this.itemClass = itemClass;
-		this.method = method;
+public class BaseSitePagableQuery<Q extends BaseSitePagableQuery<Q, I>, I extends ItemEntry> extends BaseSiteQuery<Q, I> implements PagableQuery<Q> {
+	protected Integer page;
+	protected Integer pageSize;
+	public BaseSitePagableQuery(Class<I> itemClass, QueryMethod method) {
+		super(itemClass, method);
 	}
 
-	public Q setParameter(String key, String value) {
-		getParameters().put(key, value);
+	@Override
+	public Q setPage(int page) {
+		this.page = page;
 		return self();
 	}
 
-	public Q setParameter(String key, long value) {
-		return setParameter(key, String.valueOf(value));
-	}
-
-	public Q setAuthRequired(boolean authRequired) {
-		this.authRequired = authRequired;
+	@Override
+	public Q setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 		return self();
 	}
 
-	public Q setFilter(String filter) {
-		this.filter = filter;
-		return self();
-	}
-
-	@SuppressWarnings("unchecked")
-	public Q self() {
-		return (Q) this;
-	}
-
+	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
-		LinkedHashMap<String, String> finalParameters = new LinkedHashMap<String, String>(parameters);
-		finalParameters.put("filter", filter);
+		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
+		QueryUtils.putIfNotNull(finalParameters, "page", page);
+		QueryUtils.putIfNotNull(finalParameters, "pageSize", pageSize);
 		return finalParameters;
 	}
+	
+	
 }

@@ -53,7 +53,7 @@ public class SearchQueries {
 	}
 
 	@Getter
-	public static class AbstractSearchQuery<Q extends AbstractSearchQuery<Q>> extends AbstractComplexFullQuery<SearchSort<?>, Q, QuestionEntry> {
+	public static class AbstractSearchQuery<Q extends AbstractSearchQuery<Q>> extends BaseComplexFullQuery<SearchSort<?>, Q, QuestionEntry> {
 		protected final List<String> tagged = new ArrayList<String>();
 		protected final List<String> notTagged = new ArrayList<String>();
 

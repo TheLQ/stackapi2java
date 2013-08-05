@@ -25,8 +25,8 @@ import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class PrivilegeQueries {
-	public <Q extends AbstractSitePagableQuery<Q, PrivlegeEntry>> Q all() {
-		return new AbstractSitePagableQuery<Q, PrivlegeEntry>(PrivlegeEntry.class, new SimpleQueryMethod("privileges"))
+	public <Q extends BaseSitePagableQuery<Q, PrivlegeEntry>> Q all() {
+		return new BaseSitePagableQuery<Q, PrivlegeEntry>(PrivlegeEntry.class, new SimpleQueryMethod("privileges"))
 				.self();
 	}
 }

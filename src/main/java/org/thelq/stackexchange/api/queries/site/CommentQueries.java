@@ -29,24 +29,24 @@ import org.thelq.stackexchange.api.queries.site.sort.CommentSort;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class CommentQueries {
-	public static <Q extends AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q all() {
-		return new AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, new SimpleQueryMethod("comments"))
+	public static <Q extends BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q all() {
+		return new BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, new SimpleQueryMethod("comments"))
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q byIds(@NonNull Collection<Integer> commentIds) {
-		return new AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}", commentIds))
+	public static <Q extends BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q byIds(@NonNull Collection<Integer> commentIds) {
+		return new BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}", commentIds))
 				.self();
 	}
 
-	public static <Q extends AbstractSiteQuery<Q, CommentEntry>> Q edit(int commentId, @NonNull String body) {
-		return new AbstractSiteQuery<Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}/edit", String.valueOf(commentId)))
+	public static <Q extends BaseSiteQuery<Q, CommentEntry>> Q edit(int commentId, @NonNull String body) {
+		return new BaseSiteQuery<Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}/edit", String.valueOf(commentId)))
 				.setParameter("body", body)
 				.setAuthRequired(true);
 	}
 
-	public static <Q extends AbstractSiteQuery<Q, CommentEntry>> Q delete(int commentId) {
-		return new AbstractSiteQuery<Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}/delete", String.valueOf(commentId)))
+	public static <Q extends BaseSiteQuery<Q, CommentEntry>> Q delete(int commentId) {
+		return new BaseSiteQuery<Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("comments/{}/delete", String.valueOf(commentId)))
 				.setAuthRequired(true);
 	}
 }

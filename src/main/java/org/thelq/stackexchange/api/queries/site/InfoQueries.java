@@ -26,8 +26,8 @@ import org.thelq.stackexchange.api.queries.methods.SimpleQueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class InfoQueries {
-	public static <Q extends AbstractSiteQuery<Q, InfoEntry>> Q info(@NonNull String site) {
-		return new AbstractSiteQuery<Q, InfoEntry>(InfoEntry.class, new SimpleQueryMethod("info"))
+	public static <Q extends BaseSiteQuery<Q, InfoEntry>> Q info(@NonNull String site) {
+		return new BaseSiteQuery<Q, InfoEntry>(InfoEntry.class, new SimpleQueryMethod("info"))
 				.setSite(site);
 	}
 }

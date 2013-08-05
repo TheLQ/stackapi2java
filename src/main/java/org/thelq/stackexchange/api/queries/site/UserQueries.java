@@ -55,170 +55,170 @@ public class UserQueries {
 	public static Collection<Integer> ME_IDS = Collections.unmodifiableCollection(Collections.<Integer>emptyList());
 	public static Integer ME_ID = new Integer(0);
 
-	public static <Q extends AbstractComplexFullQuery<UserSort<?>, Q, UserEntry>> Q all() {
-		return new AbstractComplexFullQuery<UserSort<?>, Q, UserEntry>(UserEntry.class, new SimpleQueryMethod("users"))
+	public static <Q extends BaseComplexFullQuery<UserSort<?>, Q, UserEntry>> Q all() {
+		return new BaseComplexFullQuery<UserSort<?>, Q, UserEntry>(UserEntry.class, new SimpleQueryMethod("users"))
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<UserSort<?>, Q, UserEntry>> Q all(String inname) {
-		return new AbstractComplexFullQuery<UserSort<?>, Q, UserEntry>(UserEntry.class, new SimpleQueryMethod("users"))
+	public static <Q extends BaseComplexFullQuery<UserSort<?>, Q, UserEntry>> Q all(String inname) {
+		return new BaseComplexFullQuery<UserSort<?>, Q, UserEntry>(UserEntry.class, new SimpleQueryMethod("users"))
 				.setParameter("inname", inname);
 	}
 
-	public static <Q extends AbstractComplexFullQuery<UserSort<?>, Q, UserEntry>> Q byIds(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<UserSort<?>, Q, UserEntry>(UserEntry.class, createUserQueryMethod("", userIds))
+	public static <Q extends BaseComplexFullQuery<UserSort<?>, Q, UserEntry>> Q byIds(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<UserSort<?>, Q, UserEntry>(UserEntry.class, createUserQueryMethod("", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<BadgeSort<?>, Q, BadgeEntry>> Q badges(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<BadgeSort<?>, Q, BadgeEntry>(BadgeEntry.class, createUserQueryMethod("badges", userIds))
+	public static <Q extends BaseComplexFullQuery<BadgeSort<?>, Q, BadgeEntry>> Q badges(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<BadgeSort<?>, Q, BadgeEntry>(BadgeEntry.class, createUserQueryMethod("badges", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q answers(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, createUserQueryMethod("answers", userIds))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q answers(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, createUserQueryMethod("answers", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q comments(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, createUserQueryMethod("comments", userIds))
+	public static <Q extends BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q comments(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, createUserQueryMethod("comments", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q commentsToUser(Collection<Integer> userIds, int told) {
-		return new AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, createUserQueryMethod("comments/{}", userIds))
+	public static <Q extends BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q commentsToUser(Collection<Integer> userIds, int told) {
+		return new BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, createUserQueryMethod("comments/{}", userIds))
 				.setAuthRequired(isMe(userIds))
 				.setParameter("told", told);
 	}
 
-	public static <Q extends AbstractComplexFullQuery<QuestionFavoriteSort<?>, Q, QuestionEntry>> Q favorites(Collection<Integer> userIds, int told) {
-		return new AbstractComplexFullQuery<QuestionFavoriteSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("favorites", userIds))
+	public static <Q extends BaseComplexFullQuery<QuestionFavoriteSort<?>, Q, QuestionEntry>> Q favorites(Collection<Integer> userIds, int told) {
+		return new BaseComplexFullQuery<QuestionFavoriteSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("favorites", userIds))
 				.setAuthRequired(isMe(userIds))
 				.setParameter("told", told);
 	}
 
-	public static <Q extends AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q mentioned(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, createUserQueryMethod("mentioned", userIds))
+	public static <Q extends BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q mentioned(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, createUserQueryMethod("mentioned", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, NotificationEntry>> Q notifications(Integer userId) {
-		return new AbstractSitePagableQuery<Q, NotificationEntry>(NotificationEntry.class, createUserQueryMethod("notifications", userId))
+	public static <Q extends BaseSitePagableQuery<Q, NotificationEntry>> Q notifications(Integer userId) {
+		return new BaseSitePagableQuery<Q, NotificationEntry>(NotificationEntry.class, createUserQueryMethod("notifications", userId))
 				.setAuthRequired(true);
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, NotificationEntry>> Q notificationsUnread(Integer userId) {
-		return new AbstractSitePagableQuery<Q, NotificationEntry>(NotificationEntry.class, createUserQueryMethod("notifications/unread", userId))
+	public static <Q extends BaseSitePagableQuery<Q, NotificationEntry>> Q notificationsUnread(Integer userId) {
+		return new BaseSitePagableQuery<Q, NotificationEntry>(NotificationEntry.class, createUserQueryMethod("notifications/unread", userId))
 				.setAuthRequired(true);
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, PrivlegeEntry>> Q privileges(Integer userId) {
-		return new AbstractSitePagableQuery<Q, PrivlegeEntry>(PrivlegeEntry.class, createUserQueryMethod("notifications/unread", userId))
+	public static <Q extends BaseSitePagableQuery<Q, PrivlegeEntry>> Q privileges(Integer userId) {
+		return new BaseSitePagableQuery<Q, PrivlegeEntry>(PrivlegeEntry.class, createUserQueryMethod("notifications/unread", userId))
 				.setAuthRequired(isMe(userId));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questions(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions", userIds))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questions(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questionsFeatured(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions/featured", userIds))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questionsFeatured(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions/featured", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questionsUanswered(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions/uanswered", userIds))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questionsUanswered(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions/uanswered", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questionsNoAnswers(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions/no-answers", userIds))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questionsNoAnswers(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions/no-answers", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questionsUnaccepted(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions/unaccepted", userIds))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q questionsUnaccepted(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("questions/unaccepted", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexDateQuery<Q, ReputationEntry>> Q reputation(Collection<Integer> userIds) {
-		return new AbstractComplexDateQuery<Q, ReputationEntry>(ReputationEntry.class, createUserQueryMethod("reputation", userIds))
+	public static <Q extends BaseComplexDateQuery<Q, ReputationEntry>> Q reputation(Collection<Integer> userIds) {
+		return new BaseComplexDateQuery<Q, ReputationEntry>(ReputationEntry.class, createUserQueryMethod("reputation", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, ReputationHistoryEntry>> Q reputationHistory(Collection<Integer> userIds) {
-		return new AbstractSitePagableQuery<Q, ReputationHistoryEntry>(ReputationHistoryEntry.class, createUserQueryMethod("reputation-history", userIds))
+	public static <Q extends BaseSitePagableQuery<Q, ReputationHistoryEntry>> Q reputationHistory(Collection<Integer> userIds) {
+		return new BaseSitePagableQuery<Q, ReputationHistoryEntry>(ReputationHistoryEntry.class, createUserQueryMethod("reputation-history", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, ReputationHistoryEntry>> Q reputationHistoryFull(Integer userId) {
-		return new AbstractSitePagableQuery<Q, ReputationHistoryEntry>(ReputationHistoryEntry.class, createUserQueryMethod("reputation-history/full", userId))
+	public static <Q extends BaseSitePagableQuery<Q, ReputationHistoryEntry>> Q reputationHistoryFull(Integer userId) {
+		return new BaseSitePagableQuery<Q, ReputationHistoryEntry>(ReputationHistoryEntry.class, createUserQueryMethod("reputation-history/full", userId))
 				.setAuthRequired(true);
 	}
 
-	public static <Q extends AbstractComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>> Q suggestedEdits(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>(SuggestedEditEntry.class, createUserQueryMethod("suggested-edits", userIds))
+	public static <Q extends BaseComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>> Q suggestedEdits(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>(SuggestedEditEntry.class, createUserQueryMethod("suggested-edits", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<TagSort<?>, Q, TagEntry>> Q tags(Collection<Integer> userIds) {
-		return new AbstractComplexFullQuery<TagSort<?>, Q, TagEntry>(TagEntry.class, createUserQueryMethod("tags", userIds))
+	public static <Q extends BaseComplexFullQuery<TagSort<?>, Q, TagEntry>> Q tags(Collection<Integer> userIds) {
+		return new BaseComplexFullQuery<TagSort<?>, Q, TagEntry>(TagEntry.class, createUserQueryMethod("tags", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q tagsTopAnswers(Integer userId, Collection<String> tags) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, createUserQueryMethod("tags/{}/top-answers", userId, tags))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q tagsTopAnswers(Integer userId, Collection<String> tags) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, createUserQueryMethod("tags/{}/top-answers", userId, tags))
 				.setAuthRequired(isMe(userId));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q tagsTopQuestions(Integer userId, Collection<String> tags) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("tags/{}/top-questions", userId, tags))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>> Q tagsTopQuestions(Integer userId, Collection<String> tags) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, QuestionEntry>(QuestionEntry.class, createUserQueryMethod("tags/{}/top-questions", userId, tags))
 				.setAuthRequired(isMe(userId));
 	}
 
-	public static <Q extends AbstractComplexDateQuery<Q, UserTimelineEntry>> Q timeline(Collection<Integer> userIds) {
-		return new AbstractComplexDateQuery<Q, UserTimelineEntry>(UserTimelineEntry.class, createUserQueryMethod("timeline", userIds))
+	public static <Q extends BaseComplexDateQuery<Q, UserTimelineEntry>> Q timeline(Collection<Integer> userIds) {
+		return new BaseComplexDateQuery<Q, UserTimelineEntry>(UserTimelineEntry.class, createUserQueryMethod("timeline", userIds))
 				.setAuthRequired(isMe(userIds));
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, TopTagEntry>> Q topAnswerTags(Integer userId) {
-		return new AbstractSitePagableQuery<Q, TopTagEntry>(TopTagEntry.class, createUserQueryMethod("top-answer-tags", userId))
+	public static <Q extends BaseSitePagableQuery<Q, TopTagEntry>> Q topAnswerTags(Integer userId) {
+		return new BaseSitePagableQuery<Q, TopTagEntry>(TopTagEntry.class, createUserQueryMethod("top-answer-tags", userId))
 				.setAuthRequired(isMe(userId));
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, TopTagEntry>> Q topQuestionTags(Integer userId) {
-		return new AbstractSitePagableQuery<Q, TopTagEntry>(TopTagEntry.class, createUserQueryMethod("top-question-tags", userId))
+	public static <Q extends BaseSitePagableQuery<Q, TopTagEntry>> Q topQuestionTags(Integer userId) {
+		return new BaseSitePagableQuery<Q, TopTagEntry>(TopTagEntry.class, createUserQueryMethod("top-question-tags", userId))
 				.setAuthRequired(isMe(userId));
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, WritePermissionEntry>> Q writePermissions(Integer userId) {
-		return new AbstractSitePagableQuery<Q, WritePermissionEntry>(WritePermissionEntry.class, createUserQueryMethod("write-permissions", userId))
+	public static <Q extends BaseSitePagableQuery<Q, WritePermissionEntry>> Q writePermissions(Integer userId) {
+		return new BaseSitePagableQuery<Q, WritePermissionEntry>(WritePermissionEntry.class, createUserQueryMethod("write-permissions", userId))
 				.setAuthRequired(isMe(userId));
 	}
 
-	public static <Q extends AbstractComplexFullQuery<UserSort<?>, Q, WritePermissionEntry>> Q moderators() {
-		return new AbstractComplexFullQuery<UserSort<?>, Q, WritePermissionEntry>(WritePermissionEntry.class, new SimpleQueryMethod("users/moderators"))
+	public static <Q extends BaseComplexFullQuery<UserSort<?>, Q, WritePermissionEntry>> Q moderators() {
+		return new BaseComplexFullQuery<UserSort<?>, Q, WritePermissionEntry>(WritePermissionEntry.class, new SimpleQueryMethod("users/moderators"))
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<UserSort<?>, Q, WritePermissionEntry>> Q moderatorsElected() {
-		return new AbstractComplexFullQuery<UserSort<?>, Q, WritePermissionEntry>(WritePermissionEntry.class, new SimpleQueryMethod("users/moderators"))
+	public static <Q extends BaseComplexFullQuery<UserSort<?>, Q, WritePermissionEntry>> Q moderatorsElected() {
+		return new BaseComplexFullQuery<UserSort<?>, Q, WritePermissionEntry>(WritePermissionEntry.class, new SimpleQueryMethod("users/moderators"))
 				.self();
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, InboxItemEntry>> Q inbox(int userId) {
-		return new AbstractSitePagableQuery<Q, InboxItemEntry>(InboxItemEntry.class, createUserQueryMethod("inbox", userId))
+	public static <Q extends BaseSitePagableQuery<Q, InboxItemEntry>> Q inbox(int userId) {
+		return new BaseSitePagableQuery<Q, InboxItemEntry>(InboxItemEntry.class, createUserQueryMethod("inbox", userId))
 				.setAuthRequired(true);
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, InboxItemEntry>> Q inboxUnread(Integer userId) {
-		return new AbstractSitePagableQuery<Q, InboxItemEntry>(InboxItemEntry.class, createUserQueryMethod("inbox/unread", userId))
+	public static <Q extends BaseSitePagableQuery<Q, InboxItemEntry>> Q inboxUnread(Integer userId) {
+		return new BaseSitePagableQuery<Q, InboxItemEntry>(InboxItemEntry.class, createUserQueryMethod("inbox/unread", userId))
 				.setAuthRequired(true);
 	}
 
-	public static <Q extends AbstractSitePagableQuery<Q, InboxItemEntry>> Q inboxUnread(Integer userId, DateTime since) {
-		return new AbstractSitePagableQuery<Q, InboxItemEntry>(InboxItemEntry.class, createUserQueryMethod("inbox/unread", userId))
+	public static <Q extends BaseSitePagableQuery<Q, InboxItemEntry>> Q inboxUnread(Integer userId, DateTime since) {
+		return new BaseSitePagableQuery<Q, InboxItemEntry>(InboxItemEntry.class, createUserQueryMethod("inbox/unread", userId))
 				.setAuthRequired(true)
 				.setParameter("since", since.getMillis());
 	}

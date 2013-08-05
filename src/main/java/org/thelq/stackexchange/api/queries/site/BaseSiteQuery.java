@@ -17,10 +17,13 @@
  */
 package org.thelq.stackexchange.api.queries.site;
 
+import com.google.common.base.Preconditions;
 import java.util.LinkedHashMap;
 import lombok.Getter;
-import org.joda.time.DateTime;
+import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.queries.BaseQuery;
+import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
@@ -28,31 +31,23 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
-public class AbstractComplexDateQuery<Q extends AbstractComplexDateQuery<Q, I>, I extends ItemEntry> extends AbstractSitePagableQuery<Q, I> {
-	protected DateTime toDate;
-	protected DateTime fromDate;
+public class BaseSiteQuery<Q extends BaseSiteQuery<Q, I>, I extends ItemEntry> extends BaseQuery<Q, I> {
+	protected String site;
 
-	public AbstractComplexDateQuery(Class<I> itemClass, QueryMethod method) {
+	public BaseSiteQuery(Class<I> itemClass, QueryMethod method) {
 		super(itemClass, method);
 	}
 
-	public Q setFromDate(DateTime fromDate) {
-		this.fromDate = fromDate;
-		return self();
-	}
-
-	public Q setToDate(DateTime toDate) {
-		this.toDate = toDate;
+	public Q setSite(String site) {
+		this.site = site;
 		return self();
 	}
 
 	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
+		Preconditions.checkState(StringUtils.isNotBlank(getSite()), "Must specify site");
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
-		if (fromDate != null)
-			finalParameters.put("fromDate", String.valueOf(fromDate.getMillis()));
-		if (toDate != null)
-			finalParameters.put("toDate", String.valueOf(toDate.getMillis()));
+		QueryUtils.putIfNotNull(finalParameters, "site", site);
 		return finalParameters;
 	}
 }

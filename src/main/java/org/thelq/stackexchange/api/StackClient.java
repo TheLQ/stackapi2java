@@ -19,7 +19,6 @@ package org.thelq.stackexchange.api;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -30,14 +29,12 @@ import com.fasterxml.jackson.databind.Module.SetupContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.deser.Deserializers;
-import com.fasterxml.jackson.databind.deser.Deserializers.Base;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.base.Preconditions;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -53,10 +50,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.model.types.AnswerEntry;
 import org.thelq.stackexchange.api.model.types.ResponseEntry;
-import org.thelq.stackexchange.api.queries.AbstractQuery;
-import org.thelq.stackexchange.api.queries.site.AnswerQueries;
+import org.thelq.stackexchange.api.model.types.TagEntry;
+import org.thelq.stackexchange.api.queries.BaseQuery;
+import org.thelq.stackexchange.api.queries.site.TagQueries;
 
 /**
  *
@@ -98,7 +95,7 @@ public class StackClient {
 				.build();
 	}
 
-	protected URI createUri(@NonNull AbstractQuery<?, ?> query) {
+	protected URI createUri(@NonNull BaseQuery<?, ?> query) {
 		//Run query verification
 		Map<String, String> finalParameters = query.buildFinalParameters();
 		if (query.isAuthRequired() && StringUtils.isBlank(accessToken))
@@ -127,7 +124,7 @@ public class StackClient {
 		}
 	}
 
-	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull AbstractQuery<?, E> query) {
+	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull BaseQuery<?, E> query) {
 		URI uri = createUri(query);
 		HttpGet httpGet = null;
 		String responseRaw = null;
@@ -173,7 +170,7 @@ public class StackClient {
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
 
 			//Get posts
-			ResponseEntry<AnswerEntry> response = client.query(AnswerQueries.all()
+			ResponseEntry<TagEntry> response = client.query(TagQueries.all()
 					.setSite("stackoverflow")
 					.setFilter("!*2-Ks9DZr4MCSs67uH2q9UHUyUSATRXZkecYeRbMs"));
 			log.debug("Got " + response.getItems().size() + " entries");

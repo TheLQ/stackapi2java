@@ -35,8 +35,8 @@ public class AnswerQueries {
 	 * @see <a href="https://api.stackexchange.com/docs/answers">StackExchange API /answers usage documentation</a>
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q all() {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, new SimpleQueryMethod("answers"))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q all() {
+		return new BaseComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, new SimpleQueryMethod("answers"))
 				.self();
 	}
 
@@ -46,8 +46,8 @@ public class AnswerQueries {
 	 * @param answerIds Non-null, non-empty collection of answer ids
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q byIds(Collection<Integer> answerIds) {
-		return new AbstractComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, new VectorQueryMethod("answers/{}", answerIds))
+	public static <Q extends BaseComplexFullQuery<PostSort<?>, Q, AnswerEntry>> Q byIds(Collection<Integer> answerIds) {
+		return new BaseComplexFullQuery<PostSort<?>, Q, AnswerEntry>(AnswerEntry.class, new VectorQueryMethod("answers/{}", answerIds))
 				.self();
 	}
 
@@ -57,8 +57,8 @@ public class AnswerQueries {
 	 * @param answerIds Non-null, non-empty collection of answer ids
 	 * @return Generated configurable query
 	 */
-	public static <Q extends AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q comments(Collection<Integer> answerIds) {
-		return new AbstractComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("answers/{}/comments", answerIds))
+	public static <Q extends BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>> Q comments(Collection<Integer> answerIds) {
+		return new BaseComplexFullQuery<CommentSort<?>, Q, CommentEntry>(CommentEntry.class, new VectorQueryMethod("answers/{}/comments", answerIds))
 				.self();
 	}
 }

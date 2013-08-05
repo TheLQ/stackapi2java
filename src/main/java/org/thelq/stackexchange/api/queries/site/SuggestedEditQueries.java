@@ -29,13 +29,13 @@ import org.thelq.stackexchange.api.queries.site.sort.SuggestedEditSort;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class SuggestedEditQueries {
-	public static <Q extends AbstractComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>> Q all() {
-		return new AbstractComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>(SuggestedEditEntry.class, new SimpleQueryMethod("suggested-edits"))
+	public static <Q extends BaseComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>> Q all() {
+		return new BaseComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>(SuggestedEditEntry.class, new SimpleQueryMethod("suggested-edits"))
 				.self();
 	}
 
-	public static <Q extends AbstractComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>> Q byIds(@NonNull Collection<Integer> suggestedEditIds) {
-		return new AbstractComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>(SuggestedEditEntry.class, new VectorQueryMethod("suggested-edits/{}", suggestedEditIds))
+	public static <Q extends BaseComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>> Q byIds(@NonNull Collection<Integer> suggestedEditIds) {
+		return new BaseComplexFullQuery<SuggestedEditSort<?>, Q, SuggestedEditEntry>(SuggestedEditEntry.class, new VectorQueryMethod("suggested-edits/{}", suggestedEditIds))
 				.self();
 	}
 }

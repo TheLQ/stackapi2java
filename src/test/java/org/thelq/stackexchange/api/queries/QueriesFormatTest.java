@@ -39,14 +39,14 @@ import org.thelq.stackexchange.api.TestUtils;
 public class QueriesFormatTest {
 	protected static final Predicate<Class<?>> QUERY_SUBTYPES_FILTER = new Predicate<Class<?>>() {
 		public boolean apply(Class<?> input) {
-			return AbstractQuery.class.isAssignableFrom(input);
+			return BaseQuery.class.isAssignableFrom(input);
 		}
 	};
 
 	@DataProvider
 	public Object[][] fluentSettersAndAddersDataProvider() throws IOException {
 		List<Method> methods = new ArrayList<Method>();
-		for (Class<?> curClass : TestUtils.loadClasses(AbstractQuery.class, QUERY_SUBTYPES_FILTER))
+		for (Class<?> curClass : TestUtils.loadClasses(BaseQuery.class, QUERY_SUBTYPES_FILTER))
 			for (Method curMethod : curClass.getDeclaredMethods()) {
 				if (!curMethod.getName().startsWith("set") && !curMethod.getName().startsWith("add"))
 					continue;
@@ -68,7 +68,7 @@ public class QueriesFormatTest {
 		if (returnType instanceof TypeVariable) {
 			TypeVariable<Class<?>> genericReturn = (TypeVariable<Class<?>>) returnType;
 			assertEquals(genericReturn.getName(), "Q", "Unknown return name");
-			assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
+			assertTrue(BaseQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
 		} else if (returnType == curClass)
 			//Returning itself, make sure this is the final class
 			assertFalse(Modifier.isAbstract(curClass.getModifiers()));
@@ -79,9 +79,9 @@ public class QueriesFormatTest {
 	@DataProvider
 	public Object[][] noPrimativeFieldsDataProvider() throws IOException, NoSuchFieldException {
 		List<Field> fields = new ArrayList<Field>();
-		for (Class<?> curClass : TestUtils.loadClasses(AbstractQuery.class, QUERY_SUBTYPES_FILTER))
+		for (Class<?> curClass : TestUtils.loadClasses(BaseQuery.class, QUERY_SUBTYPES_FILTER))
 			for (Field curField : curClass.getDeclaredFields()) {
-				if (curField.equals(AbstractQuery.class.getDeclaredField("authRequired")))
+				if (curField.equals(BaseQuery.class.getDeclaredField("authRequired")))
 					continue;
 				fields.add(curField);
 			}

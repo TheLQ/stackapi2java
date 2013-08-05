@@ -28,9 +28,9 @@ import org.thelq.stackexchange.api.queries.methods.VectorQueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class RevisionQueries {
-	public static <Q extends AbstractComplexDateQuery<Q, RevisionEntry>> Q byIds(@NonNull Collection<String> revisionGuids) {
+	public static <Q extends BaseComplexDateQuery<Q, RevisionEntry>> Q byIds(@NonNull Collection<String> revisionGuids) {
 		Preconditions.checkArgument(revisionGuids.size() > 20, "Only 20 revision guids are supported by the StackExchange API, given %s", revisionGuids.size());
-		return new AbstractComplexDateQuery<Q, RevisionEntry>(RevisionEntry.class, new VectorQueryMethod("revisions/{}", revisionGuids))
+		return new BaseComplexDateQuery<Q, RevisionEntry>(RevisionEntry.class, new VectorQueryMethod("revisions/{}", revisionGuids))
 				.self();
 	}
 }

@@ -30,11 +30,11 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
-public class AbstractComplexFullQuery<S extends ResultSort, Q extends AbstractComplexFullQuery<S, Q, I>, I extends ItemEntry> extends AbstractComplexDateQuery<Q, I> {
+public class BaseComplexFullQuery<S extends ResultSort, Q extends BaseComplexFullQuery<S, Q, I>, I extends ItemEntry> extends BaseComplexDateQuery<Q, I> {
 	protected S sort;
 	protected ResultOrder order;
 
-	public AbstractComplexFullQuery(Class<I> itemClass, QueryMethod method) {
+	public BaseComplexFullQuery(Class<I> itemClass, QueryMethod method) {
 		super(itemClass, method);
 	}
 

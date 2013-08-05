@@ -19,9 +19,8 @@ package org.thelq.stackexchange.api.queries.site;
 
 import java.util.LinkedHashMap;
 import lombok.Getter;
+import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
-import org.thelq.stackexchange.api.queries.PagableQuery;
-import org.thelq.stackexchange.api.queries.QueryUtils;
 import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
@@ -29,32 +28,31 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
-public class AbstractSitePagableQuery<Q extends AbstractSitePagableQuery<Q, I>, I extends ItemEntry> extends AbstractSiteQuery<Q, I> implements PagableQuery<Q> {
-	protected Integer page;
-	protected Integer pageSize;
-	public AbstractSitePagableQuery(Class<I> itemClass, QueryMethod method) {
+public class BaseComplexDateQuery<Q extends BaseComplexDateQuery<Q, I>, I extends ItemEntry> extends BaseSitePagableQuery<Q, I> {
+	protected DateTime toDate;
+	protected DateTime fromDate;
+
+	public BaseComplexDateQuery(Class<I> itemClass, QueryMethod method) {
 		super(itemClass, method);
 	}
 
-	@Override
-	public Q setPage(int page) {
-		this.page = page;
+	public Q setFromDate(DateTime fromDate) {
+		this.fromDate = fromDate;
 		return self();
 	}
 
-	@Override
-	public Q setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public Q setToDate(DateTime toDate) {
+		this.toDate = toDate;
 		return self();
 	}
 
 	@Override
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = super.buildFinalParameters();
-		QueryUtils.putIfNotNull(finalParameters, "page", page);
-		QueryUtils.putIfNotNull(finalParameters, "pageSize", pageSize);
+		if (fromDate != null)
+			finalParameters.put("fromDate", String.valueOf(fromDate.getMillis()));
+		if (toDate != null)
+			finalParameters.put("toDate", String.valueOf(toDate.getMillis()));
 		return finalParameters;
 	}
-	
-	
 }
