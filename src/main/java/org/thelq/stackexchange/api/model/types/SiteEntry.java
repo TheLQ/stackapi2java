@@ -26,7 +26,7 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * 
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -41,7 +41,7 @@ public class SiteEntry implements ItemEntry {
 	protected URI iconUrl;
 	protected DateTime launchDate;
 	protected URI logoUrl;
-	protected ImmutableList<String> markdownExtensions;
+	protected ImmutableList<MarkdownExtension> markdownExtensions;
 	protected String name;
 	protected String openBetaDate;
 	protected ImmutableList<RelatedSiteEntry> relatedSites;
@@ -49,6 +49,13 @@ public class SiteEntry implements ItemEntry {
 	protected StyleEntry styling;
 	protected String twitterAccount;
 
+	public static enum MarkdownExtension {
+		MATHJAX,
+		PRETTIFY,
+		BALSAMIQ,
+		JTAB
+	}
+	
 	public static enum State {
 		NORMAL,
 		CLOSED_BETA,
