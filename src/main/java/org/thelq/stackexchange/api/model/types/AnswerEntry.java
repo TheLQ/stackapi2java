@@ -19,9 +19,9 @@ import org.thelq.stackexchange.api.model.MaybeAbsent;
  * @author Leon
  */
 @Getter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class AnswerEntry extends ResponseEntry<AnswerEntry> implements ItemEntry {
+@ToString
+@EqualsAndHashCode
+public class AnswerEntry implements ItemEntry {
 	protected Integer answerId;
 	protected Integer questionId;
 	protected String title;
