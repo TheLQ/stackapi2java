@@ -87,7 +87,7 @@ public class StackClient {
 				context.addDeserializers(new Deserializers.Base() {
 					@Override
 					public JsonDeserializer<?> findEnumDeserializer(Class<?> type, DeserializationConfig config, BeanDescription beanDesc) throws JsonMappingException {
-						return new LowerEnumDeserializer((Class<Enum<?>>) type);
+						return new UppercaseEnumDeserializer((Class<Enum<?>>) type);
 					}
 				});
 			}
@@ -183,8 +183,8 @@ public class StackClient {
 		}
 	}
 
-	protected static class LowerEnumDeserializer extends StdScalarDeserializer<Enum<?>> {
-		protected LowerEnumDeserializer(Class<Enum<?>> clazz) {
+	protected static class UppercaseEnumDeserializer extends StdScalarDeserializer<Enum<?>> {
+		protected UppercaseEnumDeserializer(Class<Enum<?>> clazz) {
 			super(clazz);
 		}
 
