@@ -58,6 +58,7 @@ public class QueriesFormatTest {
 	}
 
 	@Test(dataProvider = "fluentSettersAndAddersDataProvider")
+	@SuppressWarnings("unchecked")
 	public void fluentSettersAndAddersTest(@NoInjection Method curMethod) {
 		//TODO: Check actual return type instead of this guessing?
 		Class<?> curClass = curMethod.getDeclaringClass();
@@ -65,7 +66,7 @@ public class QueriesFormatTest {
 		Type returnType = curMethod.getGenericReturnType();
 		assertNotEquals(returnType, Void.TYPE, "Cannot return void");
 		if (returnType instanceof TypeVariable) {
-			TypeVariable<Class> genericReturn = (TypeVariable<Class>) returnType;
+			TypeVariable<Class<?>> genericReturn = (TypeVariable<Class<?>>) returnType;
 			assertEquals(genericReturn.getName(), "Q", "Unknown return name");
 			assertTrue(AbstractQuery.class.isAssignableFrom(genericReturn.getGenericDeclaration()), "Unknown return class");
 		} else if (returnType == curClass)
