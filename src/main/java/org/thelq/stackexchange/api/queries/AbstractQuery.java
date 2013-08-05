@@ -32,6 +32,7 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 	protected final LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
 	protected final Class<I> itemClass;
 	protected boolean authRequired = false;
+	protected String filter;
 
 	public AbstractQuery(Class<I> itemClass, QueryMethod method) {
 		this.itemClass = itemClass;
@@ -52,12 +53,19 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 		return self();
 	}
 
+	public Q setFilter(String filter) {
+		this.filter = filter;
+		return self();
+	}
+
 	@SuppressWarnings("unchecked")
 	public Q self() {
 		return (Q) this;
 	}
 
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
-		return new LinkedHashMap<String, String>(parameters);
+		LinkedHashMap<String, String> finalParameters = new LinkedHashMap<String, String>(parameters);
+		finalParameters.put("filter", filter);
+		return finalParameters;
 	}
 }
