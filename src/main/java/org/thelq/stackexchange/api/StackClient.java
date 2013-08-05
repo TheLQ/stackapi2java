@@ -37,15 +37,12 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -56,7 +53,6 @@ import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.model.types.TagEntry;
 import org.thelq.stackexchange.api.queries.BaseQuery;
 import org.thelq.stackexchange.api.queries.site.TagQueries;
-import sun.net.www.http.HttpClient;
 
 /**
  *
@@ -164,7 +160,6 @@ public class StackClient {
 
 	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull BaseQuery<?, E> query) {
 		URI uri = createUri(query);
-		String responseRaw = null;
 		try {
 			//Do the request
 			//TODO: Figure out how to handle errors with different status codes (causes Exception)
@@ -177,7 +172,7 @@ public class StackClient {
 			JsonNode errorIdNode = responseTree.get("error_id");
 			if (errorIdNode != null)
 				//Have an error, throw an exception
-				throw new QueryErrorException(uri, responseRaw,
+				throw new QueryErrorException(uri,
 						errorIdNode.asInt(),
 						responseTree.get("error_name").asText(),
 						responseTree.get("error_message").asText());
@@ -189,7 +184,7 @@ public class StackClient {
 			//No need to wrap
 			throw e;
 		} catch (Exception e) {
-			throw new QueryException(uri, responseRaw, "Unable to excute query", e);
+			throw new QueryException(uri, "Unable to excute query", e);
 		}
 	}
 
@@ -207,7 +202,6 @@ public class StackClient {
 			log.debug("Got " + response.getItems().size() + " entries");
 		} catch (QueryException e) {
 			e.printStackTrace();
-			System.err.println("RAW: " + e.getRawResponse());
 		}
 	}
 

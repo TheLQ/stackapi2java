@@ -27,17 +27,14 @@ import lombok.Getter;
 @Getter
 public class QueryException extends RuntimeException {
 	protected final URI uri;
-	protected final String rawResponse;
 
-	public QueryException(URI uri, String rawResponse, String message) {
+	public QueryException(URI uri, String message) {
 		super(message + "\nURI: " + uri);
 		this.uri = uri;
-		this.rawResponse = rawResponse;
 	}
 
-	public QueryException(URI uri, String rawResponse, String message, Throwable cause) {
+	public QueryException(URI uri, String message, Throwable cause) {
 		super(message + "\nURI: " + uri, cause);
 		this.uri = uri;
-		this.rawResponse = rawResponse;
 	}
 }
