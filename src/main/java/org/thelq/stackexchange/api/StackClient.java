@@ -1,8 +1,6 @@
 package org.thelq.stackexchange.api;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import org.thelq.stackexchange.api.exceptions.QueryException;
-import org.thelq.stackexchange.api.exceptions.QueryErrorException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.thelq.stackexchange.api.exceptions;
+package org.thelq.stackexchange.api;
 
 import java.net.URI;
 import lombok.Getter;
