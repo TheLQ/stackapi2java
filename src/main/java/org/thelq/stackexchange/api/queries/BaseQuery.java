@@ -65,7 +65,7 @@ public abstract class BaseQuery<Q extends BaseQuery<Q, I>, I extends ItemEntry> 
 
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = new LinkedHashMap<String, String>(parameters);
-		finalParameters.put("filter", filter);
+		QueryUtils.putIfNotNull(finalParameters, "filter", filter);
 		return finalParameters;
 	}
 }
