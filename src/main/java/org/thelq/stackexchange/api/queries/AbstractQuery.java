@@ -39,6 +39,7 @@ public abstract class AbstractQuery<Q extends AbstractQuery<Q, I>, I extends Ite
 		return self();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Q self() {
 		return (Q) this;
 	}
