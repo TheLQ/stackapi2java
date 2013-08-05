@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -82,7 +84,7 @@ public class EntryFormatTest {
 	}
 
 	@DataProvider
-	public Object[][] noToStringEnumDataProvider() throws IOException {
+	public Object[][] noExtraEnumMethods() throws IOException {
 		List<Class<?>> enumClasses = new ArrayList<Class<?>>();
 		for(Class<?> curClass : TestUtils.loadClasses(PostEntry.class, null)) {
 			if (curClass.isEnum())
@@ -96,8 +98,8 @@ public class EntryFormatTest {
 	}
 
 	@Test(dataProvider = "noToStringEnumDataProvider")
-	public void noToStringEnum(Class<?> curEnum) throws NoSuchMethodException {
-		System.out.println("Handling " + curEnum);
-		assertNotEquals(curEnum.getMethod("toString").getDeclaringClass(), curEnum);
+	public void noExtraEnumMethods(Class<?> curEnum) throws NoSuchMethodException {
+		assertEquals(curEnum.getDeclaredMethods().length, 2, "Enum " + curEnum.getName() + " has extra methods: "
+				+ SystemUtils.LINE_SEPARATOR + StringUtils.join(curEnum.getDeclaredMethods(), SystemUtils.LINE_SEPARATOR));
 	}
 }
