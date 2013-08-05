@@ -193,7 +193,7 @@ public class StackClient {
 				throws IOException, JsonProcessingException {
 			String text = jp.getText().toUpperCase();
 			try {
-				for (Enum curEnum : (Enum[]) getValueClass().getEnumConstants())
+				for (Enum<?> curEnum : (Enum[]) getValueClass().getEnumConstants())
 					if (curEnum.name().equals(text))
 						return curEnum;
 				throw new RuntimeException("Could not find " + text + " in " + getValueClass().getName());
