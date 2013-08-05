@@ -24,7 +24,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a comment on a post
+ * @see https://api.stackexchange.com/docs/types/comment
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

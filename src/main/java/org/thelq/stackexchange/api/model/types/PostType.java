@@ -18,7 +18,7 @@
 package org.thelq.stackexchange.api.model.types;
 
 /**
- *
+ * Generic enum of a post type
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public enum PostType {

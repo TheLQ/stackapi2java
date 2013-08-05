@@ -26,7 +26,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- * 
+ * Represents a site in the Stack Exchange network.
+ * @see https://api.stackexchange.com/docs/types/site
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -49,6 +50,10 @@ public class SiteEntry implements ItemEntry {
 	protected StyleEntry styling;
 	protected String twitterAccount;
 
+	/**
+	 * All current markdown extensions. This may be extended in the future, but it
+	 * is an enum for convenience
+	 */
 	public static enum MarkdownExtension {
 		MATHJAX,
 		PRETTIFY,
@@ -56,6 +61,9 @@ public class SiteEntry implements ItemEntry {
 		JTAB
 	}
 	
+	/**
+	 * All site states
+	 */
 	public static enum State {
 		NORMAL,
 		CLOSED_BETA,
@@ -63,8 +71,12 @@ public class SiteEntry implements ItemEntry {
 		LINKED_META
 	}
 
+	/**
+	 * All site types. This may be extended in the future, but is it an enum for 
+	 * convenience
+	 */
 	public static enum Type {
 		MAIN_SITE,
-		META_SIZEs
+		META_SITE
 	}
 }

@@ -23,7 +23,8 @@ import lombok.Setter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a user's score and activity in a given Tag.
+ * @see http://api.stackexchange.com/docs/types/top-tag
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

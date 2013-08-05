@@ -22,7 +22,8 @@ import lombok.Data;
 import lombok.Setter;
 
 /**
- *
+ * Represents a user, but omits many of the fields found on the full User type.
+ * @see https://api.stackexchange.com/docs/types/shallow-user
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

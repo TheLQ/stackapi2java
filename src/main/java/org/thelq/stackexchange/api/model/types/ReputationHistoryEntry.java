@@ -24,7 +24,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents the events that make up a user's reputation history.
+ * @see https://api.stackexchange.com/docs/types/reputation-history 
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -36,6 +37,9 @@ public class ReputationHistoryEntry implements ItemEntry {
 	protected Type reputationHistoryType;
 	protected Integer userId;
 
+	/**
+	 * All reputation history types
+	 */
 	public static enum Type {
 		ASKER_ACCEPTS_ANSWER,
 		ASKER_UNACCEPT_ANSWER,

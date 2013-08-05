@@ -25,7 +25,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents an event that has recently occurred on a Stack Exchange site.
+ * https://api.stackexchange.com/docs/types/event
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -34,9 +35,12 @@ public class EventEntry implements ItemEntry {
 	protected DateTime creationDate;
 	protected Integer eventId;
 	protected Type eventType;
-	protected String Excerpt;
+	protected String excerpt;
 	protected URI link;
 
+	/**
+	 * All event types.
+	 */
 	public static enum Type {
 		QUESTION_POSTED,
 		ANSWER_POSTED,

@@ -18,7 +18,7 @@
 package org.thelq.stackexchange.api.model.types;
 
 /**
- *
+ * All types of a user
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public enum UserType {

@@ -23,11 +23,13 @@ import lombok.Data;
 import lombok.Setter;
 
 /**
- *
+ * Represents some stylings of a site in the Stack Exchange network.
+ * @see http://api.stackexchange.com/docs/types/styling
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
 @Setter(AccessLevel.NONE)
+//TODO: rename
 public class StyleEntry {
 	protected Color linkColor;
 	protected Color tagForegroundColor;

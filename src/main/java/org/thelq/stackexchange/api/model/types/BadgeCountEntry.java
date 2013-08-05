@@ -22,7 +22,8 @@ import lombok.Data;
 import lombok.Setter;
 
 /**
- *
+ * Represents the total Badges, segregated by rank, a user has earned.
+ * @see https://api.stackexchange.com/docs/types/badge-count
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

@@ -24,7 +24,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a mapping from one tag to another, as part of a Stack Exchange sites tag synonym list.
+ * @see http://api.stackexchange.com/docs/types/tag-synonym
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

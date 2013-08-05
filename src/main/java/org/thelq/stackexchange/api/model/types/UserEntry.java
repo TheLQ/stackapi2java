@@ -25,7 +25,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a user on a Stack Exchange site.
+ * @see https://api.stackexchange.com/docs/types/user
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

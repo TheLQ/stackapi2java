@@ -26,7 +26,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents the intersection of the Question and Answer types.
+ * @see https://api.stackexchange.com/docs/types/post
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

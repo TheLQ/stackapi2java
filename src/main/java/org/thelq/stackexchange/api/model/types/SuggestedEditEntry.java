@@ -26,7 +26,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a suggested edit on a Stack Exchange site.
+ * @see http://api.stackexchange.com/docs/types/suggested-edit
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

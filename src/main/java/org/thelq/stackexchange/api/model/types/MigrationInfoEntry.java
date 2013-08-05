@@ -24,7 +24,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a question's migration to or from a different site in the Stack Exchange network
+ * @see https://api.stackexchange.com/docs/types/migration-info
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

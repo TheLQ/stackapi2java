@@ -23,7 +23,8 @@ import lombok.Setter;
 import org.joda.time.DateTime;
 
 /**
- *
+ * Represents a notice on a post
+ * @see https://api.stackexchange.com/docs/types/notice
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

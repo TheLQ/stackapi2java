@@ -25,7 +25,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a change in reputation for a User.
+ * @see https://api.stackexchange.com/docs/types/reputation
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -40,6 +41,9 @@ public class ReputationEntry implements ItemEntry {
 	protected Integer userId;
 	protected Type voteType;
 
+	/**
+	 * All reputation change types.
+	 */
 	public static enum Type {
 		ACCEPTS,
 		UP_VOTES,

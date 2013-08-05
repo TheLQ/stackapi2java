@@ -27,7 +27,7 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- * Represents answer type
+ * Represents an answer to a question on one of the Stack Exchange sites.
  * @see https://api.stackexchange.com/docs/types/answer
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */

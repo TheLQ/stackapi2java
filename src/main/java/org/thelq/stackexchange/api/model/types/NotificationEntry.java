@@ -24,7 +24,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents an item in a user's Notification Tab.
+ * @see https://api.stackexchange.com/docs/types/notification
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -37,6 +38,9 @@ public class NotificationEntry implements ItemEntry {
 	protected Integer postId;
 	protected SiteEntry site;
 
+	/**
+	 * All notification types
+	 */
 	public enum Type {
 		GENERIC,
 		PROFILE_ACTIVITY,

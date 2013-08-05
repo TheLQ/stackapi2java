@@ -24,7 +24,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents events in the history of a Question.
+ * @see https://api.stackexchange.com/docs/types/question-timeline
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -41,6 +42,9 @@ public class QuestionTimelineEntry implements ItemEntry {
 	protected Type timelinesType;
 	protected ShallowUserEntry user;
 
+	/**
+	 * All timeline types
+	 */
 	public static enum Type {
 		QUESTION,
 		ANSWER,

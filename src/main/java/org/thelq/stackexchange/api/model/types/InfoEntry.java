@@ -23,7 +23,8 @@ import lombok.Setter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a site in the Stack Exchange network.
+ * @see https://api.stackexchange.com/docs/types/info
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

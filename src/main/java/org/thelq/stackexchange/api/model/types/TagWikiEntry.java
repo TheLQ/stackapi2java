@@ -24,7 +24,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents the community edited wiki for a given Tag.
+ * @see http://api.stackexchange.com/docs/types/tag-wiki
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

@@ -23,7 +23,8 @@ import lombok.Data;
 import lombok.Setter;
 
 /**
- *
+ * Common wrapper object for an API response.
+ * @see https://api.stackexchange.com/docs/wrapper
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

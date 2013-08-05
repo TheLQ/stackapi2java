@@ -24,7 +24,8 @@ import lombok.Setter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a site that is related in some way to another site.
+ * @see https://api.stackexchange.com/docs/types/related-site
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -35,6 +36,10 @@ public class RelatedSiteEntry implements ItemEntry {
 	protected Relation relation;
 	protected URI siteUrl;
 
+	/**
+	 * All current relations. The api may add new relations, however this is an
+	 * enum for convenience
+	 */
 	public static enum Relation {
 		PARENT,
 		META,

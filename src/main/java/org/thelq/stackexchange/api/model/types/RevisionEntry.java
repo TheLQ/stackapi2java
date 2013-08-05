@@ -27,7 +27,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents that state of a Post at some point in its history.
+ * @see https://api.stackexchange.com/docs/types/revision
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

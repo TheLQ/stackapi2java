@@ -23,7 +23,8 @@ import lombok.Setter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a privilege a user may have on a Stack Exchange site.
+ * @see https://api.stackexchange.com/docs/types/privilege
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

@@ -25,7 +25,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents an item in a user's Global Inbox.
+ * @see https://api.stackexchange.com/docs/types/inbox-item
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -42,7 +43,10 @@ public class InboxItemEntry implements ItemEntry {
 	protected SiteEntry site;
 	protected String title;
 
-	public enum Type {
+	/**
+	 * All inbox item types
+	 */
+	public static enum Type {
 		COMMENT,
 		CHAT_MESSAGE,
 		NEW_ANSWER,

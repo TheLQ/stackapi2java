@@ -23,7 +23,8 @@ import lombok.Setter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Describes a user's ability to perform a certain write operation against a type via the Stack Exchange API.
+ * @see https://api.stackexchange.com/docs/types/write-permission
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data

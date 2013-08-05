@@ -24,7 +24,8 @@ import lombok.Setter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Represents a badge on a Stack Exchange site.
+ * @see https://api.stackexchange.com/docs/types/badge
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
@@ -39,11 +40,17 @@ public class BadgeEntry implements ItemEntry {
 	protected Rank rank;
 	protected ShallowUserEntry user;
 
+	/**
+	 * All Badge Types.
+	 */
 	public static enum Type {
 		NAMED,
 		TAG_BASED;
 	}
 
+	/**
+	 * All Badge ranks.
+	 */
 	public static enum Rank {
 		GOLD,
 		SILVER,

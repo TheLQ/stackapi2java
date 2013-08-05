@@ -26,7 +26,8 @@ import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
- *
+ * Describes public actions a User has taken.
+ * @see https://api.stackexchange.com/docs/types/user-timeline
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
