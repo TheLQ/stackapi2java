@@ -58,6 +58,7 @@ public abstract class ResultSort<M, F extends ResultSort<M, F>> {
 		return value.toString();
 	}
 
+	@SuppressWarnings("unchecked")
 	public F self() {
 		return (F) this;
 	}
