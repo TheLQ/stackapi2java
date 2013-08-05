@@ -34,7 +34,7 @@ import static org.testng.Assert.*;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class EntryFormatTest {
 	protected static ImmutableList<Class> getEntries() throws IOException {

@@ -38,7 +38,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Leon
+ * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 public class QueriesFormatTest {
 	protected static List<Class> getQuerySubtypes() throws IOException {
