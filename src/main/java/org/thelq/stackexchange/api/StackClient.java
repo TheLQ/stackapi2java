@@ -35,10 +35,8 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
-import com.google.common.io.CharStreams;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
@@ -53,10 +51,10 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.model.types.CommentEntry;
 import org.thelq.stackexchange.api.model.types.ResponseEntry;
-import org.thelq.stackexchange.api.model.types.TagEntry;
 import org.thelq.stackexchange.api.queries.BaseQuery;
-import org.thelq.stackexchange.api.queries.site.TagQueries;
+import org.thelq.stackexchange.api.queries.site.SiteQueries;
 
 /**
  *
@@ -205,11 +203,12 @@ public class StackClient {
 			Properties authProperties = new Properties();
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
-
+			
 			//Get posts
-			ResponseEntry<TagEntry> response = client.query(TagQueries.all()
+			ResponseEntry<CommentEntry> response = SiteQueries.DEFAULT.answerComments(null)
 					.setSite("stackoverflow")
-					.setFilter("!*2-Ks9DZr4MCSs67uH2q9UHUyUSATRXZkecYeRbMs"));
+					.setFilter("!*2-Ks9DZr4MCSs67uH2q9UHUyUSATRXZkecYeRbMs")
+					.query(client);
 			log.debug("Got " + response.getItems().size() + " entries");
 		} catch (QueryException e) {
 			e.printStackTrace();
