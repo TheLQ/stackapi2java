@@ -29,26 +29,36 @@ import com.fasterxml.jackson.databind.Module.SetupContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
+import com.fasterxml.jackson.databind.deser.std.JdkDeserializers;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.util.BitSet;
 import java.util.Map;
 import java.util.Properties;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.model.types.TagEntry;
@@ -61,6 +71,22 @@ import org.thelq.stackexchange.api.queries.site.TagQueries;
  */
 @Slf4j
 public class StackClient {
+	protected static BitSet URI_SAFECHARS = new BitSet(256) {
+		{
+			BitSet unreserved = new BitSet(256);
+			for (int i = 'a'; i <= 'z'; i++)
+				unreserved.set(i);
+			for (int i = 'A'; i <= 'Z'; i++)
+				unreserved.set(i);
+			for (int i = '0'; i <= '9'; i++)
+				unreserved.set(i);
+			unreserved.set('_');
+			unreserved.set('-');
+			unreserved.set('.');
+			unreserved.set('*');
+			or(unreserved);
+		}
+	};
 	@Getter
 	protected final String seApiKey;
 	protected final HttpClient httpclient;
@@ -104,24 +130,39 @@ public class StackClient {
 		if (method.contains("{}"))
 			throw new RuntimeException("Unreplaced vector remaining in method " + method);
 
-		//Build
-		URIBuilder uriBuilder = new URIBuilder()
-				.setScheme("https")
-				.setHost("api.stackexchange.com")
-				.setPath("/2.1/" + method);
+		//Build a URI manually
+		StringBuilder uriBuilder = new StringBuilder("https://api.stackexchange.com/2.1/")
+				.append(method).append("?");
 		if (StringUtils.isNotBlank(seApiKey))
-			uriBuilder.setParameter("key", seApiKey);
+			uriBuilder.append("key=").append(seApiKey).append("&");
 		for (Map.Entry<String, String> curParam : finalParameters.entrySet()) {
 			if (curParam.getKey() == null || curParam.getValue() == null)
 				throw new NullPointerException("Parameters cannot be null: " + curParam.getKey() + "=" + curParam.getValue());
-			uriBuilder.setParameter(curParam.getKey(), curParam.getValue());
-		}
+			uriBuilder.append(curParam.getKey()).append("=");
 
-		try {
-			return uriBuilder.build();
-		} catch (URISyntaxException ex) {
-			throw new RuntimeException("Cannot build URL");
+			//Encode value
+			final ByteBuffer bb = Charsets.UTF_8.encode(curParam.getValue());
+			while (bb.hasRemaining()) {
+				final int b = bb.get() & 0xff;
+				if (URI_SAFECHARS.get(b))
+					uriBuilder.append((char) b);
+				else if (b == ' ')
+					uriBuilder.append('+');
+				else {
+					uriBuilder.append("%");
+					final char hex1 = Character.toUpperCase(Character.forDigit((b >> 4) & 0xF, 16));
+					final char hex2 = Character.toUpperCase(Character.forDigit(b & 0xF, 16));
+					uriBuilder.append(hex1);
+					uriBuilder.append(hex2);
+				}
+			}
+			uriBuilder.append("&");
 		}
+		char lastChar = uriBuilder.charAt(uriBuilder.length() - 1);
+		if (lastChar == '&' || lastChar == '?')
+			uriBuilder.deleteCharAt(uriBuilder.length() - 1);
+
+		return URI.create(uriBuilder.toString());
 	}
 
 	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull BaseQuery<?, E> query) {
