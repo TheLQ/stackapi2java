@@ -36,6 +36,7 @@ public abstract class BaseQuery<Q extends BaseQuery<Q, I>, I extends ItemEntry> 
 	protected final Class<I> itemClass;
 	protected boolean authRequired = false;
 	protected String filter;
+	protected String accessToken;
 
 	public BaseQuery(Class<I> itemClass, QueryMethod method) {
 		this.itemClass = itemClass;
@@ -61,6 +62,11 @@ public abstract class BaseQuery<Q extends BaseQuery<Q, I>, I extends ItemEntry> 
 		return self();
 	}
 
+	public Q setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+		return self();
+	}
+
 	@SuppressWarnings("unchecked")
 	public Q self() {
 		return (Q) this;
@@ -69,6 +75,7 @@ public abstract class BaseQuery<Q extends BaseQuery<Q, I>, I extends ItemEntry> 
 	public LinkedHashMap<String, String> buildFinalParameters() throws IllegalStateException {
 		LinkedHashMap<String, String> finalParameters = new LinkedHashMap<String, String>(parameters);
 		QueryUtils.putIfNotNull(finalParameters, "filter", filter);
+		QueryUtils.putIfNotNull(finalParameters, "accessToken", accessToken);
 		return finalParameters;
 	}
 
