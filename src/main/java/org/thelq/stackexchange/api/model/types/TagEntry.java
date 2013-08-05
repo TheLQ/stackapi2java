@@ -17,6 +17,7 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.joda.time.DateTime;
@@ -30,8 +31,11 @@ import org.thelq.stackexchange.api.model.ItemEntry;
 public class TagEntry implements ItemEntry {
 	protected Integer count;
 	@Getter(AccessLevel.NONE)
+	@JsonProperty("has_synonyms")
 	protected Boolean hasSynonyms;
+	@JsonProperty("is_moderator_only")
 	protected Boolean moderatorOnly;
+	@JsonProperty("is_required")
 	protected Boolean required;
 	protected DateTime lastActivityDate;
 	protected String name;
