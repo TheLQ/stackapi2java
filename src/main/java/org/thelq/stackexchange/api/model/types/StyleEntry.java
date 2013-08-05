@@ -18,13 +18,16 @@
 package org.thelq.stackexchange.api.model.types;
 
 import java.awt.Color;
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-@Getter
+@Data
+@Setter(AccessLevel.NONE)
 public class StyleEntry {
 	protected Color linkColor;
 	protected Color tagForegroundColor;

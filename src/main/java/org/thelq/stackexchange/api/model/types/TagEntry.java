@@ -19,7 +19,9 @@ package org.thelq.stackexchange.api.model.types;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
@@ -27,7 +29,8 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-@Getter
+@Data
+@Setter(AccessLevel.NONE)
 public class TagEntry implements ItemEntry {
 	protected Integer count;
 	@Getter(AccessLevel.NONE)

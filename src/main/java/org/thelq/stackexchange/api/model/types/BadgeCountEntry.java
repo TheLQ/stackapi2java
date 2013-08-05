@@ -17,13 +17,16 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-@Getter
+@Data
+@Setter(AccessLevel.NONE)
 public class BadgeCountEntry {
 	protected Integer bronze;
 	protected Integer gold;

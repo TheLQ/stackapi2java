@@ -18,17 +18,16 @@
 package org.thelq.stackexchange.api.model.types;
 
 import com.google.common.collect.ImmutableList;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-@Getter
-@ToString
-@EqualsAndHashCode
+@Data
+@Setter(AccessLevel.NONE)
 public class ResponseEntry<E> {
 	protected Integer backoff;
 	protected Boolean hasMore;

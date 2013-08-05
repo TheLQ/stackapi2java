@@ -19,7 +19,9 @@ package org.thelq.stackexchange.api.model.types;
 
 import com.google.common.collect.ImmutableList;
 import java.net.URI;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
@@ -28,6 +30,7 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
+@Setter(AccessLevel.NONE)
 public class PostEntry implements ItemEntry {
 	protected Integer postId;
 	protected PostType postType;

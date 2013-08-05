@@ -17,13 +17,16 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
+@Setter(AccessLevel.NONE)
 public class ShallowUserEntry {
 	protected Integer userId;
 	protected UserType userType;

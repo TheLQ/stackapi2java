@@ -18,7 +18,9 @@
 package org.thelq.stackexchange.api.model.types;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
@@ -27,6 +29,7 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Data
+@Setter(AccessLevel.NONE)
 public class CommentEntry implements ItemEntry {
 	protected Integer commentId;
 	protected Integer postId;

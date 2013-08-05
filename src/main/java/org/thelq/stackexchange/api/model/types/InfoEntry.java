@@ -17,14 +17,17 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-@Getter
+@Data
+@Setter(AccessLevel.NONE)
 public class InfoEntry implements ItemEntry {
 	protected Float answersPerMinute;
 	protected Float badgesPerMinute;

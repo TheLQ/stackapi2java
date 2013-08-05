@@ -19,7 +19,9 @@ package org.thelq.stackexchange.api.model.types;
 
 import com.google.common.collect.ImmutableList;
 import java.net.URI;
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
@@ -27,7 +29,8 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-@Getter
+@Data
+@Setter(AccessLevel.NONE)
 public class SiteEntry implements ItemEntry {
 	protected ImmutableList<String> aliases;
 	protected String apiSiteParameter;

@@ -20,9 +20,9 @@ package org.thelq.stackexchange.api.model.types;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
 import java.net.URI;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
@@ -31,9 +31,8 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  * @see https://api.stackexchange.com/docs/types/answer
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-@Getter
-@ToString
-@EqualsAndHashCode
+@Data
+@Setter(AccessLevel.NONE)
 public class AnswerEntry implements ItemEntry {
 	protected Integer answerId;
 	protected Integer questionId;
@@ -53,5 +52,4 @@ public class AnswerEntry implements ItemEntry {
 	protected URI link;
 	protected ShallowUserEntry owner;
 	protected ImmutableList<String> tags;
-	
 }

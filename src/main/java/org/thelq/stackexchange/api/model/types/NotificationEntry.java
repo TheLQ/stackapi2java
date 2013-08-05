@@ -17,7 +17,9 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
@@ -25,7 +27,8 @@ import org.thelq.stackexchange.api.model.ItemEntry;
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-@Getter
+@Data
+@Setter(AccessLevel.NONE)
 public class NotificationEntry implements ItemEntry {
 	protected String body;
 	protected DateTime creationDate;

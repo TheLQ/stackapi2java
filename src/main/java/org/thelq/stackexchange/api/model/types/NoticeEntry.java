@@ -17,12 +17,17 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import org.joda.time.DateTime;
 
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
+@Data
+@Setter(AccessLevel.NONE)
 public class NoticeEntry {
 	protected String body;
 	protected DateTime creationDate;
