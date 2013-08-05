@@ -19,6 +19,7 @@ package org.thelq.stackexchange.api.model.types;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
+import java.net.URI;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -52,7 +53,7 @@ public class AnswerEntry implements ItemEntry {
 	protected Integer upVoteCount;
 	@JsonProperty("is_accepted")
 	protected Boolean accepted;
-	protected String link;
+	protected URI link;
 	@MaybeAbsent
 	protected ShallowUserEntry owner;
 	protected ImmutableList<String> tags;
