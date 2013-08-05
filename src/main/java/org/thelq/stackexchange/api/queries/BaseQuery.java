@@ -19,7 +19,10 @@ package org.thelq.stackexchange.api.queries;
 
 import java.util.LinkedHashMap;
 import lombok.Getter;
+import lombok.NonNull;
+import org.thelq.stackexchange.api.StackClient;
 import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.queries.methods.QueryMethod;
 
 /**
@@ -67,5 +70,14 @@ public abstract class BaseQuery<Q extends BaseQuery<Q, I>, I extends ItemEntry> 
 		LinkedHashMap<String, String> finalParameters = new LinkedHashMap<String, String>(parameters);
 		QueryUtils.putIfNotNull(finalParameters, "filter", filter);
 		return finalParameters;
+	}
+
+	/**
+	 * Execute this query using client. Shortcut for {@link StackClient#query(org.thelq.stackexchange.api.queries.BaseQuery) }
+	 * @param client The StackClient 
+	 * @return The response from the server
+	 */
+	public ResponseEntry<I> query(@NonNull StackClient client) {
+		return client.query(this);
 	}
 }
