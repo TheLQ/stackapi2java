@@ -17,7 +17,6 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -33,7 +32,7 @@ import org.thelq.stackexchange.api.model.ItemEntry;
 public class CommentEntry implements ItemEntry {
 	protected Integer commentId;
 	protected Integer postId;
-	protected Type postType;
+	protected PostType postType;
 	protected String body;
 	protected String bodyMarkdown;
 	protected DateTime creationDate;
@@ -42,9 +41,4 @@ public class CommentEntry implements ItemEntry {
 	protected ShallowUserEntry owner;
 	protected ShallowUserEntry replyToUser;
 	protected Integer score;
-
-	protected static enum Type {
-		QUESTION,
-		ANSWER
-	}
 }
