@@ -17,6 +17,7 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
+import java.net.URI;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -33,7 +34,7 @@ public class ShallowUserEntry {
 	protected UserType userType;
 	protected String displayName;
 	protected Integer acceptRate;
-	protected String link;
-	protected String profileImage;
+	protected URI link;
+	protected URI profileImage;
 	protected Integer reputation;
 }

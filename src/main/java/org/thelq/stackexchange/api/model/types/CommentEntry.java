@@ -17,6 +17,7 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
+import java.net.URI;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -38,7 +39,7 @@ public class CommentEntry implements ItemEntry {
 	protected String bodyMarkdown;
 	protected DateTime creationDate;
 	protected Boolean edited;
-	protected String link;
+	protected URI link;
 	protected ShallowUserEntry owner;
 	protected ShallowUserEntry replyToUser;
 	protected Integer score;
