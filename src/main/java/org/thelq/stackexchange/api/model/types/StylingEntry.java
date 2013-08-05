@@ -29,8 +29,7 @@ import lombok.Setter;
  */
 @Data
 @Setter(AccessLevel.NONE)
-//TODO: rename
-public class StyleEntry {
+public class StylingEntry {
 	protected Color linkColor;
 	protected Color tagForegroundColor;
 	protected Color tagBackgroundColor;

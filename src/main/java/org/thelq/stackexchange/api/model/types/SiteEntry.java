@@ -47,7 +47,7 @@ public class SiteEntry implements ItemEntry {
 	protected String openBetaDate;
 	protected ImmutableList<RelatedSiteEntry> relatedSites;
 	protected URI siteUrl;
-	protected StyleEntry styling;
+	protected StylingEntry styling;
 	protected String twitterAccount;
 
 	/**
