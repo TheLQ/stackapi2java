@@ -91,4 +91,27 @@ public class EntryFormatTest {
 	public void noLong(Field curField) {
 		assertNotEquals(curField.getType(), Long.class);
 	}
+
+	@DataProvider
+	public Object[][] noToStringEnumDataProvider() throws IOException {
+		List<Class[]> enums = new ArrayList<Class[]>();
+		Class baseClass = PostEntry.class;
+		ClassPath classPath = ClassPath.from(baseClass.getClassLoader());
+		for (ClassPath.ClassInfo curClassInfo : classPath.getTopLevelClassesRecursive(baseClass.getPackage().getName())) {
+			Class curClass = curClassInfo.load();
+			if (curClass.isEnum())
+				enums.add(new Class[]{curClass});
+			//Load subtypes
+			for (Class curSubClass : curClass.getDeclaredClasses())
+				if (curSubClass.isEnum())
+					enums.add(new Class[]{curSubClass});
+		}
+		return enums.toArray(new Object[enums.size()][]);
+	}
+
+	@Test(dataProvider = "noToStringEnumDataProvider")
+	public void noToStringEnum(Class curEnum) throws NoSuchMethodException {
+		System.out.println("Handling " + curEnum);
+		assertNotEquals(curEnum.getMethod("toString").getDeclaringClass(), curEnum);
+	}
 }
