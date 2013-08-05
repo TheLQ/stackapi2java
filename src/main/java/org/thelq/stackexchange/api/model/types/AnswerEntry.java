@@ -47,7 +47,7 @@ public class AnswerEntry implements ItemEntry {
 	protected DateTime lastActivityDate;
 	@MaybeAbsent
 	protected DateTime lastEditDate;
-	protected DateTime lockDate;
+	protected DateTime lockedDate;
 	protected Integer score;
 	protected Integer downVoteCount;
 	protected Integer upVoteCount;
