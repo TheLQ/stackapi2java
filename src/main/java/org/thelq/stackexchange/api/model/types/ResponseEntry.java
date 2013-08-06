@@ -20,6 +20,7 @@ package org.thelq.stackexchange.api.model.types;
 import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -31,6 +32,7 @@ import lombok.Setter;
 @Setter(AccessLevel.NONE)
 public class ResponseEntry<E> {
 	protected Integer backoff;
+	@Getter(AccessLevel.NONE)
 	protected Boolean hasMore;
 	protected ImmutableList<E> items;
 	protected Integer page;
@@ -40,4 +42,8 @@ public class ResponseEntry<E> {
 	protected Integer total;
 	//TODO: Comprehensive list of types?
 	protected String type;
+
+	public Boolean hasMore() {
+		return hasMore;
+	}
 }
