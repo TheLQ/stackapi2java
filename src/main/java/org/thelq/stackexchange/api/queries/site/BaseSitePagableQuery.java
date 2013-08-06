@@ -19,6 +19,8 @@ package org.thelq.stackexchange.api.queries.site;
 
 import java.util.LinkedHashMap;
 import lombok.Getter;
+import lombok.NonNull;
+import org.thelq.stackexchange.api.StackClient;
 import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.queries.PagableQuery;
 import org.thelq.stackexchange.api.queries.QueryUtils;
@@ -56,5 +58,7 @@ public class BaseSitePagableQuery<Q extends BaseSitePagableQuery<Q, I>, I extend
 		return finalParameters;
 	}
 	
-	
+	public StackClient.QueryIterable<I> queryIterable(@NonNull StackClient client) {
+		return client.queryIterable(this);
+	}
 }

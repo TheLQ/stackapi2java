@@ -17,6 +17,7 @@
  */
 package org.thelq.stackexchange.api.queries;
 
+import org.thelq.stackexchange.api.StackClient;
 import org.thelq.stackexchange.api.model.ItemEntry;
 
 /**
@@ -28,4 +29,5 @@ public interface PagableQuery<Q extends BaseQuery<Q, I>, I extends ItemEntry> {
 	public Q setPage(int page);
 	public Integer getPageSize();
 	public Q setPageSize(int pageSize);
+	public StackClient.QueryIterable<I> queryIterable(StackClient client);
 }
