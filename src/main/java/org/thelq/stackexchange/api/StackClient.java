@@ -35,25 +35,30 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.UnmodifiableIterator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.zip.DeflaterInputStream;
 import java.util.zip.GZIPInputStream;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.model.ItemEntry;
+import org.thelq.stackexchange.api.model.types.AnswerEntry;
 import org.thelq.stackexchange.api.model.types.CommentEntry;
 import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.queries.BaseQuery;
+import org.thelq.stackexchange.api.queries.PagableQuery;
 import org.thelq.stackexchange.api.queries.site.SiteQueries;
 
 /**
@@ -166,6 +171,10 @@ public class StackClient {
 			throw new RuntimeException("Cannot create response", ex);
 		}
 	}
+	
+	public <E extends ItemEntry> QueryIterable<E> queryIterable(@NonNull PagableQuery<?, E> query) {
+		return new QueryIterable<E>(query);
+	}
 
 	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull BaseQuery<?, E> query) {
 		URI uri = createUri(query);
@@ -205,13 +214,66 @@ public class StackClient {
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
 			
 			//Get posts
-			ResponseEntry<CommentEntry> response = SiteQueries.DEFAULT.answerComments(null)
+			int counter = 0;
+			for(ResponseEntry<AnswerEntry> curRespone : SiteQueries.DEFAULT.answersAll()
 					.setSite("stackoverflow")
 					.setFilter("!*2-Ks9DZr4MCSs67uH2q9UHUyUSATRXZkecYeRbMs")
-					.query(client);
-			log.debug("Got " + response.getItems().size() + " entries");
+					.queryIterable(client)) {
+				log.info("Got " + curRespone.getItems().size() + " items on " + counter++);
+				if(counter == 5)
+					break;
+			}
+			
 		} catch (QueryException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@Getter
+	public class QueryIterable<I extends ItemEntry> implements Iterable<ResponseEntry<I>> {
+		protected final PagableQuery<?, I> firstQuery;
+
+		public QueryIterable(PagableQuery<?, I> firstQuery) {
+			Preconditions.checkArgument(firstQuery instanceof BaseQuery, "Query must be a BaseQuery");
+			this.firstQuery = firstQuery;
+		}
+
+		public QueryIterator<I> iterator() {
+			return new QueryIterator<I>(firstQuery);
+		}
+	}
+
+	@Getter
+	public class QueryIterator<I extends ItemEntry> extends UnmodifiableIterator<ResponseEntry<I>> {
+		protected final PagableQuery<?, I> query;
+		protected int curPage = -1;
+		protected ResponseEntry<I> curResponse;
+
+		public QueryIterator(PagableQuery<?, I> query) {
+			this.query = query;
+			if (query.getPage() != null) {
+				Preconditions.checkArgument(query.getPage() > 0, "Page must be 1 or greater");
+				curPage = query.getPage();
+			} else
+				curPage = 1;
+		}
+
+		public boolean hasNext() {
+			return getResponse().hasMore();
+		}
+
+		public ResponseEntry<I> next() {
+			ResponseEntry<I> response = getResponse();
+			curResponse = null;
+			return response;
+		}
+
+		protected ResponseEntry<I> getResponse() {
+			if (curResponse == null) {
+				query.setPage(curPage++);
+				curResponse = ((BaseQuery<?, I>) query).query(StackClient.this);
+			}
+			return curResponse;
 		}
 	}
 
