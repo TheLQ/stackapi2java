@@ -29,7 +29,7 @@ import org.thelq.stackexchange.api.queries.methods.QueryMethod;
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
 @Getter
-public class BaseSitePagableQuery<Q extends BaseSitePagableQuery<Q, I>, I extends ItemEntry> extends BaseSiteQuery<Q, I> implements PagableQuery<Q> {
+public class BaseSitePagableQuery<Q extends BaseSitePagableQuery<Q, I>, I extends ItemEntry> extends BaseSiteQuery<Q, I> implements PagableQuery<Q, I> {
 	protected Integer page;
 	protected Integer pageSize;
 	public BaseSitePagableQuery(Class<I> itemClass, QueryMethod method) {

@@ -17,11 +17,13 @@
  */
 package org.thelq.stackexchange.api.queries;
 
+import org.thelq.stackexchange.api.model.ItemEntry;
+
 /**
  *
  * @author Leon Blakey <lord dot quackstar at gmail dot com>
  */
-public interface PagableQuery<Q extends BaseQuery<Q, ?>> {
+public interface PagableQuery<Q extends BaseQuery<Q, I>, I extends ItemEntry> {
 	public Integer getPage();
 	public Q setPage(int page);
 	public Integer getPageSize();
