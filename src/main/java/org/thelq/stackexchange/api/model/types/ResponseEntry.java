@@ -17,6 +17,7 @@
  */
 package org.thelq.stackexchange.api.model.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -33,6 +34,7 @@ import lombok.Setter;
 public class ResponseEntry<E> {
 	protected Integer backoff;
 	@Getter(AccessLevel.NONE)
+	@JsonProperty("has_more")
 	protected Boolean hasMore;
 	protected ImmutableList<E> items;
 	protected Integer page;
