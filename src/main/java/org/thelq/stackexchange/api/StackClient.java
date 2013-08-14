@@ -48,6 +48,7 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.zip.DeflaterInputStream;
 import java.util.zip.GZIPInputStream;
@@ -299,6 +300,8 @@ public class StackClient {
 
 		protected ResponseEntry<I> getResponse() {
 			if (curResponse == null) {
+				if(curPage == maxPages)
+					throw new NoSuchElementException("Already queried maximum number of pages:" + maxPages);
 				query.setPage(curPage++);
 				curResponse = ((BaseQuery<?, I>) query).query(StackClient.this);
 			}
