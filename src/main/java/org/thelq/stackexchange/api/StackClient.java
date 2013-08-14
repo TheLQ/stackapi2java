@@ -289,7 +289,10 @@ public class StackClient {
 		}
 
 		public boolean hasNext() {
-			return curPage < maxPages && getResponse().hasMore();
+			boolean hasMore = getResponse().hasMore();
+			if(maxPages != null)
+				return curPage < maxPages && hasMore;
+			return hasMore;
 		}
 
 		public ResponseEntry<I> next() {
@@ -300,7 +303,7 @@ public class StackClient {
 
 		protected ResponseEntry<I> getResponse() {
 			if (curResponse == null) {
-				if(curPage > maxPages)
+				if(maxPages != null && curPage > maxPages)
 					throw new NoSuchElementException("Already queried maximum number of pages:" + maxPages);
 				query.setPage(curPage++);
 				curResponse = ((BaseQuery<?, I>) query).query(StackClient.this);
