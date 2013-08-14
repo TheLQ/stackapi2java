@@ -289,7 +289,7 @@ public class StackClient {
 		}
 
 		public boolean hasNext() {
-			return getResponse().hasMore();
+			return curPage > maxPages && getResponse().hasMore();
 		}
 
 		public ResponseEntry<I> next() {
