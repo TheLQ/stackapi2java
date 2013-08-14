@@ -42,8 +42,9 @@ import com.sun.org.apache.bcel.internal.classfile.LocalVariable;
 import java.io.IOException;
 import java.io.InputStream;
 import com.sun.org.apache.bcel.internal.classfile.Method;
+import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URLConnection;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
 import java.util.Map;
@@ -159,15 +160,16 @@ public class StackClient {
 
 	protected InputStream createResponse(URI uri) {
 		try {
-			URLConnection connection = uri.toURL().openConnection();
+			HttpURLConnection  connection = (HttpURLConnection)uri.toURL().openConnection();
 			connection.setDoInput(true);
 			connection.connect();
+			InputStream connectionInput = (connection.getResponseCode() >= 400) ? connection.getErrorStream() : connection.getInputStream();
 			if (connection.getContentEncoding().equalsIgnoreCase("gzip"))
-				return new GZIPInputStream(connection.getInputStream());
+				return new GZIPInputStream(connectionInput);
 			else if (connection.getContentEncoding().equalsIgnoreCase("deflate"))
-				return new DeflaterInputStream(connection.getInputStream());
+				return new DeflaterInputStream(connectionInput);
 			else
-				return connection.getInputStream();
+				return connectionInput;
 		} catch (Exception ex) {
 			throw new RuntimeException("Cannot create response", ex);
 		}
@@ -212,7 +214,7 @@ public class StackClient {
 	}
 
 	public static void main(String[] args) throws IOException {
-		try {
+		try {			
 			ClassParser parser = new ClassParser("target/classes/org/thelq/stackexchange/api/StackClient.class");
 			JavaClass clazz = parser.parse();
 
