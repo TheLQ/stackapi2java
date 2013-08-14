@@ -61,4 +61,8 @@ public class BaseSitePagableQuery<Q extends BaseSitePagableQuery<Q, I>, I extend
 	public StackClient.QueryIterable<I> queryIterable(@NonNull StackClient client) {
 		return client.queryIterable(this);
 	}
+
+	public StackClient.QueryIterable<I> queryIterable(StackClient client, int maxPages) {
+		return client.queryIterable(this, maxPages);
+	}
 }

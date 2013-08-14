@@ -36,26 +36,27 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.UnmodifiableIterator;
+import com.sun.org.apache.bcel.internal.classfile.ClassParser;
+import com.sun.org.apache.bcel.internal.classfile.JavaClass;
+import com.sun.org.apache.bcel.internal.classfile.LocalVariable;
 import java.io.IOException;
 import java.io.InputStream;
+import com.sun.org.apache.bcel.internal.classfile.Method;
 import java.net.URI;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.zip.DeflaterInputStream;
 import java.util.zip.GZIPInputStream;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.thelq.stackexchange.api.model.ItemEntry;
 import org.thelq.stackexchange.api.model.types.AnswerEntry;
-import org.thelq.stackexchange.api.model.types.CommentEntry;
 import org.thelq.stackexchange.api.model.types.ResponseEntry;
 import org.thelq.stackexchange.api.queries.BaseQuery;
 import org.thelq.stackexchange.api.queries.PagableQuery;
@@ -171,9 +172,13 @@ public class StackClient {
 			throw new RuntimeException("Cannot create response", ex);
 		}
 	}
-	
+
 	public <E extends ItemEntry> QueryIterable<E> queryIterable(@NonNull PagableQuery<?, E> query) {
-		return new QueryIterable<E>(query);
+		return new QueryIterable<E>(query, null);
+	}
+	
+	public <E extends ItemEntry> QueryIterable<E> queryIterable(@NonNull PagableQuery<?, E> query, int maxPages) {
+		return new QueryIterable<E>(query, maxPages);
 	}
 
 	public <E extends ItemEntry> ResponseEntry<E> query(@NonNull BaseQuery<?, E> query) {
@@ -208,22 +213,38 @@ public class StackClient {
 
 	public static void main(String[] args) throws IOException {
 		try {
+			ClassParser parser = new ClassParser("target/classes/org/thelq/stackexchange/api/StackClient.class");
+			JavaClass clazz = parser.parse();
+
+			for (Method m : clazz.getMethods()) {
+				System.out.println("Method: " + m.getName());
+				int size = m.getArgumentTypes().length;
+				if (!m.isStatic())
+					size++;
+
+				for (int i = 0; i < size; i++) {
+					LocalVariable variable = m.getLocalVariableTable().getLocalVariable(i);
+					System.out.println("  - Param: " + variable.getName());
+				}
+			}
+			if (true)
+				return;
 			//Load up api key
 			Properties authProperties = new Properties();
 			authProperties.load(StackClient.class.getResourceAsStream("/auth.properties"));
 			StackClient client = new StackClient(authProperties.getProperty("seApiKey"));
-			
+
 			//Get posts
 			int counter = 0;
-			for(ResponseEntry<AnswerEntry> curRespone : SiteQueries.DEFAULT.answersAll()
+			for (ResponseEntry<AnswerEntry> curRespone : SiteQueries.DEFAULT.answersAll()
 					.setSite("stackoverflow")
 					.setFilter("!*2-Ks9DZr4MCSs67uH2q9UHUyUSATRXZkecYeRbMs")
 					.queryIterable(client)) {
 				log.info("Got " + curRespone.getItems().size() + " items on " + counter++);
-				if(counter == 5)
+				if (counter == 5)
 					break;
 			}
-			
+
 		} catch (QueryException e) {
 			e.printStackTrace();
 		}
@@ -232,25 +253,31 @@ public class StackClient {
 	@Getter
 	public class QueryIterable<I extends ItemEntry> implements Iterable<ResponseEntry<I>> {
 		protected final PagableQuery<?, I> firstQuery;
+		protected final Integer maxPages; 
 
-		public QueryIterable(PagableQuery<?, I> firstQuery) {
+		public QueryIterable(PagableQuery<?, I> firstQuery, Integer maxPages) {
 			Preconditions.checkArgument(firstQuery instanceof BaseQuery, "Query must be a BaseQuery");
 			this.firstQuery = firstQuery;
+			this.maxPages = maxPages;
 		}
 
 		public QueryIterator<I> iterator() {
-			return new QueryIterator<I>(firstQuery);
+			return new QueryIterator<I>(firstQuery, maxPages);
 		}
 	}
 
 	@Getter
 	public class QueryIterator<I extends ItemEntry> extends UnmodifiableIterator<ResponseEntry<I>> {
 		protected final PagableQuery<?, I> query;
+		protected final Integer maxPages;
 		protected int curPage = -1;
 		protected ResponseEntry<I> curResponse;
 
-		public QueryIterator(PagableQuery<?, I> query) {
+		public QueryIterator(PagableQuery<?, I> query, Integer maxPages) {
 			this.query = query;
+			if(maxPages != null)
+				Preconditions.checkArgument(maxPages > 0, "Maximum pages must be greater than 0");
+			this.maxPages = maxPages;
 			if (query.getPage() != null) {
 				Preconditions.checkArgument(query.getPage() > 0, "Page must be 1 or greater");
 				curPage = query.getPage();

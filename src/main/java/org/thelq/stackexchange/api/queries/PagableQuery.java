@@ -30,4 +30,5 @@ public interface PagableQuery<Q extends BaseQuery<Q, I>, I extends ItemEntry> {
 	public Integer getPageSize();
 	public Q setPageSize(int pageSize);
 	public StackClient.QueryIterable<I> queryIterable(StackClient client);
+	public StackClient.QueryIterable<I> queryIterable(StackClient client, int maxPages);
 }
