@@ -291,7 +291,7 @@ public class StackClient {
 		public boolean hasNext() {
 			boolean hasMore = getResponse().hasMore();
 			if(maxPages != null)
-				return curPage < maxPages && hasMore;
+				return curPage <= maxPages && hasMore;
 			return hasMore;
 		}
 
